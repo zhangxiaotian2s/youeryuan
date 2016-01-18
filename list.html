@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="css/mui.min.css">
+		<link rel="stylesheet" href="css/style.css" />
+	</head>
+
+	<body>
+		<div class="mui-content">
+			<div class="list_box list_box1">
+				<h2>常规工作</h2>
+				<ul>
+					<li>
+						<p>教职工日常考核表</p>
+						<button class="mui-btn addbtn" id="pages/listbox1_1.html">新建</button>
+						<button class="mui-btn  mui-btn-outlined">编辑</button>
+					</li>
+					<li>
+						<p>员工面谈记录</p>
+						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn  mui-btn-outlined">编辑</button>
+					</li>
+				</ul>
+
+			</div>
+			<div class="list_box list_box2">
+				<h2>教育教学</h2>
+				<ul>
+					<li>
+						<p>备课本检查记录</p>
+						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn  mui-btn-outlined">编辑</button>
+					</li>
+					<li>
+						<p>教学反馈内容检查记录</p>
+						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn  mui-btn-outlined">编辑</button>
+					</li>
+					<li>
+						<p>日常教学工作检查记录</p>
+						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn  mui-btn-outlined">编辑</button>
+					</li>
+				</ul>
+			</div>
+			<div class="list_box list_box3">
+				<h2>保障后勤工作记录</h2>
+				<ul>
+					<li>
+						<p>厨房常规检查记录</p>
+						<button class="mui-btn addbtn" id="pages/listbox3_1.html">新建</button>
+						<button class="mui-btn  mui-btn-outlined">编辑</button>
+					</li>
+					<li>
+						<p>内务检查平分记录</p>
+						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn  mui-btn-outlined">编辑</button>
+					</li>
+					<li>
+						<p>午睡情况检查记录</p>
+						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn  mui-btn-outlined">编辑</button>
+					</li>
+					<li>
+						<p>后勤保障检查记录</p>
+						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn  mui-btn-outlined">编辑</button>
+					</li>
+					<li>
+						<p>仓库检查记录</p>
+						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn  mui-btn-outlined">编辑</button>
+					</li>
+				</ul>
+			</div>
+			<div class="list_box list_box4">
+				<h2>安全工作记录</h2>
+				<ul>
+					<li>
+						<p>校车行政检查表</p>
+						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn  mui-btn-outlined">编辑</button>
+					</li>
+					<li>
+						<p>校车安全卫生检查记录</p>
+						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn  mui-btn-outlined">编辑</button>
+					</li>
+
+				</ul>
+			</div>
+			<div class="list_box list_box5">
+				<h2>家长工作记录</h2>
+				<ul>
+					<li>
+						<p>家园联系册检查记录</p>
+						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn  mui-btn-outlined">编辑</button>
+					</li>
+					<li>
+						<p>家园联系册评比记录</p>
+						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn  mui-btn-outlined">编辑</button>
+					</li>
+					<li>
+						<p>电访检查记录</p>
+						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn  mui-btn-outlined">编辑</button>
+					</li>
+					<li>
+						<p>家访检查记录</p>
+						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn  mui-btn-outlined">编辑</button>
+					</li>
+
+				</ul>
+			</div>
+		</div>
+		<script type="text/javascript" src="js/mui.min.js"></script>
+		<script>
+			mui.init()
+			mui.plusReady(function() {
+				//仅支持横屏显示
+				plus.screen.lockOrientation("landscape");
+				var mian = plus.webview.currentWebview();
+				//				plus.storage.clear()
+				var islogin = plus.storage.getItem('login')
+				if (islogin) {
+					plus.navigator.closeSplashscreen();
+					plus.navigator.setFullscreen(false);
+				} else {
+					mui.openWindow({
+						url: 'login.html',
+						id: 'login.html',
+						styles: {
+							top: '0px',
+							bottom: '0px',
+							bounce: 'none'
+						},
+						show: {
+							aniShow: 'slide-in-bottom'
+						}
+					})
+				}
+			})
+			var addbtns = document.querySelectorAll('.addbtn')
+			for (i = 0; i < addbtns.length; i++) {
+				addbtns[i].addEventListener('tap', function() {
+					addbtnsFn(this)
+				}, false)
+			}
+
+			function addbtnsFn(btns) {
+				var _url = btns.getAttribute('id')
+				mui.openWindow({
+					url: _url,
+					id: _url,
+					styles: {
+						top: '0px',
+						bounce: 'none'
+					},
+					show: {
+						aniShow: 'slide-in-top'
+					}
+				})
+			}
+		</script>
+	</body>
+
+</html>

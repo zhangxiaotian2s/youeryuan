@@ -1,0 +1,100 @@
+*{margin: 0; padding: 0; font-family:verdana;
+   /*处理BUG*/
+    -webkit-tap-highlight-color: transparent;  
+    -webkit-appearance: none;   
+    }
+a{ text-decoration: none;}
+li{ list-style: none;}
+a:hover{
+  
+}
+/*全局设置字号*/
+html{font-size:10px}
+@media screen and (min-width:320px) and (max-width:375px){html{font-size:13px}}
+@media screen and (min-width:376px) and (max-width:414px){html{font-size:15px}}
+@media screen and (min-width:415px) {html{font-size:18px}}
+.red_error{border:#ff0000 solid 1px!important;color:#ff0000!important;}
+.bk_white{ background: #FFFFFF;}
+.blank1{ height: 1rem; clear: both; overflow: hidden;}
+.blank2{ height:2rem; clear: both; overflow: hidden;}
+.blank3{ height:3rem; clear: both; overflow: hidden;}
+.blank4{ height:4rem; clear: both; overflow: hidden;}
+.bk_gray{ background: #f6f6f6;}
+.col-xs-1,.col-xs-10,.col-xs-11,.col-xs-12,.col-xs-2,.col-xs-3,.col-xs-4,.col-xs-5,.col-xs-6,.col-xs-7,.col-xs-8,.col-xs-9
+{float:left}
+.col-xs-12{width:100%}
+.col-xs-11{width:91.66666667%}
+.col-xs-10{width:83.33333333%}
+.col-xs-9{width:75%}
+.col-xs-8{width:66.66666667%}
+.col-xs-7{width:58.33333333%}
+.col-xs-6{width:50%}
+.col-xs-5{width:41.66666667%}
+.col-xs-4{width:33.33333333%}
+.col-xs-3{width:25%}
+.col-xs-2{width:16.66666667%}
+.col-xs-1{width:8.33333333%}
+.col-xs-offset-12 {margin-left: 100%;}
+.col-xs-offset-11 {margin-left: 91.66666667%;}
+.col-xs-offset-10 {margin-left: 83.33333333%;}
+.col-xs-offset-9 {margin-left: 75%;}
+.col-xs-offset-8 {margin-left: 66.66666667%;}
+.col-xs-offset-7 {margin-left: 58.33333333%;}
+.col-xs-offset-6 {margin-left: 50%;}
+.col-xs-offset-5 {margin-left: 41.66666667%;}
+.col-xs-offset-4 {margin-left: 33.33333333%;}
+.col-xs-offset-3 {margin-left: 25%;}
+.col-xs-offset-2 {margin-left: 16.66666667%;}
+.col-xs-offset-1 {margin-left: 8.33333333%;}
+.col-xs-offset-0 {margin-left: 0;}
+
+.mui-bar .mui-title{ font-size: 1.2rem; color: #FFFFFF;}
+.mui-bar-nav.mui-bar .mui-icon{ margin-top: 10px; color: #FFFFFF;}
+
+.mui-bar-nav~.mui-content { padding-top: 60px}
+.body_bk{background:url(../images/bk.jpg);}
+
+.wrap{ width: 100%; margin: auto; max-width: 1024px;}
+.img-responsive{ display: block;max-width: 100%;height: auto; margin: auto; }
+.nav_login{ margin:5rem auto ;}
+
+.login_box{ width: 36rem; height: 18rem; padding: 1rem 0px; margin: auto; background:#FFFFFF;}
+.login_box h1{ font-size: 1rem; text-align: center; margin: 1.5rem auto ; font-weight: normal; color: #676767; }
+
+.login_box  .mui-input-row{ border: #CCCCCC solid 1px; border-radius: 3px; }
+.login_box .mui-input-row label{ padding: 9px 15px;}
+.login_box .mui-input-row label span{ color: #CCCCCC;}
+.login_box .btn-login{ width: 100%; height: 2.6rem;}
+
+.yw_header{ height: 60px!important; background: #454449; color: #FFFFFF; overflow: hidden;}
+.yw_header h1{ font-size: 1.0rem; line-height: 60px; font-weight: normal;  }
+.yw_header .mui-btn{  display: block; top: 13px;}
+
+.list_box{ width: 17%; float: left;margin-left: 2.5%; margin-top: 50px;}
+.list_box h2{ font-size: 1.0rem; font-weight: normal; text-align: right; color: #FFFFFF; padding-right: 0.5rem; height: 2rem; line-height: 2rem;}
+.list_box1{background:#ec7577 ;}
+.list_box2{background:#5692d0 ;}
+.list_box3{background:#ffbb6a ;}
+.list_box4{background:#81ca9f ;}
+.list_box5{background:#a5b6c6; }
+.list_box ul li p{ font-size: 0.7rem; color: #333333;}
+.list_box ul li{ width: 84%; margin:0rem auto 1rem; background: #FFFFFF; padding: 0.5rem 3%;}
+.list_box ul li button{ font-size: 0.7rem; margin-right: 0.7rem;  color: #999999;}
+
+.table_box{  width: 90%; margin:30px auto;  border-top: #CCCCCC solid 1px;}
+.tablestyle1{  margin: auto;}
+.tablestyle1 tr td{ border: #CCCCCC solid 1px;  padding: 5px 0px; border-top: none;}
+.tablestyle1 thead td{ text-align: center; background: #f6f6f6; padding: 20px 0px;}
+.tablestyle1 tr td input{ text-align: center; margin-bottom: 0px; border: none;}
+.table_box .add_one{ display: block; width: 10rem; text-align: center; height: 2.6rem; margin:3rem auto; }
+
+.select_nav{ margin: 2rem auto;}
+.select_nav ul li{ float: left; margin-left: 3rem;}
+.select_nav ul li div{ float: left;   height:2rem; line-height: 2rem;}
+.select_box_style{ border: #CCCCCC solid 1px; position: relative; width: 10rem; overflow:hidden}
+.select_box_style span{position: absolute; right: 0.8rem; top: 0.7rem; z-index: 100; font-size: 0.8rem;}
+.select_nav ul li div select{ height: 3rem; line-height: 3rem; position: absolute; top: -1.1rem; text-align: center; width: 10rem;}
+
+.radio_table_Box{ width:90%;  margin: auto; }
+.radio_table_Box table tr td{ border: #CCCCCC solid 1px; text-align: center;}
+.radio_table_Box table tr td span{ display: block; padding: 1rem; }

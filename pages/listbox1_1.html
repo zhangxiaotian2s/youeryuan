@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/style.css" />
+	</head>
+	<style>
+		.mui-table-view-cell {
+			padding: 0;
+		}
+	</style>
+
+	<body class="bk_white">
+		<header class="mui-bar mui-bar-nav yw_header">
+			<h1 class="mui-title">教职工日常考核 </h1>
+			<button type="button" class="mui-btn mui-btn-warning mui-pull-right">保存/确定 </button>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		</header>
+		<div class="mui-content bk_white">
+			<div class="table_box">
+				<table width="100%" class="tablestyle1">
+					<thead>
+						<td width="10%">序号</td>
+						<td width="30%">加分项</td>
+						<td width="15%">加分</td>
+						<td width="30%">扣分项</td>
+						<td width="15%">扣分</td>
+					</thead>
+				</table>
+				<ul id="OA_task_1" class="mui-table-view">
+					<li class="mui-table-view-cell">
+						<div class="mui-slider-right mui-disabled">
+							<a class="mui-btn mui-btn-red">删除</a>
+						</div>
+						<div class="mui-slider-handle">
+							<table width="100%" class="tablestyle1">
+								<tr>
+									<td width="10%">
+										<input type="number" class="mui-input input_order " value="">
+									</td>
+									<td width="30%">
+										<input type="text" class="mui-input">
+									</td>
+									<td width="15%">
+										<input type="number" class="mui-input">
+									</td>
+									<td width="30%">
+										<input type="text" class="mui-input">
+									</td>
+									<td width="15%">
+										<input type="number" class="mui-input jian">
+									</td>
+								</tr>
+							</table>
+						</div>
+					</li>
+				</ul>
+				<button type="button" class="add_one mui-btn mui-btn-primary" id="add_one">添 加</button>
+			</div>
+
+		</div>
+		<script type="text/javascript" src="../js/mui.min.js"></script>
+		<script>
+			mui.init()
+				(function($) {
+					var btnArray = ['确认', '取消'];
+					$('#OA_task_1').on('tap', '.mui-btn', function(event) {
+						var elem = this;
+						var li = elem.parentNode.parentNode;
+						mui.confirm('确认删除该条记录？', 'Hello MUI', btnArray, function(e) {
+							if (e.index == 0) {
+								li.parentNode.removeChild(li);
+								setOrderNumber()
+							} else {
+								setTimeout(function() {
+									$.swipeoutClose(li);
+								}, 0);
+							}
+						});
+					});
+				})(mui);
+			/////
+			//////////
+			var ulbox = document.getElementById('OA_task_1');
+			var addbtn = document.getElementById('add_one')
+
+			function addList() {
+				var _li = document.createElement('li')
+				_li.setAttribute('class', 'mui-table-view-cell')
+				var _html = '<div class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">删除</a></div><div class="mui-slider-handle"><table width="100%" class="tablestyle1"><tr><td width="10%"><input type="number" class="mui-input input_order " value=""></td><td width="30%"><input type="text" class="mui-input"></td><td width="15%"><input type="number" class="mui-input"></td><td width="30%"><input type="text" class="mui-input"></td><td width="15%"><input type="number" class="mui-input jian"></td></tr></table></div>'
+				_li.innerHTML = _html
+				document.getElementById('OA_task_1').appendChild(_li)
+				setOrderNumber()
+				var inputjian = _li.querySelectorAll('.jian')
+				addInputJian(inputjian)
+			}
+			//添加一项的时间  添加一行的同时还要保证新添加的input 事件绑定。
+			addbtn.addEventListener('tap', function() {
+					setTimeout(function() {
+						addList()
+					}, 400)
+					window.scrollTo(0, document.body.scrollHeight);
+				}, false)
+				//编号处理
+			setOrderNumber()
+
+			function setOrderNumber() {
+				var number = 1
+				var orderinput = document.querySelectorAll('.input_order')
+				for (i = 0; i < orderinput.length; i++) {
+					orderinput[i].value = (i + 1)
+				}
+			}
+			var inputjian = document.querySelectorAll('.jian')
+			var addInputJian = function(inputjian) {
+					for (i = 0; i < inputjian.length; i++) {
+						inputjian[i].addEventListener('blur', function(e) {
+							var val = this.value
+							this.value = chageNgative(val)
+						}, false)
+					}
+				}
+				//减分项自动变负数
+			var inputjian = document.querySelectorAll('.jian')
+			for (i = 0; i < inputjian.length; i++) {
+				inputjian[i].addEventListener('blur', function(e) {
+					var val = this.value
+					this.value = chageNgative(val)
+				}, false)
+			}
+
+			function chageNgative(number) {
+				var num = 0 - number
+				return num
+			}
+		</script>
+	</body>
+
+</html>
