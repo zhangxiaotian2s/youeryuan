@@ -19,12 +19,12 @@
 					<h1>账号登陆</h1>
 					<div class="mui-input-row ">
 						<label><span class="mui-icon mui-icon-person"></span></label>
-						<input type="text" class="mui-input-clear" placeholder="用户名">
+						<input type="text" class="mui-input-clear" placeholder="用户名" id="username" value="htyey">
 					</div>
 					<div class="blank1"></div>
 					<div class="mui-input-row ">
 						<label><span class="mui-icon mui-icon-locked"></span></label>
-						<input type="password" class="mui-input-clear" placeholder="密码">
+						<input type="password" class="mui-input-clear" placeholder="密码" id="password" value="hangtian">
 					</div>
 					<div class="blank1"></div>
 					<button type="button" class="mui-btn mui-btn-warning btn-login" id="login_btn">立即登陆</button>
@@ -34,12 +34,15 @@
 
 		</div>
 
+		<script type="text/javascript" src="../base/base.js"></script>
 		<script src="js/mui.min.js"></script>
-		<script src="js/update.js" type="text/javascript" charset="utf-8"></script>
 		<script>
 			var menu = null,
 				main = null;
 			var showMenu = false;
+			var LOGINURL = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=Login&' //Option=Login&userPwd=''&userName=''
+			var username = document.getElementById('username'),
+				passwords = document.getElementById('password');
 			mui.init({
 				swipeBack: false,
 				statusBarBackground: '#f7f7f7',
@@ -58,11 +61,34 @@
 			});
 			var loginbtn = document.getElementById('login_btn')
 			loginbtn.addEventListener('tap', function() {
-				mui.alert('登陆账号或密码错误，请重新输入。', '系统提示', '', function() {
-					plus.storage.setItem('login', 'islogin')
-					mui.back()
-				})
+				var user_value = username.value,
+					pwd_value = passwords.value;
+				ajaxLogin(user_value, pwd_value)
 			}, false)
+
+			function ajaxLogin(user, pwd) {
+				mui.ajax(LOGINURL + 'userName=' + user + '&Login&userPwd=' + pwd + '', {
+					dataType: 'json',
+					type: 'post',
+					timeout: 5000,
+					success: function(data) {
+						if (data.Success == 10000) {
+							//存储用户登录信息
+							var userMes = JSON.stringify(data.RerurnValue)
+							 plus.storage.setItem('userMes', userMes)
+							// {"KgId":33,"Name":"航天管理员","UserId":80}
+							var main=plus.webview.getWebviewById('HBuilder')
+							main.evalJS('setUserMes()')
+							mui.back()
+						} else {
+							mui.alert('用户名或密码不正确', '系统提示', '')
+						}
+					},
+					error: function() {
+						mui.alert('登陆失败', '系统提示', '')
+					}
+				})
+			}
 		</script>
 	</body>
 

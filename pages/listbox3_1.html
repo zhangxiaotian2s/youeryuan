@@ -14,133 +14,54 @@
 		.mui-table-view-cell {
 			padding: 0;
 		}
+		
 	</style>
 
 	<body class="bk_white">
 		<header class="mui-bar mui-bar-nav yw_header">
 			<h1 class="mui-title">教职工日常考核 </h1>
-			<button type="button" class="mui-btn mui-btn-warning mui-pull-right">保存/确定 </button>
+			<button type="button" class="mui-btn mui-btn-warning mui-pull-right" id="sendbtn">保存/确定 </button>
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 		</header>
 		<div class="mui-content bk_white">
 			<div class="select_nav">
 				<ul>
-					<li>
-						<div>
-							选择幼儿园：
-						</div>
-						<div class="select_box_style">
-							<select name="" id="">
-								<option value="">22</option>
-								<option value="">33</option>
-								<option value="">44</option>
-							</select>
-							<span class="mui-icon mui-icon-arrowdown"></span>
-						</div>
-					</li>
+
 					<li>
 						<div>
 							检查人：
 						</div>
 						<div class="select_box_style">
-							<select name="" id="">
-								<option value="">22</option>
-								<option value="">33</option>
-								<option value="">44</option>
+							<select name="" class="teacherslist" id="teacherslist">
+								<option value="">选择检查人</option>
 							</select>
 							<span class="mui-icon mui-icon-arrowdown"></span>
 						</div>
 					</li>
-					<li>
+					<!--<li>
 						<div>
 							验证人：
 						</div>
 						<div class="select_box_style">
-							<select name="" id="">
-								<option value="">22</option>
-								<option value="">33</option>
-								<option value="">44</option>
+							<select name="" id="" class="teacherslist">
+								<option value="">选择验证人</option>
 							</select>
 							<span class="mui-icon mui-icon-arrowdown"></span>
 						</div>
-					</li>
+					</li>-->
 				</ul>
 			</div>
 			<div class="blank2"></div>
 			<div class="radio_table_Box">
-				<table width="100%">
-					<tr>
-						<td width="33.3333%">操作流程</td>
-						<td width="33.3333%">
-							<label>
-								<span class="radio_span"><input type="radio" name="xxx1" value="" />合格</span>
-							</label>
-						</td>
-						<td width="33.3333%">
-							<label>
-								<span class="radio_span"><input type="radio" name="xxx1" value="" />不合格</span>
-							</label>
-						</td>
-					</tr>
-					<tr>
-						<td>膳食质量</td>
-						<td>
-							<label>
-								<span class="radio_span"><input type="radio" name="xxx2" value="" />合格</span>
-							</label>
-						</td>
-						<td>
-							<label>
-								<span class="radio_span"><input type="radio" name="xxx2" value="" />不合格</span>
-							</label>
-						</td>
-					</tr>
-					<tr>
-						<td>制作规范</td>
-						<td>
-							<label>
-								<span class="radio_span"><input type="radio" name="xxx3" value="" />合格</span>
-							</label>
-						</td>
-						<td>
-							<label>
-								<span class="radio_span"><input type="radio" name="xxx3" value="" />不合格</span>
-							</label>
-						</td>
-					</tr>
-					<tr>
-						<td>并向卫生</td>
-						<td>
-							<label>
-								<span class="radio_span"><input type="radio" name="xxx4" value="" />合格</span>
-							</label>
-						</td>
-						<td>
-							<label>
-								<span class="radio_span"><input type="radio" name="xxx4" value="" />不合格</span>
-							</label>
-						</td>
-					</tr>
+				<table width="100%" id="check_Table">
+					
+
 				</table>
 			</div>
-
+              <div class="blank2"></div>
 		</div>
 		<script type="text/javascript" src="../js/mui.min.js"></script>
-		<script>
-			mui.init()
-			mui.plusReady(function() {})
-			var radiosspan = document.querySelectorAll('.radio_span');
-			var  radioinput=document.querySelectorAll('input[type="radio"]')
-			for (i = 0; i < radioinput.length; i++) {
-				radioinput[i].addEventListener('change', function() {
-					var _name=this.getAttribute('name')
-					var _name_input=document.querySelectorAll('input[name="'+_name+'"]');
-					
-					alert(_name)
-                    
-				}, false)
-			}
-		</script>
+        <script type="text/javascript" src="../control/listbox3_1.control.js" ></script>			
 	</body>
 
 </html>

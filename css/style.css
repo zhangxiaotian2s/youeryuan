@@ -67,7 +67,7 @@ html{font-size:10px}
 .login_box .btn-login{ width: 100%; height: 2.6rem;}
 
 .yw_header{ height: 60px!important; background: #454449; color: #FFFFFF; overflow: hidden;}
-.yw_header h1{ font-size: 1.0rem; line-height: 60px; font-weight: normal;  }
+.yw_header h1{ font-size: 1.0rem; line-height: 50px; font-weight: normal;  }
 .yw_header .mui-btn{  display: block; top: 13px;}
 
 .list_box{ width: 17%; float: left;margin-left: 2.5%; margin-top: 50px;}
@@ -96,5 +96,14 @@ html{font-size:10px}
 .select_nav ul li div select{ height: 3rem; line-height: 3rem; position: absolute; top: -1.1rem; text-align: center; width: 10rem;}
 
 .radio_table_Box{ width:90%;  margin: auto; }
-.radio_table_Box table tr td{ border: #CCCCCC solid 1px; text-align: center;}
-.radio_table_Box table tr td span{ display: block; padding: 1rem; }
+.radio_table_Box table tr td{ border: #CCCCCC solid 1px; text-align: center; padding: 0;;}
+.radio_table_Box table tr td .bz_text{height: 50px; line-height: 50px; margin: 0!important; border: none;   }
+
+.radio_table_Box table tr td span{ display: block;  height: 50px; line-height: 50px; }
+
+/*登陆信息*/
+.islogin_mes { padding-top: 20px; font-size: 1rem;}
+.islogin_mes p{ float: left;  font-size: 1rem; margin-right: 0.5rem; color: #FFFFFF;}
+
+
+

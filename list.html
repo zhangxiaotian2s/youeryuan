@@ -129,9 +129,9 @@
 				//仅支持横屏显示
 				plus.screen.lockOrientation("landscape");
 				var mian = plus.webview.currentWebview();
-				//				plus.storage.clear()
-				var islogin = plus.storage.getItem('login')
-				if (islogin) {
+//					plus.storage.clear()
+				var userMes = plus.storage.getItem('userMes')
+				if (userMes) {
 					plus.navigator.closeSplashscreen();
 					plus.navigator.setFullscreen(false);
 				} else {

@@ -14,7 +14,10 @@
 	<body>
 		<header class="mui-bar mui-bar-nav yw_header">
 			<h1 class=" mui-pull-left">园务移动终端系统 </h1>
-			<!--<button type="button" class="mui-btn mui-btn-warning mui-pull-right">保存/确定 </button>-->
+			<div class=" mui-pull-right islogin_mes">
+				<p id="welcome_p"></p>
+				<a href="javascript:void(0)" id="login_out"></a>
+			</div>
 		</header>
 		<script src="js/mui.min.js"></script>
 		<script src="js/update.js"></script>
@@ -35,6 +38,45 @@
 					}
 				}]
 			});
+			var welcome_p = document.getElementById('welcome_p'),
+				login_out = document.getElementById('login_out')
+			mui.plusReady(function() {
+				setUserMes()
+			})
+
+			function setUserMes() {
+				var _userMes = plus.storage.getItem('userMes')
+				if (!_userMes) {
+					return
+				}
+				_userMes = JSON.parse(_userMes);
+				welcome_p.innerHTML = "欢迎，" + _userMes.Name
+				login_out.innerHTML = "退出登录"
+			}
+			var btnArray = ['确认', '取消'];
+			login_out.addEventListener('tap', function() {
+				mui.confirm('是否退出登录？', '提示', btnArray, function(e) {
+					if (e.index == 0) {
+						plus.storage.removeItem('userMes')
+						mui.openWindow({
+							url: 'login.html',
+							id: 'login.html',
+							styles: {
+								top: '0px',
+								bottom: '0px',
+								bounce: 'none'
+							},
+							show: {
+								aniShow: 'slide-in-bottom'
+							},
+							waiting: {
+								autoShow: false
+							}
+						})
+					} else {
+					}
+				});
+			})
 		</script>
 	</body>
 
