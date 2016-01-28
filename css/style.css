@@ -6,8 +6,9 @@
 a{ text-decoration: none;}
 li{ list-style: none;}
 a:hover{
-  
 }
+
+
 /*全局设置字号*/
 html{font-size:10px}
 @media screen and (min-width:320px) and (max-width:375px){html{font-size:13px}}
@@ -47,7 +48,6 @@ html{font-size:10px}
 .col-xs-offset-2 {margin-left: 16.66666667%;}
 .col-xs-offset-1 {margin-left: 8.33333333%;}
 .col-xs-offset-0 {margin-left: 0;}
-
 .mui-bar .mui-title{ font-size: 1.2rem; color: #FFFFFF;}
 .mui-bar-nav.mui-bar .mui-icon{ margin-top: 10px; color: #FFFFFF;}
 
@@ -87,6 +87,9 @@ html{font-size:10px}
 .tablestyle1 thead td{ text-align: center; background: #f6f6f6; padding: 20px 0px;}
 .tablestyle1 tr td input{ text-align: center; margin-bottom: 0px; border: none;}
 .table_box .add_one{ display: block; width: 10rem; text-align: center; height: 2.6rem; margin:3rem auto; }
+.tablestyle1 select{ width: 80%; margin: auto 9%; text-align: center;}
+
+
 
 .select_nav{ margin: 2rem auto;}
 .select_nav ul li{ float: left; margin-left: 3rem;}

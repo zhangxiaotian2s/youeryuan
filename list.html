@@ -12,18 +12,25 @@
 	</head>
 
 	<body>
+		<header class="mui-bar mui-bar-nav yw_header">
+			<h1 class=" mui-pull-left">园务移动终端系统 </h1>
+			<div class=" mui-pull-right islogin_mes">
+				<p id="welcome_p"></p>
+				<a href="javascript:void(0)" id="login_out"></a>
+			</div>
+		</header>
 		<div class="mui-content">
 			<div class="list_box list_box1">
 				<h2>常规工作</h2>
 				<ul>
 					<li>
 						<p>教职工日常考核表</p>
-						<button class="mui-btn addbtn" id="pages/listbox1_1.html">新建</button>
+						<button class="mui-btn btns" id="pages/listbox1_1.html">新建</button>
 						<button class="mui-btn  mui-btn-outlined">编辑</button>
 					</li>
 					<li>
 						<p>员工面谈记录</p>
-						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn btns" id="">新建</button>
 						<button class="mui-btn  mui-btn-outlined">编辑</button>
 					</li>
 				</ul>
@@ -34,17 +41,17 @@
 				<ul>
 					<li>
 						<p>备课本检查记录</p>
-						<button class="mui-btn addbtn" id="">新建</button>
-						<button class="mui-btn  mui-btn-outlined">编辑</button>
+						<button class="mui-btn btns" id="pages/listbox2_1.html" data-action="new">新建</button>
+						<button class="mui-btn btns  mui-btn-outlined" id="pages/listbox2_1.html" data-action="edit">编辑</button>
 					</li>
 					<li>
 						<p>教学反馈内容检查记录</p>
-						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn btns" id="">新建</button>
 						<button class="mui-btn  mui-btn-outlined">编辑</button>
 					</li>
 					<li>
 						<p>日常教学工作检查记录</p>
-						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn btns" id="">新建</button>
 						<button class="mui-btn  mui-btn-outlined">编辑</button>
 					</li>
 				</ul>
@@ -54,27 +61,27 @@
 				<ul>
 					<li>
 						<p>厨房常规检查记录</p>
-						<button class="mui-btn addbtn" id="pages/listbox3_1.html">新建</button>
-						<button class="mui-btn  mui-btn-outlined">编辑</button>
+						<button class="mui-btn btns" id="pages/listbox3_1.html" data-action="new">新建</button>
+						<button class="mui-btn btns  mui-btn-outlined" id="pages/listbox3_1.html" data-action="edit">编辑</button>
 					</li>
 					<li>
 						<p>内务检查平分记录</p>
-						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn btns" id="">新建</button>
 						<button class="mui-btn  mui-btn-outlined">编辑</button>
 					</li>
 					<li>
 						<p>午睡情况检查记录</p>
-						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn btns" id="">新建</button>
 						<button class="mui-btn  mui-btn-outlined">编辑</button>
 					</li>
 					<li>
 						<p>后勤保障检查记录</p>
-						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn btns" id="">新建</button>
 						<button class="mui-btn  mui-btn-outlined">编辑</button>
 					</li>
 					<li>
 						<p>仓库检查记录</p>
-						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn btns" id="">新建</button>
 						<button class="mui-btn  mui-btn-outlined">编辑</button>
 					</li>
 				</ul>
@@ -84,12 +91,12 @@
 				<ul>
 					<li>
 						<p>校车行政检查表</p>
-						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn btns" id="">新建</button>
 						<button class="mui-btn  mui-btn-outlined">编辑</button>
 					</li>
 					<li>
 						<p>校车安全卫生检查记录</p>
-						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn btns" id="">新建</button>
 						<button class="mui-btn  mui-btn-outlined">编辑</button>
 					</li>
 
@@ -100,22 +107,22 @@
 				<ul>
 					<li>
 						<p>家园联系册检查记录</p>
-						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn btns" id="">新建</button>
 						<button class="mui-btn  mui-btn-outlined">编辑</button>
 					</li>
 					<li>
 						<p>家园联系册评比记录</p>
-						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn btns" id="">新建</button>
 						<button class="mui-btn  mui-btn-outlined">编辑</button>
 					</li>
 					<li>
 						<p>电访检查记录</p>
-						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn btns" id="">新建</button>
 						<button class="mui-btn  mui-btn-outlined">编辑</button>
 					</li>
 					<li>
 						<p>家访检查记录</p>
-						<button class="mui-btn addbtn" id="">新建</button>
+						<button class="mui-btn btns" id="">新建</button>
 						<button class="mui-btn  mui-btn-outlined">编辑</button>
 					</li>
 
@@ -128,36 +135,35 @@
 			mui.plusReady(function() {
 				//仅支持横屏显示
 				plus.screen.lockOrientation("landscape");
-				var mian = plus.webview.currentWebview();
-//					plus.storage.clear()
+				//读取本地存储，检查是否为首次启动
+				setTimeout(function() {
+						plus.navigator.closeSplashscreen();
+						plus.navigator.setFullscreen(false);
+					}, 500)
 				var userMes = plus.storage.getItem('userMes')
-				if (userMes) {
-					plus.navigator.closeSplashscreen();
-					plus.navigator.setFullscreen(false);
-				} else {
+				if (!userMes) {
 					mui.openWindow({
 						url: 'login.html',
 						id: 'login.html',
-						styles: {
-							top: '0px',
-							bottom: '0px',
-							bounce: 'none'
-						},
 						show: {
-							aniShow: 'slide-in-bottom'
+							aniShow: 'slide-in-top',
+							duration: "100"
 						}
 					})
+				}else{
+					setUserMes(userMes)
 				}
 			})
-			var addbtns = document.querySelectorAll('.addbtn')
-			for (i = 0; i < addbtns.length; i++) {
-				addbtns[i].addEventListener('tap', function() {
-					addbtnsFn(this)
+			var btns = document.querySelectorAll('.btns')
+			for (i = 0; i < btns.length; i++) {
+				btns[i].addEventListener('tap', function() {
+					btnsFn(this)
 				}, false)
 			}
 
-			function addbtnsFn(btns) {
+			function btnsFn(btns) {
 				var _url = btns.getAttribute('id')
+				var dataaction = btns.getAttribute('data-action')
 				mui.openWindow({
 					url: _url,
 					id: _url,
@@ -167,9 +173,43 @@
 					},
 					show: {
 						aniShow: 'slide-in-top'
+					},
+					waiting: {
+						autoShow: false
+					},
+					extras: {
+						action: dataaction
 					}
 				})
 			}
+			var welcome_p = document.getElementById('welcome_p'),
+				login_out = document.getElementById('login_out')
+
+			function setUserMes() {
+				var _userMes = plus.storage.getItem('userMes')
+				if (!_userMes) {
+					return
+				}
+				_userMes = JSON.parse(_userMes);
+				welcome_p.innerHTML = "欢迎，" + _userMes.Name
+				login_out.innerHTML = "退出登录"
+			}
+			var btnArray = ['确认', '取消'];
+			login_out.addEventListener('tap', function() {
+				mui.confirm('是否退出登录？', '提示', btnArray, function(e) {
+					if (e.index == 0) {
+						plus.storage.removeItem('userMes')
+						mui.openWindow({
+							url: 'login.html',
+							id: 'login.html',
+							show: {
+								aniShow: 'slide-in-top',
+								duration: "100"
+							}
+						})
+					} else {}
+				});
+			})
 		</script>
 	</body>
 

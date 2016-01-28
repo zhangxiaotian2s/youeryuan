@@ -51,12 +51,9 @@
 				},
 			});
 			mui.plusReady(function() {
-				//仅支持竖屏显示
-				plus.screen.lockOrientation("landscape");
-				//读取本地存储，检查是否为首次启动
-				var showGuide = plus.storage.getItem("lauchFlag");
-				plus.navigator.closeSplashscreen();
-				plus.navigator.setFullscreen(false);
+				plus.webview.currentWebview().setStyle({
+                        'popGesture': 'none'
+                    });
 				//				
 			});
 			var loginbtn = document.getElementById('login_btn')
@@ -67,6 +64,7 @@
 			}, false)
 
 			function ajaxLogin(user, pwd) {
+				var waiting=plus.nativeUI.showWaiting()
 				mui.ajax(LOGINURL + 'userName=' + user + '&Login&userPwd=' + pwd + '', {
 					dataType: 'json',
 					type: 'post',
@@ -75,11 +73,14 @@
 						if (data.Success == 10000) {
 							//存储用户登录信息
 							var userMes = JSON.stringify(data.RerurnValue)
-							 plus.storage.setItem('userMes', userMes)
-							// {"KgId":33,"Name":"航天管理员","UserId":80}
-							var main=plus.webview.getWebviewById('HBuilder')
-							main.evalJS('setUserMes()')
-							mui.back()
+							plus.storage.setItem('userMes', userMes)
+								// {"KgId":33,"Name":"航天管理员","UserId":80}
+							var list = plus.webview.getWebviewById('list.html')
+							waiting.close()
+							mui.alert("登陆成功", "提示", function() {
+								list.evalJS('setUserMes()')
+								mui.back()
+							})
 						} else {
 							mui.alert('用户名或密码不正确', '系统提示', '')
 						}
