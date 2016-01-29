@@ -81,7 +81,8 @@ kitchenCheck.prototype.ajaxGetTeacherList = function(editid) { //获取到的上
 		success: function(data) {
 			self.wating.close()
 			if (data.Success == 10000) {
-				self.addTeacherList(self.teacherlist, data.RerurnValue, editid)
+				plus.storage.setItem('teacherlist',JSON.stringify(data.RerurnValue))
+				self.addTeacherList(data.RerurnValue, editid)
 			}
 		},
 		error: function() {
@@ -90,7 +91,7 @@ kitchenCheck.prototype.ajaxGetTeacherList = function(editid) { //获取到的上
 		}
 	});
 };
-kitchenCheck.prototype.addTeacherList = function(teacherlist, data, selectedvalue) {
+kitchenCheck.prototype.addTeacherList = function( data, selectedvalue) {
 	var _length = data.length;
 	var _html;
 	for (i = 0; i < _length; i++) {

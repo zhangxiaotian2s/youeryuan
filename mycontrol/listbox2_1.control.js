@@ -35,7 +35,7 @@ function lesseonCheck() {
 	//	this.checklisturl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetKitchenCheckItem&'; //KgId=33&KitchenCheckType=KitchenCheckType
 	this.createurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=AddKMPrepareLessonsCheck';
 	this.updateurl = ' http://115.28.141.223:89/WebServices/KMService.ashx?Option=UpdateKMPrepareLessonsCheck'; //{jsonstr}&jsonStr=''&&id='
-	this.editmesurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetKMKitchenCheckById&KitchenCheckId=';
+	this.editmesurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetKMPrepareLessonsCheckById&id=';
 	this.classlisturl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetClassListByOrg&Id=' //Id=33
 
 	this.userMes = JSON.parse(plus.storage.getItem('userMes'));
@@ -44,12 +44,11 @@ function lesseonCheck() {
 	this.userId = this.userMes.UserId;
 	this.DataDictionaryType = "KitchenCheckType";
 	this.datateacherlist = '';
-	this.datateclasslist = '';
-	this.creatLessonsCheckId = 0;
-	//	this.prekitchencheckid = parseInt( plus.storage.getItem('prekitchencheckid'))
-//	this.PrepareLessonsCheckId = parseInt(plus.storage.getItem('PrepareLessonsCheckId'))
-	this.PrepareLessonsCheckId = 1;//临时
+	this.dataclasslist = '';
+	this.PrepareLessonsCheckId = parseInt(plus.storage.getItem('PrepareLessonsCheckId'));
 	this.teacherlist = document.getElementById('teacherslist');
+	this.datateacherlist = JSON.parse(plus.storage.getItem('teacherlist'))
+	this.dataclasslist = JSON.parse(plus.storage.getItem('classlist'))
 	this.checktable = document.getElementById('check_Table');
 	this.senbtn = document.getElementById('sendbtn');
 	this.addbtn = document.getElementById('add_one');
@@ -73,27 +72,6 @@ lesseonCheck.prototype.initRadioParentBk = function() {
 		}
 	}
 };
-//点击时修改背景色的方法
-lesseonCheck.prototype.setTapRadioParentBK = function() {
-	var self = this;
-	for (i = 0; i < self.radioinput.length; i++) {
-		self.radioinput[i].addEventListener('change', function() {
-			var _name = this.getAttribute('name');
-			var _name_input = document.querySelectorAll('input[name="' + _name + '"]');
-			seBK(_name_input);
-		}, false);
-	}
-
-	function seBK(nameinput) {
-		for (i = 0; i < nameinput.length; i++) {
-			if (nameinput[i].checked == true) {
-				nameinput[i].parentElement.style.background = '#F0AD4E';
-			} else {
-				nameinput[i].parentElement.style.background = 'none';
-			}
-		}
-	};
-};
 lesseonCheck.prototype.ajaxGetTeacherList = function(editid) { //获取到的上次的修改人的id
 	var self = this
 	self.wating = plus.nativeUI.showWaiting()
@@ -104,8 +82,9 @@ lesseonCheck.prototype.ajaxGetTeacherList = function(editid) { //获取到的上
 		success: function(data) {
 			self.wating.close()
 			if (data.Success == 10000) {
+				plus.storage.setItem('teacherlist', JSON.stringify(data.RerurnValue))
 				self.datateacherlist = data.RerurnValue
-				self.addTeacherList(self.teacherlist, data.RerurnValue, editid)
+				self.addTeacherList(data.RerurnValue, editid)
 			}
 		},
 		error: function() {
@@ -114,7 +93,7 @@ lesseonCheck.prototype.ajaxGetTeacherList = function(editid) { //获取到的上
 		}
 	});
 };
-lesseonCheck.prototype.addTeacherList = function(teacherlist, data, selectedvalue) {
+lesseonCheck.prototype.addTeacherList = function(data, selectedvalue) {
 	var _length = data.length;
 	var _html;
 	for (i = 0; i < _length; i++) {
@@ -128,7 +107,7 @@ lesseonCheck.prototype.addTeacherList = function(teacherlist, data, selectedvalu
 			}
 		}
 	}
-	teacherlist.innerHTML += _html;
+	this.teacherlist.innerHTML += _html;
 };
 lesseonCheck.prototype.ajaxGetClassList = function() {
 	var self = this
@@ -140,7 +119,8 @@ lesseonCheck.prototype.ajaxGetClassList = function() {
 		success: function(data) {
 			self.wating.close();
 			if (data.Success == 10000) {
-				self.datateclasslist = data.RerurnValue
+				plus.storage.setItem('classlist', JSON.stringify(data.RerurnValue))
+				self.dataclasslist = data.RerurnValue
 			}
 		},
 		error: function() {
@@ -153,58 +133,93 @@ lesseonCheck.prototype.ajaxGetClassList = function() {
 lesseonCheck.prototype.addBtnFn = function() {
 	var self = this;
 	self.addbtn.addEventListener('tap', function() {
-		self.addOneClassCheck(self.datateclasslist, self.datateacherlist)
+		self.addOneClassCheck(self.dataclasslist, self.datateacherlist)
 	}, false)
 }
 
-
-//添加检查项进入dome
-lesseonCheck.prototype.addOneClassCheck = function(dataclass, datateacher, editdata) { //editdata获取编辑的返回data
-	//	var _length = data.length;
-	var _li = document.createElement('li');
-	_li.setAttribute('class', 'mui-table-view-cell')
-	var _html = "";
-	_html += '<div class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">删除</a></div><div class="mui-slider-handle"><table width="100%" class="tablestyle1">'
-	if (editdata) {
-		for (i = 0; i < _length; i++) {
-			_html += '<tr><td width="25%">' + data[i].DataDictionaryName + '</td><td width="20%">';
-			if (editdata[i].CheckResult == 1) {
-				_html += '<label><span class="radio_span"><input type="radio" hidden="hidden" checked="checked" name="CheckResult' + i + '" value="1" />合格</span></label>';
-				_html += '</td><td width="20%"><label><span class="radio_span"><input type="radio" hidden="hidden" name="CheckResult' + i + '" value="0" />不合格</span></label>';
-			} else {
-				_html += '<label><span class="radio_span"><input type="radio" hidden="hidden"  name="CheckResult' + i + '" value="1" />合格</span></label>';
-				_html += '</td><td width="20%"><label><span class="radio_span"><input type="radio" checked="checked" hidden="hidden" name="CheckResult' + i + '" value="0" />不合格</span></label>';
-			}
-			_html += '</td><td width="35%"><input type="text" name="description' + i + '" value="' + editdata[i].Description + '"  class="bz_text"/><input  hidden="hidden"  name="DataDictionaryId"  value="' + data[i].DataDictionaryId + '" /></td></tr>';
-		}
-	} else {
+//添加上次新建检查结果
+lesseonCheck.prototype.addPreClassCheck = function(dataclass, datateacher, editdata) {
+	var self = this
+	var _data = editdata.KMLessonsCheckDetailList;
+	for (j = 0; j < _data.length; j++) {
+		var _li = document.createElement('li');
+		_li.setAttribute('class', 'mui-table-view-cell')
+		var _html = "";
+		_html += '<div class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">删除</a></div><div class="mui-slider-handle"><table width="100%" class="tablestyle1">'
 		_html += '<tr>';
 		_html += '<td width="15%"><select class="select_ClassInfoID">';
 		for (i = 0; i < dataclass.length; i++) {
-			_html += '<option value="' + dataclass[i].ClassInfoID + '"   >' + dataclass[i].ClassName + '</option>';
+			if (dataclass[i].ClassInfoID == _data[j].ClassInfoID) {
+				_html += '<option value="' + dataclass[i].ClassInfoID + '"  selected="selected"   >' + dataclass[i].ClassName + '</option>';
+			} else {
+				_html += '<option value="' + dataclass[i].ClassInfoID + '"   >' + dataclass[i].ClassName + '</option>';
+			}
 		}
 		_html += '</select></td>';
 		_html += '<td width="15%"><select class="select_LessonsTeacher" >';
 		for (i = 0; i < datateacher.length; i++) {
-			_html += '<option value="' + datateacher[i].WorkerExtensionId + '">' + datateacher[i].Name + '</option>';
+			if (datateacher[i].WorkerExtensionId == _data[j].TeacherId) {
+				_html += '<option value="' + datateacher[i].WorkerExtensionId + '"  selected="selected" >' + datateacher[i].Name + '</option>';
+			} else {
+				_html += '<option value="' + datateacher[i].WorkerExtensionId + '">' + datateacher[i].Name + '</option>';
+			}
 		}
 		_html += '</select></td>';
 		_html += '	<td width="10%" class="select_IsPost"><select>';
-		_html += '<option value="1">是</option>';
-		_html += '<option value="0">否</option>';
+		if (_data[j].IsPost == 1) {
+			_html += '<option value="1" selected="selected" >是</option>';
+			_html += '<option value="0">否</option>';
+		} else {
+			_html += '<option value="1">是</option>';
+			_html += '<option value="0" selected="selected" >否</option>';
+		}
 		_html += '</select></td>';
-		_html += '<td width="15%"><input type="text" class="mui-input input_Emphases"></td>';
-		_html += '<td width="15%"><input type="text" class="mui-input jian input_HalfDayPlan "></td>';
-		_html += '<td width="15%"><input type="text" class="mui-input jian input_Reflections"></td>';
-		_html += '<td width="15%"><input type="text" class="mui-input jian input_GeneralComment"></td>';
+		_html += '<td width="15%"><input type="text" class="mui-input input_Emphases" value="' + _data[j].Emphases + '"></td>';
+		_html += '<td width="15%"><input type="text" class="mui-input jian input_HalfDayPlan" value="' + _data[j].HalfDayPlan + '"></td>';
+		_html += '<td width="15%"><input type="text" class="mui-input jian input_Reflections" value="' + _data[j].Reflections + '"></td>';
+		_html += '<td width="15%"><input type="text" class="mui-input jian input_GeneralComment" value="' + _data[j].GeneralComment + '"></td>';
 		_html += '</tr>';
+		_html += '</table></div>'
+		_li.innerHTML = _html
+		self.checkbox.appendChild(_li)
 	}
+}
+
+
+
+
+//添加检查项进入dome
+lesseonCheck.prototype.addOneClassCheck = function(dataclass, datateacher, editdata) { //editdata获取编辑的返回data
+	var _li = document.createElement('li');
+	_li.setAttribute('class', 'mui-table-view-cell')
+	var _html = "";
+	_html += '<div class="mui-slider-right mui-disabled"><a class="mui-btn mui-btn-red">删除</a></div><div class="mui-slider-handle"><table width="100%" class="tablestyle1">'
+	_html += '<tr>';
+	_html += '<td width="15%"><select class="select_ClassInfoID">';
+	for (i = 0; i < dataclass.length; i++) {
+		_html += '<option value="' + dataclass[i].ClassInfoID + '"   >' + dataclass[i].ClassName + '</option>';
+	}
+	_html += '</select></td>';
+	_html += '<td width="15%"><select class="select_LessonsTeacher" >';
+	for (i = 0; i < datateacher.length; i++) {
+		_html += '<option value="' + datateacher[i].WorkerExtensionId + '">' + datateacher[i].Name + '</option>';
+	}
+	_html += '</select></td>';
+	_html += '	<td width="10%" class="select_IsPost"><select>';
+	_html += '<option value="1">是</option>';
+	_html += '<option value="0">否</option>';
+	_html += '</select></td>';
+	_html += '<td width="15%"><input type="text" class="mui-input input_Emphases"></td>';
+	_html += '<td width="15%"><input type="text" class="mui-input jian input_HalfDayPlan "></td>';
+	_html += '<td width="15%"><input type="text" class="mui-input jian input_Reflections"></td>';
+	_html += '<td width="15%"><input type="text" class="mui-input jian input_GeneralComment"></td>';
+	_html += '</tr>';
 	_html += '</table></div>'
 	_li.innerHTML = _html
 	this.checkbox.appendChild(_li)
 };
 //动态获取备课检查记录提交的数值
-lesseonCheck.prototype.geSendArrValue = function() {
+lesseonCheck.prototype.geSendArrValue = function(editdata) {
 	var self = this;
 	self.ClassInfoID = document.querySelectorAll('.select_ClassInfoID');
 	self.LessonsTeacher = document.querySelectorAll('.select_LessonsTeacher');
@@ -223,12 +238,30 @@ lesseonCheck.prototype.geSendArrValue = function() {
 	var arrReflections = getArrData(self.Reflections);
 	var arrGeneralComment = getArrData(self.GeneralComment);
 	var KMLessonsCheckDetailList = [];
-	var examinatorId = self.teacherlist.value,
-		examinatorName = self.teacherlist.options[self.teacherlist.selectedIndex].text;
 	var _time = new Date();
-	var nowtime = _time.Format("yyyy-MM-ddThh:mm:ss");
-	var creatMES, examinatorMes, modifyMes;
 	var sendjsonstr = '';
+	var modifytime = createtime;
+	var creator = self.userName,
+		creatorid = self.userId,
+		createtime = _time.Format("yyyy-MM-ddThh:mm:ss"),
+		examinator = self.teacherlist.options[self.teacherlist.selectedIndex].text,
+		examinatorId = self.teacherlist.value,
+		modifier = "",
+		modifierid = 0,
+		modifytime = createtime,
+		prepareLessonsCheckId = 0;
+	if (editdata) {
+		var creator = editdata.Creator,
+			creatorid = editdata.CreatorId,
+			createtime = editdata.CheckDate,
+			examinator = editdata.ExaminatorName,
+			examinatorId = editdata.ExaminatorId,
+			modifier = self.teacherlist.options[self.teacherlist.selectedIndex].text,
+			modifierid = self.teacherlist.value,
+			modifytime = _time.Format("yyyy-MM-ddThh:mm:ss");
+		prepareLessonsCheckId = self.PrepareLessonsCheckId;
+	}
+	var creatMES, examinatorMes, modifyMes;
 
 	function getArrData(data) {
 		var _arr = [];
@@ -250,7 +283,7 @@ lesseonCheck.prototype.geSendArrValue = function() {
 	for (i = 0; i < _length; i++) {
 		var _value = {
 			"LessonsCheckDetailId": 0,
-			"PrepareLessonsCheckId": 0,
+			"PrepareLessonsCheckId": prepareLessonsCheckId,
 			"ClassInfoID": arrClassInfoID[i],
 			"TeacherId": arrTeacherId[i],
 			"LessonsTeacher": arrLessonsTeacher[i],
@@ -264,63 +297,14 @@ lesseonCheck.prototype.geSendArrValue = function() {
 	}
 
 	KMLessonsCheckDetailList = JSON.stringify(KMLessonsCheckDetailList);
-
-	var endstr1 = ',"PrepareLessonsCheckId":' + self.creatLessonsCheckId + ',"OrganizationId":' + self.kgid + ','
-	creatMES = '"Creator":"' + self.userName + '","CreatorId":' + self.userId + ',"CreateDate":"' + nowtime + '",';
-	examinatorMes = '"ExaminatorName":"' + examinatorName + '","ExaminatorId":' + examinatorId + ',"CheckDate":"' + nowtime + '",';
-	modifyMes = '"Modifier":"","ModifyId":0,"ModifyDate":"' + nowtime + '"}';
-	sendjsonstr = '{"KMLessonsCheckDetailList":' + KMLessonsCheckDetailList + ',"PrepareLessonsCheckId":' + self.creatLessonsCheckId + ',"OrganizationId":' + self.kgid + ',' + sendjsonstr + creatMES + examinatorMes + modifyMes;
+	creatMES = '"Creator":"' + creator + '","CreatorId":' + creatorid + ',"CreateDate":"' + createtime + '",';
+	examinatorMes = '"ExaminatorName":"' + examinator + '","ExaminatorId":' + examinatorId + ',"CheckDate":"' + createtime + '",';
+	modifyMes = '"Modifier":"' + modifier + '","ModifyId":' + modifierid + ',"ModifyDate":"' + modifytime + '"}';
+	sendjsonstr = '{"KMLessonsCheckDetailList":' + KMLessonsCheckDetailList + ',"PrepareLessonsCheckId":' + prepareLessonsCheckId + ',"OrganizationId":' + self.kgid + ',' + sendjsonstr + creatMES + examinatorMes + modifyMes;
 	return sendjsonstr
 }
 
 
-
-
-//获取检查项的数据值
-//lesseonCheck.prototype.geSendArrValue = function(editmes) {
-//	var self = this;
-//	var sendjsonstr = '';
-//	var kMKitchenCheckDetailList = [];
-//	var _tr = this.checktable.querySelectorAll('tr');
-//	var _length = _tr.length;
-//	var _KitchenCheckId;
-//	if (!editmes) {
-//		_KitchenCheckId = self.kitchencheckid;
-//	} else {
-//		_KitchenCheckId = self.prekitchencheckid;
-//	}
-//	for (i = 0; i < _length; i++) {
-//		var _id = parseInt(_tr[i].querySelector('input[name="DataDictionaryId"]').value),
-//			_result = parseInt(_tr[i].querySelector('input[type="radio"]:checked').value),
-//			_description = _tr[i].querySelector('input[name="description' + i + '"]').value;
-//		var _value = {
-//			"KitchenCheckDetailId": _id,
-//			"KitchenCheckId": _KitchenCheckId,
-//			"KMItemId": _id,
-//			"CheckResult": _result,
-//			"Description": _description
-//		};
-//		kMKitchenCheckDetailList.push(_value);
-//	}
-//	kMKitchenCheckDetailList = JSON.stringify(kMKitchenCheckDetailList);
-//	var examinatorId = self.teacherlist.value,
-//		examinatorName = self.teacherlist.options[self.teacherlist.selectedIndex].text;
-//	var _time = new Date();
-//	var nowtime = _time.Format("yyyy-MM-ddThh:mm:ss");
-//
-//	var creatMES, examinatorMes, modifyMes;
-//	if (!editmes) {
-//		creatMES = '"Creator":"' + self.userName + '","CreatorId":' + self.userId + ',"CreateDate":"' + nowtime + '",';
-//		examinatorMes = '"ExaminatorName":"' + examinatorName + '","ExaminatorId":' + examinatorId + ',"CheckDate":"' + nowtime + '",';
-//		modifyMes = '"Modifier":"","ModifyId":0,"ModifyDate":"' + nowtime + '"}';
-//	} else {
-//		creatMES = '"Creator":"' + editmes.Creator + '","CreatorId":' + editmes.CreatorId + ',"CreateDate":"' + editmes.CreateDate + '",';
-//		examinatorMes = '"ExaminatorName":"' + editmes.ExaminatorName + '","ExaminatorId":' + editmes.ExaminatorId + ',"CheckDate":"' + editmes.CheckDate + '",';
-//		modifyMes = '"Modifier":"' + examinatorName + '","ModifyId":' + examinatorId + ',"ModifyDate":"' + nowtime + '"}';
-//	}
-//	sendjsonstr = '{"kMKitchenCheckDetailList":' + kMKitchenCheckDetailList + ',"KitchenCheckId":' + _KitchenCheckId + ',"OrganizationId":' + self.kgid + ',' + sendjsonstr + creatMES + examinatorMes + modifyMes;
-//	return sendjsonstr;
-//};
 //检查提交事件
 lesseonCheck.prototype.sendBtnTap = function(edit) {
 	var self = this;
@@ -329,10 +313,10 @@ lesseonCheck.prototype.sendBtnTap = function(edit) {
 			self.ajaxSendCheckMES(self.editMes);
 		} else {
 			self.ajaxSendCheckMES();
-//			self.geSendArrValue()
 		}
 	}, false);
 };
+//ajax提交检查信息
 lesseonCheck.prototype.ajaxSendCheckMES = function(editMES) {
 	var self = this;
 	var examinatorId = self.teacherlist.value;
@@ -348,6 +332,7 @@ lesseonCheck.prototype.ajaxSendCheckMES = function(editMES) {
 		_sendurl = self.createurl;
 		_sendData = self.geSendArrValue();
 	}
+	console.log(_sendData)
 	self.wating = plus.nativeUI.showWaiting();
 	mui.ajax(_sendurl, {
 		type: 'post',
@@ -359,10 +344,7 @@ lesseonCheck.prototype.ajaxSendCheckMES = function(editMES) {
 		timeout: 5000,
 		success: function(data) {
 			self.wating.close();
-			alert(data.Success)
 			if (data.Success == 10000) {
-				alert(num)
-				var num = (data.RerurnValue).toString();
 				plus.storage.setItem('PrepareLessonsCheckId', (data.RerurnValue).toString());
 				mui.alert('提交成功！', '提示', function() {
 					mui.back();
@@ -378,28 +360,30 @@ lesseonCheck.prototype.ajaxSendCheckMES = function(editMES) {
 
 ///////edit
 lesseonCheck.prototype.initEdit = function() {
+		this.ajaxGetTeacherList();
+	this.ajaxGetClassList();
 	this.ajaxGetEditMes();
+	this.addBtnFn()
 };
 //获取上一次的修改的信息
 lesseonCheck.prototype.ajaxGetEditMes = function() {
 	var self = this;
-	if (!self.prekitchencheckid) {
+	if (!self.PrepareLessonsCheckId) {
 		mui.alert('请新建一项才能编辑', '提示', function() {
 			mui.back();
 		});
 		return;
 	}
 	self.wating = plus.nativeUI.showWaiting();
-	mui.ajax(self.editmesurl + '1', {
+	mui.ajax(self.editmesurl + self.PrepareLessonsCheckId, {
 		type: 'get',
 		dataType: 'json',
 		timeout: 5000,
 		success: function(data) {
 			self.wating.close();
-			alert(data.Success)
 			if (data.Success == 10000) {
-				self.ajaxGetTeacherList(data.RerurnValue.ExaminatorId); //测试API 这里是空 所以这里报错了
-				//				self.ajaxGetChecklist(data.RerurnValue.kMKitchenCheckDetailList);
+				self.ajaxGetTeacherList(data.RerurnValue.ExaminatorId);
+				self.addPreClassCheck(self.dataclasslist, self.datateacherlist, data.RerurnValue);
 				self.editMes = data.RerurnValue;
 			}
 		},
