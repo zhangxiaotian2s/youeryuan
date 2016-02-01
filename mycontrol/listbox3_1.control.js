@@ -105,7 +105,7 @@ kitchenCheck.prototype.addTeacherList = function( data, selectedvalue) {
 			}
 		}
 	}
-	teacherlist.innerHTML += _html;
+	this.teacherlist.innerHTML += _html;
 };
 
 
