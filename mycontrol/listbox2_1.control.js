@@ -43,9 +43,7 @@ function lesseonCheck() {
 	this.userName = this.userMes.Name;
 	this.userId = this.userMes.UserId;
 	this.DataDictionaryType = "KitchenCheckType";
-	this.datateacherlist = '';
-	this.dataclasslist = '';
-	this.PrepareLessonsCheckId = parseInt(plus.storage.getItem('PrepareLessonsCheckId'));
+	this.key_2_1_id = parseInt(plus.storage.getItem('key_2_1_id'))||0;
 	this.teacherlist = document.getElementById('teacherslist');
 	this.datateacherlist = JSON.parse(plus.storage.getItem('teacherlist'))
 	this.dataclasslist = JSON.parse(plus.storage.getItem('classlist'))
@@ -55,13 +53,15 @@ function lesseonCheck() {
 	this.checkbox = document.getElementById('OA_task_1')
 	this.wating = '';
 }
-lesseonCheck.prototype.initNew = function() {
+var P_type=lesseonCheck.prototype;
+P_type.initNew = function() {
 	this.ajaxGetTeacherList();
 	this.ajaxGetClassList();
+	this.addTeacherList(this.datateacherlist)
 	this.addBtnFn()
 };
 //页面打开时设置被选中的按钮的颜色 
-lesseonCheck.prototype.initRadioParentBk = function() {
+P_type.initRadioParentBk = function() {
 	this.radioinput = document.querySelectorAll('input[type="radio"]');
 	this.radiosspan = document.querySelectorAll('.radio_span');
 	for (i = 0; i < this.radioinput.length; i++) {
@@ -72,7 +72,7 @@ lesseonCheck.prototype.initRadioParentBk = function() {
 		}
 	}
 };
-lesseonCheck.prototype.ajaxGetTeacherList = function(editid) { //获取到的上次的修改人的id
+P_type.ajaxGetTeacherList = function(editid) { //获取到的上次的修改人的id
 	var self = this
 	self.wating = plus.nativeUI.showWaiting()
 	mui.ajax(this.teachersurl + 'KgId=' + self.kgid + '', {
@@ -83,8 +83,11 @@ lesseonCheck.prototype.ajaxGetTeacherList = function(editid) { //获取到的上
 			self.wating.close()
 			if (data.Success == 10000) {
 				plus.storage.setItem('teacherlist', JSON.stringify(data.RerurnValue))
+				//如果不能从本地存储中读取教师列表的情况下
+				if (!self.datateacherlist) {
+                       self.addTeacherList(data.RerurnValue, editid)
+				}
 				self.datateacherlist = data.RerurnValue
-				self.addTeacherList(data.RerurnValue, editid)
 			}
 		},
 		error: function() {
@@ -93,7 +96,7 @@ lesseonCheck.prototype.ajaxGetTeacherList = function(editid) { //获取到的上
 		}
 	});
 };
-lesseonCheck.prototype.addTeacherList = function(data, selectedvalue) {
+P_type.addTeacherList = function(data, selectedvalue) {
 	var _length = data.length;
 	var _html;
 	for (i = 0; i < _length; i++) {
@@ -109,7 +112,7 @@ lesseonCheck.prototype.addTeacherList = function(data, selectedvalue) {
 	}
 	this.teacherlist.innerHTML += _html;
 };
-lesseonCheck.prototype.ajaxGetClassList = function() {
+P_type.ajaxGetClassList = function() {
 	var self = this
 	self.wating = plus.nativeUI.showWaiting();
 	mui.ajax(self.classlisturl + self.kgid, {
@@ -130,7 +133,7 @@ lesseonCheck.prototype.ajaxGetClassList = function() {
 }
 
 //添加检测项的方法
-lesseonCheck.prototype.addBtnFn = function() {
+P_type.addBtnFn = function() {
 	var self = this;
 	self.addbtn.addEventListener('tap', function() {
 		self.addOneClassCheck(self.dataclasslist, self.datateacherlist)
@@ -138,7 +141,7 @@ lesseonCheck.prototype.addBtnFn = function() {
 }
 
 //添加上次新建检查结果
-lesseonCheck.prototype.addPreClassCheck = function(dataclass, datateacher, editdata) {
+P_type.addPreClassCheck = function(dataclass, datateacher, editdata) {
 	var self = this
 	var _data = editdata.KMLessonsCheckDetailList;
 	for (j = 0; j < _data.length; j++) {
@@ -189,7 +192,7 @@ lesseonCheck.prototype.addPreClassCheck = function(dataclass, datateacher, editd
 
 
 //添加检查项进入dome
-lesseonCheck.prototype.addOneClassCheck = function(dataclass, datateacher, editdata) { //editdata获取编辑的返回data
+P_type.addOneClassCheck = function(dataclass, datateacher, editdata) { //editdata获取编辑的返回data
 	var _li = document.createElement('li');
 	_li.setAttribute('class', 'mui-table-view-cell')
 	var _html = "";
@@ -219,7 +222,7 @@ lesseonCheck.prototype.addOneClassCheck = function(dataclass, datateacher, editd
 	this.checkbox.appendChild(_li)
 };
 //动态获取备课检查记录提交的数值
-lesseonCheck.prototype.geSendArrValue = function(editdata) {
+P_type.geSendArrValue = function(editdata) {
 	var self = this;
 	self.ClassInfoID = document.querySelectorAll('.select_ClassInfoID');
 	self.LessonsTeacher = document.querySelectorAll('.select_LessonsTeacher');
@@ -246,8 +249,8 @@ lesseonCheck.prototype.geSendArrValue = function(editdata) {
 		createtime = _time.Format("yyyy-MM-ddThh:mm:ss"),
 		examinator = self.teacherlist.options[self.teacherlist.selectedIndex].text,
 		examinatorId = self.teacherlist.value,
-		modifier = "",
-		modifierid = 0,
+		modifier = self.userName,
+		modifierid =  self.userId,
 		modifytime = createtime,
 		prepareLessonsCheckId = 0;
 	if (editdata) {
@@ -259,7 +262,7 @@ lesseonCheck.prototype.geSendArrValue = function(editdata) {
 			modifier = self.teacherlist.options[self.teacherlist.selectedIndex].text,
 			modifierid = self.teacherlist.value,
 			modifytime = _time.Format("yyyy-MM-ddThh:mm:ss");
-		prepareLessonsCheckId = self.PrepareLessonsCheckId;
+		prepareLessonsCheckId = self.key_2_1_id;
 	}
 	var creatMES, examinatorMes, modifyMes;
 
@@ -306,7 +309,7 @@ lesseonCheck.prototype.geSendArrValue = function(editdata) {
 
 
 //检查提交事件
-lesseonCheck.prototype.sendBtnTap = function(edit) {
+P_type.sendBtnTap = function(edit) {
 	var self = this;
 	self.senbtn.addEventListener('tap', function() {
 		if (edit == "edit") {
@@ -317,7 +320,7 @@ lesseonCheck.prototype.sendBtnTap = function(edit) {
 	}, false);
 };
 //ajax提交检查信息
-lesseonCheck.prototype.ajaxSendCheckMES = function(editMES) {
+P_type.ajaxSendCheckMES = function(editMES) {
 	var self = this;
 	var examinatorId = self.teacherlist.value;
 	if (!examinatorId) {
@@ -339,13 +342,13 @@ lesseonCheck.prototype.ajaxSendCheckMES = function(editMES) {
 		dataType: 'json',
 		data: {
 			jsonStr: _sendData,
-			id: self.PrepareLessonsCheckId
+			id: self.key_2_1_id
 		},
 		timeout: 5000,
 		success: function(data) {
 			self.wating.close();
 			if (data.Success == 10000) {
-				plus.storage.setItem('PrepareLessonsCheckId', (data.RerurnValue).toString());
+				plus.storage.setItem('key_2_1_id', (data.RerurnValue).toString());
 				mui.alert('提交成功！', '提示', function() {
 					mui.back();
 				});
@@ -359,30 +362,31 @@ lesseonCheck.prototype.ajaxSendCheckMES = function(editMES) {
 };
 
 ///////edit
-lesseonCheck.prototype.initEdit = function() {
-		this.ajaxGetTeacherList();
+P_type.initEdit = function() {
+	this.ajaxGetTeacherList();
 	this.ajaxGetClassList();
 	this.ajaxGetEditMes();
 	this.addBtnFn()
 };
 //获取上一次的修改的信息
-lesseonCheck.prototype.ajaxGetEditMes = function() {
+P_type.ajaxGetEditMes = function() {
 	var self = this;
-	if (!self.PrepareLessonsCheckId) {
+	if (!self.key_2_1_id) {
 		mui.alert('请新建一项才能编辑', '提示', function() {
 			mui.back();
 		});
+		
 		return;
 	}
 	self.wating = plus.nativeUI.showWaiting();
-	mui.ajax(self.editmesurl + self.PrepareLessonsCheckId, {
+	mui.ajax(self.editmesurl + self.key_2_1_id, {
 		type: 'get',
 		dataType: 'json',
 		timeout: 5000,
 		success: function(data) {
 			self.wating.close();
 			if (data.Success == 10000) {
-				self.ajaxGetTeacherList(data.RerurnValue.ExaminatorId);
+				self.addTeacherList(self.datateacherlist,data.RerurnValue.ExaminatorId);
 				self.addPreClassCheck(self.dataclasslist, self.datateacherlist, data.RerurnValue);
 				self.editMes = data.RerurnValue;
 			}
