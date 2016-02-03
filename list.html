@@ -87,17 +87,22 @@
 				</ul>
 			</div>
 			<div class="list_box list_box4">
-				<h2>安全工作记录</h2>
+				<h2>安全及校车工作</h2>
 				<ul>
+					<li>
+						<p>安全隐患检查</p>
+						<button class="mui-btn btns" id="pages/listbox4_1.html" data-action="new">新建</button>
+						<button class="mui-btn btns mui-btn-outlined" id="pages/listbox4_1.html" data-action="edit">编辑</button>
+					</li>
 					<li>
 						<p>校车行政检查表</p>
 						<button class="mui-btn btns" id="">新建</button>
 						<button class="mui-btn  mui-btn-outlined">编辑</button>
 					</li>
 					<li>
-						<p>校车安全卫生检查记录</p>
-						<button class="mui-btn btns" id="">新建</button>
-						<button class="mui-btn  mui-btn-outlined">编辑</button>
+						<p>校车安全卫生检查</p>
+						<button class="mui-btn btns" id="pages/listbox4_3.html" data-action="new">新建</button>
+						<button class="mui-btn btns mui-btn-outlined" id="pages/listbox4_3.html" data-action="edit">编辑</button>
 					</li>
 
 				</ul>
@@ -163,6 +168,7 @@
 			function btnsFn(btns) {
 				var _url = btns.getAttribute('id')
 				var dataaction = btns.getAttribute('data-action')
+				
 				mui.openWindow({
 					url: _url,
 					id: _url,
@@ -205,7 +211,7 @@
 								aniShow: 'slide-in-top',
 								duration: "100"
 							}
-						})
+						});
 					} else {}
 				});
 			})
