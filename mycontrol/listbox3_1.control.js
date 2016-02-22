@@ -17,18 +17,16 @@ mui.plusReady(function() {
 //厨房检查
 function kitchenCheck() {
 	this.teachersurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetWorkerExtension&'; //KgId=33&modifyTime=2015-01-01
-	this.checklisturl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetKitchenCheckItem&'; //KgId=33&KitchenCheckType=KitchenCheckType
-	this.createurl = ' http://115.28.141.223:89/WebServices/KMService.ashx?Option=createKMKitchenCheck'; //{jsonstr}
-	this.updateurl='http://115.28.141.223:89/WebServices/KMService.ashx?Option=updateKMKitchenCheck'//
+	this.checklisturl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetKitchenCheckItem&KitchenCheckType=KMKitchenCheckTypeItem&'; //KgId=33&KitchenCheckType=KitchenCheckType
+	this.createurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=SaveKMKitchenCheck'; //{jsonstr}
+	this.updateurl='http://115.28.141.223:89/WebServices/KMService.ashx?Option=SaveKMKitchenCheck';//
 	this.editmesurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetKMKitchenCheckById&KitchenCheckId=';
 	this.userMes = JSON.parse(plus.storage.getItem('userMes'));
 	this.kgid = this.userMes.KgId;
 	this.userName = this.userMes.Name;
 	this.userId = this.userMes.UserId;
 	this.DataDictionaryType = "KitchenCheckType";
-	this.kitchencheckid = 0;
-	//	this.prekitchencheckid = parseInt( plus.storage.getItem('prekitchencheckid'))
-	this.prekitchencheckid = 1;//临时
+	this.key_3_1_id = parseInt( plus.storage.getItem('key_3_1_id'))
 	this.teacherlist = document.getElementById('teacherslist');
 	this.checktable = document.getElementById('check_Table');
 	this.senbtn = document.getElementById('sendbtn');
@@ -113,7 +111,7 @@ kitchenCheck.prototype.addTeacherList = function( data, selectedvalue) {
 kitchenCheck.prototype.ajaxGetChecklist = function(editdata) {
 	var self = this;
 	self.wating = plus.nativeUI.showWaiting();
-	mui.ajax(this.checklisturl + 'KgId=' + this.kgid + '&KitchenCheckType=KitchenCheckType', {
+	mui.ajax(this.checklisturl + 'KgId=' + this.kgid , {
 		dataType: 'json',
 		type: 'get',
 		timeout: 5000,
@@ -147,14 +145,14 @@ kitchenCheck.prototype.addCheckList = function(data, editdata) { //editdata获�
 				_html += '<label><span class="radio_span"><input type="radio" hidden="hidden"  name="CheckResult' + i + '" value="1" />合格</span></label>';
 				_html += '</td><td width="20%"><label><span class="radio_span"><input type="radio" checked="checked" hidden="hidden" name="CheckResult' + i + '" value="0" />不合格</span></label>';
 			}
-			_html += '</td><td width="35%"><input type="text" name="description' + i + '" value="' + editdata[i].Description + '"  class="bz_text"/><input  hidden="hidden"  name="DataDictionaryId"  value="' + data[i].DataDictionaryId + '" /></td></tr>';
+			_html += '</td><td width="35%"><input type="text" name="description' + i + '" value="' + editdata[i].Description + '"  class="bz_text"/><input  hidden="hidden"  name="DataDictionaryId"  value="' + editdata[i].KMItemId + '" /><input  hidden="hidden"  name="KitchenCheckDetailId"  value="' + editdata[i].KitchenCheckDetailId + '" /></td></tr>';
 		}
 	} else {
 		for (i = 0; i < _length; i++) {
 			_html += '<tr><td width="25%">' + data[i].DataDictionaryName + '</td><td width="20%">';
 			_html += '<label><span class="radio_span"><input type="radio" hidden="hidden" checked="checked" name="CheckResult' + i + '" value="1" />合格</span></label>';
 			_html += '</td><td width="20%"><label><span class="radio_span"><input type="radio" hidden="hidden" name="CheckResult' + i + '" value="0" />不合格</span></label>';
-			_html += '</td><td width="35%"><input type="text" name="description' + i + '" value=""  class="bz_text"/><input  hidden="hidden"  name="DataDictionaryId"  value="' + data[i].DataDictionaryId + '" /></td></tr>';
+			_html += '</td><td width="35%"><input type="text" name="description' + i + '" value=""  class="bz_text"/><input  hidden="hidden"  name="DataDictionaryId"  value="' + data[i].DataDictionaryId + '" /><input  hidden="hidden"  name="KitchenCheckDetailId"  value="0" /></td></tr>';
 		}
 	}
 
@@ -170,18 +168,22 @@ kitchenCheck.prototype.geSendArrValue = function(editmes) {
 	var _length = _tr.length;
 	var _KitchenCheckId;
 	if (!editmes) {
-		_KitchenCheckId = self.kitchencheckid;
+		_KitchenCheckId = 0;
 	} else {
-		_KitchenCheckId = self.prekitchencheckid;
+		_KitchenCheckId = self.key_3_1_id;
 	}
 	for (i = 0; i < _length; i++) {
-		var _id = parseInt(_tr[i].querySelector('input[name="DataDictionaryId"]').value),
+		var _KitchenCheckDetailId = 0,
 			_result = parseInt(_tr[i].querySelector('input[type="radio"]:checked').value),
+			_KMItemId=parseInt(_tr[i].querySelector('input[name="DataDictionaryId"]').value),
 			_description = _tr[i].querySelector('input[name="description' + i + '"]').value;
+		if(editmes){
+			 _KitchenCheckDetailId =_tr[i].querySelector('input[name="KitchenCheckDetailId"]').value;
+		}
 		var _value = {
-			"KitchenCheckDetailId": _id,
+			"KitchenCheckDetailId": _KitchenCheckDetailId,
 			"KitchenCheckId": _KitchenCheckId,
-			"KMItemId": _id,
+			"KMItemId": _KMItemId,
 			"CheckResult": _result,
 			"Description": _description
 		};
@@ -232,22 +234,22 @@ kitchenCheck.prototype.ajaxSendCheckMES = function(editMES) {
 		_sendurl=self.createurl;
 		_sendData = self.geSendArrValue();
 	}
-	_sendData = _sendData;
-
+	 console.log(_sendData)
 	self.wating = plus.nativeUI.showWaiting();
+         
 	mui.ajax(_sendurl, {
 		type: 'post',
 		dataType: 'json',
 		data: {
-			jsonStr: _sendData,
-			id:self.prekitchencheckid
+			jsonStr: _sendData
 		},
 		timeout: 5000,
 		success: function(data) {
 			self.wating.close();
+			alert(data.Success)
 			if (data.Success == 10000) {
 				var num = (data.RerurnValue).toString();
-				plus.storage.setItem('prekitchencheckid', (data.RerurnValue).toString());
+				plus.storage.setItem('key_3_1_id', (data.RerurnValue).toString());
 				mui.alert('提交成功！', '提示', function() {
 					mui.back();
 				});
@@ -267,14 +269,14 @@ kitchenCheck.prototype.initEdit = function() {
 //获取上一次的修改的信息
 kitchenCheck.prototype.ajaxGetEditMes = function() {
 	var self = this;
-	if (!self.prekitchencheckid) {
+	if (!self.key_3_1_id) {
 		mui.alert('请新建一项才能编辑', '提示', function() {
 			mui.back();
 		});
 		return;
 	}
 	self.wating = plus.nativeUI.showWaiting();
-	mui.ajax(self.editmesurl + '1', {
+	mui.ajax(self.editmesurl + self.key_3_1_id, {
 		type: 'get',
 		dataType: 'json',
 		timeout: 5000,

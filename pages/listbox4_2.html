@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/style.css" />
+	</head>
+	<style>
+		.mui-table-view-cell {
+			padding: 0;
+		}
+	</style>
+
+	<body class="bk_white">
+		<header class="mui-bar mui-bar-nav yw_header">
+			<h1 class="mui-title">校车行政检查</h1>
+			<button type="button" class="mui-btn mui-btn-warning mui-pull-right" id="sendbtn">保存/确定 </button>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		</header>
+		<div class="mui-content bk_white">
+			<div class="select_nav">
+				<ul>
+					<li>
+						<div>
+							记录人：
+						</div>
+						<div class="select_box_style">
+							<select name="" class="teacherslist" id="teacherslist">
+								<option value="">选择检查人</option>
+							</select>
+							<span class="mui-icon mui-icon-arrowdown"></span>
+						</div>
+					</li>
+					<li>
+						<div>
+							记录日期：
+						</div>
+						<div class="select_box_style1">
+							<input type="datetime-local" name=""   id="checktime"   value="" />
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="blank1"></div>
+			<div class="table_box2">
+				<table width="100%" class="tablestyle2" id="homeInterviewtab">
+					<tr>
+						<td width="30%">线路：</td>
+						<td width="70%">
+							<select name="" id="LineNumber">
+								<option value="">选择线路</option>
+							</select>
+						</td>
+					</tr>
+						<tr>
+						<td width="30%">幼儿人数：</td>
+						<td width="70%">
+							  <input type="number"  id="ChildCount" placeholder="幼儿人数" />
+						</td>
+					</tr>
+					<tr>
+						<td>车牌：</td>
+						<td>
+                               <select id="PlateNumber">
+                               	 <option value="">选择车牌</option>
+                               </select>
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">司机：</td>
+						<td width="70%">
+							   <select id="Driver">
+                               	 <option value="">请选择</option>
+                               </select>
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">随车照管人员1：</td>
+						<td width="70%">
+							   <select id="Buser1">
+                               	 <option value="">请选择</option>
+                               </select>
+						</td>
+					</tr>
+					<tr>
+						<td width="30%">随车照管人员2：</td>
+						<td width="70%">
+							   <select id="Buser2">
+                               	 <option value="">请选择</option>
+                               </select>
+						</td>
+					</tr>
+					<tr>
+						<tr>
+						<td>出发时间：</td>
+						<td><input type="datetime-local" value="" id="StartupTime"  ></td>
+					</tr>
+					<tr>
+						<td>回园时间：：</td>
+						<td><input type="datetime-local" value=""  id="ReturnTime"  ></td>
+					</tr>
+					<tr>
+						<td>具体情况：</td>
+						<td>
+							<textarea rows="6"   value=""   id="DetailsInformation"   placeholder="具体情况"  ></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>需改进的地方：</td>
+						<td>
+								<textarea rows="6"   value=""   id="MakeBetterInfo"   placeholder="需改进的地方"  ></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>落实情况：</td>
+						<td>
+							<textarea rows="6"   value=""   id="CarryoutInfo"   placeholder="落实情况"  ></textarea>
+						</td>
+					</tr>
+					
+                  </table>				
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../mycontrol/listbox4_2.control.js"></script>
+    <script>
+    	
+    </script>
+</html>

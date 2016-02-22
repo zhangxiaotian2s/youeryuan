@@ -69,7 +69,7 @@ SecurityCheckForm.prototype.loadLastSubmittedDate = function() {
 	_waiting = plus.nativeUI.showWaiting();
 	_id = parseInt(plus.storage.getItem('key_4_1_id'), 10);
 	console.log('_id:' +  plus.storage.getItem('key_4_1_id'));
-	_id = 1;
+//	_id = 1;
 	_url = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetKMHiddenDangerById&id=' + _id
 	mui.ajax(_url, {
 		dataType: 'json',

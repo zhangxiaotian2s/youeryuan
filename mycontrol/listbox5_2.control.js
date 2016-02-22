@@ -78,9 +78,10 @@ P_type.ajaxGetTeacherList = function(editid) { //获取到的上次的修改人�
 			self.wating.close()
 			if (data.Success == 10000) {
 				plus.storage.setItem('teacherlist', JSON.stringify(data.RerurnValue))
-				self.datateacherlist = data.RerurnValue
-				self.addTeacherList(self.datateacherlist)
+
+
 				if (!self.datateacherlist) {
+					self.datateacherlist = data.RerurnValue
 					self.addTeacherList(data.RerurnValue, editid)
 				}
 			}
@@ -146,12 +147,12 @@ P_type.addClassList = function(data, selectedvalue) {
 //设置检查的默认时间
 P_type.setCheckDate = function(checkdate) {
 	if (checkdate) {
-		this.checktime.value = checkdate.substr(0, 10)
+		this.checktime.value = checkdate
 		this.checktime.setAttribute('readonly', 'readonly')
 		return
 	}
 	var nowtime = new Date()
-	nowtime = nowtime.Format("yyyy-MM-dd")
+	nowtime = nowtime.Format("yyyy-MM-ddThh:mm")
 	this.checktime.value = nowtime
 };
 
@@ -177,10 +178,10 @@ P_type.addPreKMExerciseBookData = function(data) {
 P_type.geSendArrValue = function(editdata) {
 	var self = this;
 	var _nowtime = new Date();
-	_nowtime = _nowtime.Format("yyyy-MM-ddThh:mm:ss");
+	_nowtime = _nowtime.Format("yyyy-MM-ddThh:mm");
 	var _RummagerName = self.teacherlist.options[self.teacherlist.selectedIndex].text,
 		_RummagerId = parseInt(self.teacherlist.value),
-		_CheckDate = self.checktime.value + 'T00:00:00',
+		_CheckDate = self.checktime.value,
 		_ClassInfoID = parseInt(self.classlist.value),
 		_ClassName = self.classlist.options[self.classlist.selectedIndex].text,
 		_UpNumber = parseInt(self.UpNumber.value),
@@ -249,6 +250,7 @@ P_type.ajaxSendCheckMES = function(editMES) {
 	}
 	var _id = _sendData.ExerciseBookCheckId
 	_sendData = (JSON.stringify(_sendData))
+	console.log(_sendData)
 	self.wating = plus.nativeUI.showWaiting();
 	mui.ajax(_sendurl, {
 		type: 'post',
