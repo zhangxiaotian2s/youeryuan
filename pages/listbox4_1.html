@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/style.css" />
+	</head>
+	<style>
+		.mui-table-view-cell {
+			padding: 0;
+		}
+	</style>
+
+	<body class="bk_white">
+		<header class="mui-bar mui-bar-nav yw_header">
+			<h1 class="mui-title">安全隐患检查</h1>
+			<button type="button" class="mui-btn mui-btn-warning mui-pull-right" id="submitBtn">保存/确定 </button>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		</header>
+		<div class="mui-content bk_white">
+			<div class="select_nav">
+				<ul>
+					<li>
+						<div>
+							检查人：
+						</div>
+						<div class="select_box_style">
+							<select name="" class="teacherslist" id="checkMan">
+								<option value="">选择检查人</option>
+							</select>
+							<span class="mui-icon mui-icon-arrowdown"></span>
+						</div>
+					</li>
+					<li>
+						<div>
+							检查日期：
+						</div>
+						<div class="select_box_style">
+							<input type="date" name="" id="checkOn"  value="2016-01-26" />
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="blank1"></div>
+			<div class="table_box2">
+				<table width="100%" class="tablestyle2" id="SecurityCheckTab">
+					<tr>
+						<td>责任人</td>
+						<td>							
+							<div class="select_box_style">
+								<select name="" class="teacherslist" id="responsible">
+									<option value="">选择责任人</option>
+								</select>
+								<span class="mui-icon mui-icon-arrowdown"></span>
+							</div>
+						</td>
+					</tr>
+					<tr>
+						<td>安全隐患登记</td>
+						<td>
+							<textarea id = "securityRisk" rows="3" value=""  placeholder="安全隐患登记"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>整改措施</td>
+						<td>
+							<textarea id = "measure" rows="3" value=""  placeholder="整改措施"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>完成时间</td>
+						<td>	
+							<input type="date" name="" id="finishedOn"  value="2016-01-26" />
+						</td>
+					</tr>
+					<tr>
+						<td>整改情况</td>
+						<td>
+							<textarea rows="3" id="schedule" value=""  placeholder="整改情况"></textarea>
+						</td>
+					</tr>
+                  </table>				
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../mycontrol/listbox4_1.control.js"></script>
+    <script>
+    	
+    </script>
+</html>
