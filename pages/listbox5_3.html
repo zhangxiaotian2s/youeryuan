@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/style.css" />
+	</head>
+	<style>
+		.mui-table-view-cell {
+			padding: 0;
+		}
+	</style>
+
+	<body class="bk_white">
+		<header class="mui-bar mui-bar-nav yw_header">
+			<h1 class="mui-title">电访检查记录</h1>
+			<button type="button" class="mui-btn mui-btn-warning mui-pull-right" id="sendbtn">保存/确定 </button>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		</header>
+		<div class="mui-content bk_white">
+			<div class="select_nav">
+				<ul>
+					<li>
+						<div>
+							检查人：
+						</div>
+						<div class="select_box_style">
+							<select name="" class="teacherslist" id="teacherslist">
+								<option value="">选择检查人</option>
+							</select>
+							<span class="mui-icon mui-icon-arrowdown"></span>
+						</div>
+					</li>
+					<li>
+						<div>
+							检查日期：
+						</div>
+						<div class="select_box_style">
+							<input type="date" name=""   id="checktime"   value="" />
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="blank1"></div>
+			<div class="table_box2">
+				<table width="100%" class="tablestyle2" id="homeInterviewtab">
+					<tr>
+						<td width="30%">班级</td>
+						<td width="70%">
+							<select id="selectclass">
+							
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>电访次数</td>
+						<td><input type="number" value="33" id="InterviewCount" ></td>
+					</tr>
+					<tr>
+						<td>是否个性化</td>
+						<td>
+							<select name="" id="Individuation">
+								<option value="1">是</option>
+								<option value="0">否</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>家长提出的意见</td>
+						<td>
+							<textarea rows="6" value=""  placeholder=""  id="ParentOpinion">范文芳</textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>落实情况</td>
+						<td><textarea rows="6" value=""  placeholder=""  id="Implementation">范文芳</textarea></td>
+					</tr>
+					<tr>
+						<td>备注</td>
+						<td><textarea rows="6" value=""  placeholder=""  id="Remark">范文芳</textarea></td>
+					</tr>
+                  </table>				
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../mycontrol/listbox5_3.control.js"></script>
+    <script>
+    	
+    </script>
+</html>
