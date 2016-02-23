@@ -128,6 +128,9 @@ P_type.ajaxGetClassList = function() {
 	})
 };
 P_type.addClassList = function(data, selectedvalue) {
+	if(!data){
+		return
+	}
 	var _length = data.length;
 	var _html;
 	for (i = 0; i < _length; i++) {
@@ -156,6 +159,9 @@ P_type.setCheckDate = function(checkdate) {
 };
 
 P_type.addPreTeleInterviewData = function(data) {
+	if(!data){
+		return
+	}
 	var self = this;
 	self.Individuation
 	var _length=	self.Individuation.options.length;

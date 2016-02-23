@@ -93,6 +93,9 @@ P_type.ajaxGetTeacherList = function(editid) { //获取到的上次的修改人�
 	});
 };
 P_type.addTeacherList = function(data, selectedvalue) {
+	if (!data) {
+		return
+	}
 	var _length = data.length;
 	var _html;
 	for (i = 0; i < _length; i++) {
@@ -129,6 +132,9 @@ P_type.ajaxGetClassList = function() {
 	})
 };
 P_type.addClassList = function(data, selectedvalue) {
+	if (!data) {
+		return
+	}
 	var _length = data.length;
 	var _html;
 	for (i = 0; i < _length; i++) {
