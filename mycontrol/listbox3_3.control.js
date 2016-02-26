@@ -1,4 +1,4 @@
-//LessonsCheck
+//午睡情况检查记录
 mui.init();
 mui.plusReady(function() {
 	var slefwebiew = plus.webview.currentWebview();
@@ -16,18 +16,17 @@ mui.plusReady(function() {
 //厨房检查
 function systemPage() {
 	this.teachersurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetWorkerExtension&'; //KgId=33&modifyTime=2015-01-01
-	//	this.checklisturl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetKitchenCheckItem&'; //KgId=33&KitchenCheckType=KitchenCheckType
-	this.createurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=AddKMHomeInterviewCheck'; //&jsonStr=''  
-	this.updateurl = ' http://115.28.141.223:89/WebServices/KMService.ashx?Option=UpdateKMHomeInterviewCheck'; //&jsonStr=''&id=
-	this.editmesurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetKMHomeInterviewCheckById&id=';
+	this.createurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=AddKMNoonBreakCheck'; //&jsonStr=''  
+	this.updateurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=UpdateKMNoonBreakCheck'; //&jsonStr=''&id=
+	this.editmesurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetKMNoonBreakCheckById&id=';
 	this.classlisturl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetClassListByOrg&Id=' //Id=33
-	
+
 	this.userMes = JSON.parse(plus.storage.getItem('userMes'));
 	this.kgid = this.userMes.KgId;
 	this.userName = this.userMes.Name;
 	this.userId = this.userMes.UserId;
 	this.DataDictionaryType = "KitchenCheckType";
-	this.key_5_4_id = parseInt(plus.storage.getItem('key_5_4_id')) || 0;
+	this.key_3_3_id = parseInt(plus.storage.getItem('key_3_3_id')) || 0;
 	this.teacherlist = document.getElementById('teacherslist');
 	this.classlist = document.getElementById('selectclass');
 	this.checktime = document.getElementById('checktime')
@@ -40,20 +39,28 @@ function systemPage() {
 	this.wating = '';
 
 	//非公共性的dome id
-	this.InterviewPersonCount = document.getElementById('InterviewPersonCount');
-	this.InterviewTable = document.getElementById('InterviewTable');
-	this.ParentOpinion = document.getElementById('ParentOpinion');
-	this.Implementation = document.getElementById('Implementation');
+	this.ChildNumber = document.getElementById('ChildNumber');
+	this.NoSleepNumber = document.getElementById('NoSleepNumber');
+	this.Sleeping = document.getElementById('Sleeping');
+	this.Clothing = document.getElementById('Clothing');
+	this.Quilt = document.getElementById('Quilt');
+	this.Hairstyle = document.getElementById('Hairstyle');
+	this.WettingBed = document.getElementById('WettingBed');
+	this.Neat = document.getElementById('Neat');
+	this.ChildIllness = document.getElementById('ChildIllness');
+	this.Duty = document.getElementById('Duty');
+	this.RoomTemperature = document.getElementById('RoomTemperature');
+	this.Other = document.getElementById('Other');
+	this.Teacher = document.getElementById('Teacher');
 
 }
 var P_type = systemPage.prototype;
 P_type.initNew = function() {
 	this.ajaxGetTeacherList();
-	this.addTeacherList(this.datateacherlist);
+	this.addTeacherList(this.datateacherlist)
+	this.addTeacher(this.datateacherlist)
 	this.ajaxGetClassList();
 	this.addClassList(this.dataclasslist)
-	this.setCheckDate()
-
 };
 //页面打开时设置被选中的按钮的颜色 
 P_type.initRadioParentBk = function() {
@@ -78,9 +85,12 @@ P_type.ajaxGetTeacherList = function(editid) { //获取到的上次的修改人�
 			self.wating.close()
 			if (data.Success == 10000) {
 				plus.storage.setItem('teacherlist', JSON.stringify(data.RerurnValue))
+
+
 				if (!self.datateacherlist) {
 					self.datateacherlist = data.RerurnValue
 					self.addTeacherList(data.RerurnValue, editid)
+					self.addTeacher(data.RerurnValue)
 				}
 			}
 		},
@@ -109,6 +119,26 @@ P_type.addTeacherList = function(data, selectedvalue) {
 	}
 	this.teacherlist.innerHTML += _html;
 };
+P_type.addTeacher = function(data, selectedvalue) {
+	if (!data) {
+		return
+	}
+	var _length = data.length;
+	var _html;
+	for (i = 0; i < _length; i++) {
+		if (!selectedvalue) {
+			_html += '<option value="' + data[i].WorkerExtensionId + '" >' + data[i].Name + '</option>';
+		} else {
+			if (data[i].WorkerExtensionId == selectedvalue) {
+				_html += '<option value="' + data[i].WorkerExtensionId + '" selected>' + data[i].Name + '</option>';
+			} else {
+				_html += '<option value="' + data[i].WorkerExtensionId + '" >' + data[i].Name + '</option>';
+			}
+		}
+	}
+	this.Teacher.innerHTML += _html
+};
+
 P_type.ajaxGetClassList = function() {
 	var self = this
 	self.wating = plus.nativeUI.showWaiting();
@@ -120,10 +150,8 @@ P_type.ajaxGetClassList = function() {
 			self.wating.close();
 			if (data.Success == 10000) {
 				plus.storage.setItem('classlist', JSON.stringify(data.RerurnValue))
-				if (!self.dataclasslist) {
-					self.dataclasslist = data.RerurnValue
-					self.addClassList(data.RerurnValue)
-				}
+				self.dataclasslist = data.RerurnValue
+				self.addClassList(data.RerurnValue)
 			}
 		},
 		error: function() {
@@ -151,24 +179,20 @@ P_type.addClassList = function(data, selectedvalue) {
 	this.classlist.innerHTML += _html;
 };
 
-//设置检查的默认时间
-P_type.setCheckDate = function(checkdate) {
-	if (checkdate) {
-		this.checktime.value = checkdate
-		this.checktime.setAttribute('readonly', 'readonly')
-		return
-	}
-	var nowtime = new Date()
-	nowtime = nowtime.Format("yyyy-MM-ddThh:mm")
-	this.checktime.value = nowtime
-};
-
-P_type.addPreHomeInterviewData = function(data) {
+P_type.addPreKMNoonBreakCheckData = function(data) {
 	var self = this;
-	self.InterviewPersonCount.value = data.InterviewPersonCount;
-	self.InterviewTable.value = data.InterviewTable;
-	self.ParentOpinion.innerText = data.ParentOpinion;
-	self.Implementation.innerText = data.Implementation;
+	self.ChildNumber.value = data.ChildNumber;
+	self.NoSleepNumber.value = data.NoSleepNumber;
+	self.Sleeping.value = data.Sleeping;
+	self.Clothing.value = data.Clothing;
+	self.Quilt.value = data.Quilt;
+	self.Hairstyle.value = data.Hairstyle;
+	self.WettingBed.value = data.WettingBed;
+	self.Neat.value = data.Neat;
+	self.ChildIllness.value = data.ChildIllness;
+	self.Duty.value = data.Duty;
+	self.RoomTemperature.value = data.RoomTemperature;
+	self.Other.value = data.Other;
 }
 
 
@@ -184,39 +208,59 @@ P_type.geSendArrValue = function(editdata) {
 	var self = this;
 	var _nowtime = new Date();
 	_nowtime = _nowtime.Format("yyyy-MM-ddThh:mm");
-
 	var _RummagerName = self.teacherlist.options[self.teacherlist.selectedIndex].text,
 		_RummagerId = parseInt(self.teacherlist.value),
-		_CheckDate = self.checktime.value,
+		_Teacher = self.Teacher.options[self.Teacher.selectedIndex].text,
+		_TeacherId = parseInt(self.Teacher.value),
 		_ClassInfoID = parseInt(self.classlist.value),
-		_InterviewPersonCount = parseInt(self.InterviewPersonCount.value),
-		_InterviewTable = parseInt(self.InterviewTable.value),
-		_ParentOpinion = self.ParentOpinion.value,
-		_Implementation = self.Implementation.value,
-		_HomeInterviewCheckId = 0;
-		if(editdata){
-			_HomeInterviewCheckId =editdata.HomeInterviewCheckId;
-		}
+		_ClassName = self.classlist.options[self.classlist.selectedIndex].text,
+		_ChildNumber = parseInt(self.ChildNumber.value),
+		_NoSleepNumber = parseInt(self.NoSleepNumber.value),
+		_Sleeping = self.Sleeping.value,
+		_Clothing = self.Clothing.value,
+		_Quilt = self.Quilt.value,
+		_Hairstyle = self.Hairstyle.value,
+		_WettingBed = self.WettingBed.value,
+		_Neat = self.Neat.value,
+		_ChildIllness = self.ChildIllness.value,
+		_Duty = self.Duty.value,
+		_RoomTemperature = self.RoomTemperature.value,
+		_Other = self.Other.value,
+		_NoonBreakCheckId = 0,
+		_CheckDate = _nowtime;
+	if (editdata) {
+		_CheckDate = editdata.CreateDate
+		_NoonBreakCheckId = editdata.NoonBreakCheckId;
+	}
 	//理论上讲 创建时间与检查时间都应该是首次创建该项的时间修改时间保持当前时间状态 
-
-	return {
-		"HomeInterviewCheckId": _HomeInterviewCheckId,
-		"CheckDate": _CheckDate,
+return {
+		"NoonBreakCheckId": _NoonBreakCheckId,
 		"RummagerId": _RummagerId,
 		"RummagerName": _RummagerName,
 		"ClassInfoID": _ClassInfoID,
-		"InterviewPersonCount": _InterviewPersonCount,
-		"InterviewTable": _InterviewTable,
-		"ParentOpinion": _ParentOpinion,
-		"Implementation": _Implementation,
+		"ClassName": _ClassName,
+		"ChildNumber": _ChildNumber,
+		"NoSleepNumber": _NoSleepNumber,
+		"Sleeping": _Sleeping,
+		"Clothing": _Clothing,
+		"Quilt": _Quilt,
+		"Hairstyle": _Hairstyle,
+		"WettingBed": _WettingBed,
+		"Neat": _Neat,
+		"ChildIllness": _ChildIllness,
+		"TeacherId": _TeacherId,
+		"Teacher": _Teacher,
+		"Duty": _Duty,
+		"RoomTemperature": _RoomTemperature,
+		"Other": _Other,
 		"State": 1,
 		"OrganizationId": self.kgid,
 		"CreatorId": self.userId,
 		"Creator": self.userName,
 		"CreateDate": _CheckDate,
 		"ModifyId": self.userId,
-		"ModifyDate": _nowtime,
-		"Modifier": self.userName
+		"Modifier": self.userName,
+		"ModifyDate": _nowtime
 	}
 	//	return sendjsonstr
 }
@@ -248,7 +292,7 @@ P_type.ajaxSendCheckMES = function(editMES) {
 		_sendurl = self.createurl;
 		_sendData = self.geSendArrValue();
 	}
-	var _id = _sendData.HomeInterviewCheckId
+	var _id = _sendData.NoonBreakCheckId
 	_sendData = (JSON.stringify(_sendData))
 	console.log(_sendData)
 	self.wating = plus.nativeUI.showWaiting();
@@ -264,7 +308,7 @@ P_type.ajaxSendCheckMES = function(editMES) {
 			self.wating.close();
 			if (data.Success == 10000) {
 				mui.alert('提交成功！', '提示', function() {
-					plus.storage.setItem('key_5_4_id', (data.RerurnValue).toString());
+					plus.storage.setItem('key_3_3_id', (data.RerurnValue).toString());
 					mui.back();
 				});
 			}
@@ -283,8 +327,7 @@ P_type.initEdit = function() {
 //获取上一次的修改的信息
 P_type.ajaxGetEditMes = function() {
 	var self = this;
-	//	self.key_5_4_id = 1 //临时处理
-	if (!self.key_5_4_id) {
+	if (!self.key_3_3_id) {
 		mui.alert('请新建一项才能编辑', '提示', function() {
 			mui.back();
 		});
@@ -292,17 +335,18 @@ P_type.ajaxGetEditMes = function() {
 	}
 
 	self.wating = plus.nativeUI.showWaiting();
-	mui.ajax(self.editmesurl + self.key_5_4_id, {
+	mui.ajax(self.editmesurl + self.key_3_3_id, {
 		type: 'get',
 		dataType: 'json',
 		timeout: 5000,
 		success: function(data) {
 			self.wating.close();
 			if (data.Success == 10000) {
+				console.log(JSON.stringify(data.RerurnValue))
 				self.addTeacherList(self.datateacherlist, data.RerurnValue.RummagerId);
-				self.setCheckDate(data.RerurnValue.CheckDate)
+				self.addTeacher(self.datateacherlist, data.RerurnValue.TeacherId);
 				self.addClassList(self.dataclasslist, data.RerurnValue.ClassInfoID)
-				self.addPreHomeInterviewData(data.RerurnValue);
+				self.addPreKMNoonBreakCheckData(data.RerurnValue);
 				self.editMes = data.RerurnValue;
 			}
 		},

@@ -81,7 +81,7 @@ html{font-size:10px}
 .list_box ul li{ width: 84%; margin:0rem auto 1rem; background: #FFFFFF; padding: 0.5rem 3%;}
 .list_box ul li button{ font-size: 0.7rem; margin-right: 0.7rem;  color: #999999;}
 
-.table_box{  width: 90%; margin:30px auto;  border-top: #CCCCCC solid 1px;}
+.table_box{  width: 90%; margin:30px auto;  }
 .tablestyle1{  margin: auto;}
 .tablestyle1 tr td{ border: #CCCCCC solid 1px;  padding: 5px 0px; border-top: none;}
 .tablestyle1 thead td{ text-align: center; background: #f6f6f6; padding: 20px 0px;}
@@ -119,3 +119,19 @@ html{font-size:10px}
 .tablestyle2 tr td input{ text-align: center; margin-bottom: 0px; border: none;}
 .tablestyle2 tr td select,.tablestyle2 tr td  input{ margin: 0 auto; text-align: left;}
 .tablestyle2 tr td  textarea{ border: none; margin: auto;}
+
+
+
+.listtable{ width:100% ; }
+.listtable th{ background:#EEEEEE; padding: 0.5rem; font-weight: normal; border-right: #CCCCCC  solid 1px;  font-size: 0.9rem;}
+.listtable tr td{ font-size: 0.8rem;}
+.contenttable { }
+.contenttable tr th{ border-bottom: #CCCCCC solid 1px!important; background: #EEEEEE; font-weight: normal;}
+.contenttable tr td:nth-child(even){background: #FFFFFF;}
+
+
+
+
+
+
+

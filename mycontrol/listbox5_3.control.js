@@ -3,18 +3,18 @@ mui.init();
 mui.plusReady(function() {
 	var slefwebiew = plus.webview.currentWebview();
 	var action = slefwebiew.action;
-	var hinterview = new homeInterview();
+	var systempage = new systemPage();
 	if (action == 'new') {
-		hinterview.initNew();
-		hinterview.sendBtnTap();
+		systempage.initNew();
+		systempage.sendBtnTap();
 	} else if (action == 'edit') {
-		hinterview.initEdit();
-		hinterview.sendBtnTap('edit');
+		systempage.initEdit();
+		systempage.sendBtnTap('edit');
 	}
 });
 
 //厨房检查
-function homeInterview() {
+function systemPage() {
 	this.teachersurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetWorkerExtension&'; //KgId=33&modifyTime=2015-01-01
 	//	this.checklisturl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetKitchenCheckItem&'; //KgId=33&KitchenCheckType=KitchenCheckType
 	this.createurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=AddKMTeleInterviewCheck'; //&jsonStr=''  
@@ -36,7 +36,7 @@ function homeInterview() {
 	this.checktable = document.getElementById('check_Table');
 	this.senbtn = document.getElementById('sendbtn');
 	this.addbtn = document.getElementById('add_one');
-	this.checkbox = document.getElementById('homeInterviewtab')
+	this.checkbox = document.getElementById('systemPagetab')
 	this.wating = '';
 
 	//非公共性的dome id
@@ -47,7 +47,7 @@ function homeInterview() {
 	this.Remark = document.getElementById('Remark');
 
 }
-var P_type = homeInterview.prototype;
+var P_type = systemPage.prototype;
 P_type.initNew = function() {
 	this.ajaxGetTeacherList();
 	this.addTeacherList(this.datateacherlist)

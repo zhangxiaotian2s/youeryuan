@@ -18,7 +18,7 @@
 
 	<body class="bk_white">
 		<header class="mui-bar mui-bar-nav yw_header">
-			<h1 class="mui-title">教学反馈内容检查记录</h1>
+			<h1 class="mui-title">午睡情况检查记录</h1>
 			<button type="button" class="mui-btn mui-btn-warning mui-pull-right" id="sendbtn">保存/确定 </button>
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 		</header>
@@ -36,14 +36,6 @@
 							<span class="mui-icon mui-icon-arrowdown"></span>
 						</div>
 					</li>
-					<li>
-						<div>
-							检查日期：
-						</div>
-						<div class="select_box_style1">
-							<input type="datetime-local" name=""   id="checktime"   value="" />
-						</div>
-					</li>
 				</ul>
 			</div>
 			<div class="blank1"></div>
@@ -58,27 +50,61 @@
 						</td>
 					</tr>
 					<tr>
-						<td>反馈内容是否全面、科学：</td>
-						<td><input type="text" value="sf" id="IsAllRound" placeholder="反馈内容是否全面、科学" ></td>
+						<td>幼儿人数：</td>
+						<td><input type="number" value="" id="ChildNumber" placeholder="幼儿人数" ></td>
 					</tr>
 					<tr>
 						<tr>
-						<td>是否有家园互动内容：</td>
-						<td><input type="text" value="23" id="IsInteractiveContent"  placeholder="是否有家园互动内容"></td>
+						<td>未入睡人数：</td>
+						<td><input type="number" value="" id="NoSleepNumber"  placeholder="未入睡人数"></td>
 					</tr>
 					<tr>
-						<td>家无错别字、语句通顺：</td>
-						<td><input type="text" value="323"  id="Sentence"   placeholder="家无错别字、语句通顺" ></td>
+						<td>睡姿：</td>
+						<td><input type="text" value=""  id="Sleeping" placeholder="睡姿" ></td>
 					</tr>
 					<tr>
-						<td>家长对教学内容是否有反馈：</td>
-						<td><input type="text" value="vfwef"  id="ParentFeedback" placeholder="家长对教学内容是否有反馈" ></td>
+						<td>穿着：</td>
+						<td><input type="text" value=""  id="Clothing" placeholder="穿着" ></td>
 					</tr>
 					<tr>
-						<td>备注：</td>
+						<td>盖被：</td>
+						<td><input type="text" value=""  id="Quilt" placeholder="盖被" ></td>
+					</tr>
+					<tr>
+						<td>松辫：</td>
+						<td><input type="text" value=""  id="Hairstyle" placeholder="松辫" ></td>
+					</tr>
+					<tr>
+						<td>尿床：</td>
+						<td><input type="text" value=""  id="WettingBed" placeholder="尿床" ></td>
+					</tr>
+					<tr>
+						<td>内务：</td>
+						<td><input type="text" value=""  id="Neat" placeholder="内务" ></td>
+					</tr>
+					<tr>
+						<td>幼儿病情：</td>
+						<td><input type="text" value=""  id="ChildIllness" placeholder="幼儿病情" ></td>
+					</tr>
+					<tr>
+						<td>当班人：</td>
 						<td>
-							<textarea rows="6"   value=""   id="Remark"   placeholder="备注"  >23</textarea>
+							<select id="Teacher">
+							
+							</select>
 						</td>
+					</tr>
+					<tr>
+						<td>职责：</td>
+						<td><input type="text" value=""  id="Duty" placeholder="职责" ></td>
+					</tr>
+					<tr>
+						<td>室温：</td>
+						<td><input type="text" value=""  id="RoomTemperature" placeholder="职责" ></td>
+					</tr>
+					<tr>
+						<td>其他：</td>
+						<td><input type="text" value=""  id="Other" placeholder="职责" ></td>
 					</tr>
 					
                   </table>				
@@ -86,7 +112,7 @@
 		</div>
 	</body>
 	<script type="text/javascript" src="../js/mui.min.js"></script>
-	<script type="text/javascript" src="../mycontrol/listbox2_2.control.js"></script>
+	<script type="text/javascript" src="../mycontrol/listbox3_3.control.js"></script>
     <script>
     	
     </script>
