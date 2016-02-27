@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/style.css" />
+	</head>
+	<style>
+		.mui-table-view-cell {
+			padding: 0;
+		}
+	</style>
+
+	<body class="bk_white">
+		<header class="mui-bar mui-bar-nav yw_header">
+			<h1 class="mui-title">幼儿信息</h1>
+			<!--<button type="button" class="mui-btn mui-btn-warning mui-pull-right" id="sendbtn">保存/确定 </button>-->
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		</header>
+		<div class="mui-content bk_white">
+			<div class="table_box">
+				<table class="tablestyle2 contenttable" width="100%">
+						<tbody>
+							<tr>
+								<th>
+									姓名：
+								</th>
+								<td>
+									<span id="ChildName"></span>
+								</td>
+								<th>
+									性别：
+								</th>
+								<td>
+									<span id="SexName"></span>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									生日：
+								</th>
+								<td colspan="3">
+									<span id="Birthday"></span>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									入园时间：
+								</th>
+								<td>
+									<span id="Entrance"></span>
+
+								</td>
+								<th>
+									现住址：
+								</th>
+								<td>
+									<span id="Presentaddress"></span>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									学号：
+								</th>
+								<td>
+									<span id="WorkCardNo"></span>
+								</td>
+								<th>
+									招生渠道：
+								</th>
+								<td>
+									<span id="Channel"></span>
+								</td>
+							</tr>
+							<tr>
+								<th>
+									家庭背景：
+								</th>
+								<td>
+									<span id="FamilyBackground"></span>
+								</td>
+								<th>
+									收费标准：
+								</th>
+								<td>
+									<span id="Standard"></span>
+								</td>
+							</tr>
+							
+						</tbody>
+					</table>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../mycontrol/listbox5_4_content.control.js"></script>
+
+</html>

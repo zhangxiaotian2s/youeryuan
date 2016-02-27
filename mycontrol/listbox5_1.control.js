@@ -26,7 +26,7 @@ function systemPage() {
 	this.userName = this.userMes.Name;
 	this.userId = this.userMes.UserId;
 	this.DataDictionaryType = "KitchenCheckType";
-	this.key_5_2_id = parseInt(plus.storage.getItem('key_5_2_id')) || 0;
+	this.key_5_1_id = parseInt(plus.storage.getItem('key_5_1_id')) || 0;
 	this.teacherlist = document.getElementById('teacherslist');
 	this.classlist = document.getElementById('selectclass');
 	this.checktime = document.getElementById('checktime')
@@ -246,6 +246,11 @@ P_type.ajaxSendCheckMES = function(editMES) {
 		mui.alert("请选择检查人", "提示");
 		return;
 	}
+	if(!self.UpNumber.value||!self.NeatlyLettered.value||!self.Personality.value||!self.Feedback.value||!self.Score.value){
+		mui.alert("红  *  项不能为空", "提示");
+		return;
+	}
+	
 	var _sendData, _sendurl;
 	if (editMES) {
 		_sendurl = self.updateurl;
@@ -270,7 +275,7 @@ P_type.ajaxSendCheckMES = function(editMES) {
 			self.wating.close();
 			if (data.Success == 10000) {
 				mui.alert('提交成功！', '提示', function() {
-					plus.storage.setItem('key_5_2_id', (data.RerurnValue).toString());
+					plus.storage.setItem('key_5_1_id', (data.RerurnValue).toString());
 					mui.back();
 				});
 			}
@@ -289,7 +294,7 @@ P_type.initEdit = function() {
 //获取上一次的修改的信息
 P_type.ajaxGetEditMes = function() {
 	var self = this;
-	if (!self.key_5_2_id) {
+	if (!self.key_5_1_id) {
 		mui.alert('请新建一项才能编辑', '提示', function() {
 			mui.back();
 		});
@@ -297,7 +302,7 @@ P_type.ajaxGetEditMes = function() {
 	}
 
 	self.wating = plus.nativeUI.showWaiting();
-	mui.ajax(self.editmesurl + self.key_5_2_id, {
+	mui.ajax(self.editmesurl + self.key_5_1_id, {
 		type: 'get',
 		dataType: 'json',
 		timeout: 5000,

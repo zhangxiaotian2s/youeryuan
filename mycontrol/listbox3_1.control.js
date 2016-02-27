@@ -246,7 +246,6 @@ kitchenCheck.prototype.ajaxSendCheckMES = function(editMES) {
 		timeout: 5000,
 		success: function(data) {
 			self.wating.close();
-			alert(data.Success)
 			if (data.Success == 10000) {
 				var num = (data.RerurnValue).toString();
 				plus.storage.setItem('key_3_1_id', (data.RerurnValue).toString());

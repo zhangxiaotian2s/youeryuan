@@ -180,8 +180,8 @@ P_type.geSendArrValue = function(editdata) {
 		_CheckDate = self.checktime.value,
 		_ClassInfoID = parseInt(self.classlist.value),
 		_ClassName = self.classlist.options[self.classlist.selectedIndex].text,
-		_IsAllRound = parseInt(self.IsAllRound.value),
-		_IsInteractiveContent = parseInt(self.IsInteractiveContent.value),
+		_IsAllRound = self.IsAllRound.value,
+		_IsInteractiveContent = self.IsInteractiveContent.value,
 		_Sentence = self.Sentence.value,
 		_ParentFeedback = self.ParentFeedback.value,
      	_Remark = self.Remark.value,
@@ -232,6 +232,10 @@ P_type.ajaxSendCheckMES = function(editMES) {
 	var examinatorId = self.teacherlist.value;
 	if (!examinatorId) {
 		mui.alert("请选择检查人", "提示");
+		return;
+	}
+	if(!self.IsAllRound.value||!self.IsInteractiveContent.value||!self.Sentence.value||!self.ParentFeedback.value){
+		mui.alert("红  *  项不能为空", "提示");
 		return;
 	}
 	var _sendData, _sendurl;

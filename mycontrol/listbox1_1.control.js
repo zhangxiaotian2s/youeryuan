@@ -46,8 +46,8 @@ var _btns	=document.querySelectorAll('.btns')
 		_btns[i].addEventListener('tap',function(){
 			var _workid=this.getAttribute('id')
 			mui.openWindow({
-					url: "../pages/listbox1_3_content.html",
-					id: "../pages/listbox1_3_content.html",
+					url: "../pages/listbox1_1_content.html",
+					id: "../pages/listbox1_1_content.html",
 					styles: {
 						top: '0px',
 						bounce: 'none'

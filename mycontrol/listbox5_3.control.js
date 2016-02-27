@@ -240,6 +240,10 @@ P_type.ajaxSendCheckMES = function(editMES) {
 		mui.alert("请选择检查人", "提示");
 		return;
 	}
+		if(!self.InterviewPersonCount.value||!self.InterviewTable.value){
+		mui.alert("红  *  项不能为空", "提示");
+		return;
+	}
 	var _sendData, _sendurl;
 	if (editMES) {
 		_sendurl = self.updateurl;

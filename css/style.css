@@ -50,7 +50,7 @@ html{font-size:10px}
 .col-xs-offset-0 {margin-left: 0;}
 .mui-bar .mui-title{ font-size: 1.2rem; color: #FFFFFF;}
 .mui-bar-nav.mui-bar .mui-icon{ margin-top: 10px; color: #FFFFFF;}
-
+.redspan{ color: #FF0000;}
 .mui-bar-nav~.mui-content { padding-top: 60px}
 .body_bk{background:url(../images/bk.jpg);}
 
@@ -84,8 +84,8 @@ background-size: contain;
 .list_box ul li button{ font-size: 0.7rem; color: #999999;}
  .list_box ul li  .btns{ width: 49%; display: block; float: left; padding:0px; height: 1.6rem; line-height: 1.6rem; text-align: center;border-radius: 0px;  margin: 0px 0.5%;background: #333333; color: #FFFFFF;border: none;}
 .table_box{  width: 90%; margin:30px auto;  }
-.tablestyle1{  margin: auto;}
-.tablestyle1 tr td{ border: #CCCCCC solid 1px;  padding: 5px 0px; border-top: none;}
+.tablestyle1{  margin: auto; }
+.tablestyle1 tr td{ border: #CCCCCC solid 1px;  padding: 5px 0px; }
 .tablestyle1 thead td{ text-align: center; background: #f6f6f6; padding: 20px 0px;}
 .tablestyle1 tr td input{ text-align: center; margin-bottom: 0px; border: none;}
 .table_box .add_one{ display: block; width: 10rem; text-align: center; height: 2.6rem; margin:3rem auto; }
