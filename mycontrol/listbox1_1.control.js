@@ -35,7 +35,7 @@ P_type.addWorkList=function(data){
 	var _html=""
 	for(var i=0;i<data.length;i++){
 		var a=i+1
-		_html+='<tr><td>'+a+'</td><td>'+data[i].Title+'</td><td>'+data[i].Title+'</td><td>'+data[i].Title+'</td><td>'+data[i].Title+'</td><td>'+data[i].Title+'</td><td>'+data[i].ConstitutorName+'</td><td>'+new Date(data[i].LogDate).Format('yyyy-MM-dd')+'</td><td><button class="mui-btn btns" id="'+data[i].WorkingPlanId+'"  style="width:100%">查看</button></td></tr>'
+		_html+='<tr><td>'+a+'</td><td>'+data[i].Title+'</td><td>'+data[i].DepartmentName+'</td><td>'+data[i].PlanCategoryName+'</td><td>'+data[i].PlanTypeName+'</td><td>'+data[i].TargetTypeName+'</td><td>'+data[i].ConstitutorName+'</td><td>'+new Date(data[i].LogDate).Format('yyyy-MM-dd')+'</td><td><button class="mui-btn btns" id="'+data[i].WorkingPlanId+'"  style="width:100%">查看</button></td></tr>'
 	}
 	self.listtable.innerHTML+=_html
 	self.checkWorkContent()

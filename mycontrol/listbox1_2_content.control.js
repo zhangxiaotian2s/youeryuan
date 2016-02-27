@@ -35,6 +35,14 @@ P_type.ajaxGetWorkList = function(id) {
 				document.getElementById('ConstitutorName').innerText = data.RerurnValue.ConstitutorName;
 				document.getElementById('LogDate').innerText = new Date(data.RerurnValue.LogDate).Format('yyyy年MM月dd日 hh:mm');
 				document.getElementById('AuditorName').innerText = data.RerurnValue.AuditorName;
+
+				document.getElementById('DepartmentName').innerText = data.RerurnValue.DepartmentName;
+				document.getElementById('SummaryTypeName').innerText = data.RerurnValue.SummaryTypeName;
+				document.getElementById('SummaryCategoryName').innerText = data.RerurnValue.SummaryCategoryName;
+				document.getElementById('TargetTypeName').innerText = data.RerurnValue.TargetTypeName;
+				document.getElementById('TargetName').innerText = data.RerurnValue.TargetName;
+				document.getElementById('StateName').innerText = data.RerurnValue.StateName;
+
 			}
 		}
 	})

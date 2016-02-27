@@ -18,105 +18,89 @@
 
 	<body class="bk_white">
 		<header class="mui-bar mui-bar-nav yw_header">
-			<h1 class="mui-title">全托班交接</h1>
+			<h1 class="mui-title">全托管理</h1>
 			<button type="button" class="mui-btn mui-btn-warning mui-pull-right" id="sendbtn">保存/确定 </button>
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 		</header>
 		<div class="mui-content bk_white">
+			<div class="select_nav">
+				<ul>
+					<li>
+						<div>
+							检查日期：
+						</div>
+						<div class="select_box_style1">
+							<input type="datetime-local" name=""   id="checktime"   value="" />
+						</div>
+					</li>
+				</ul>
+			</div>
 			<div class="blank1"></div>
 			<div class="table_box2">
 				<table width="100%" class="tablestyle2" id="homeInterviewtab">
 					<tr>
-						<td width="30%">班级</td>
+						<td width="30%">*第一次查班时间:</td>
 						<td width="70%">
-							<select id="selectclass">
-
-							</select>
+							<input type="datetime-local" name=""   id="FirstCheckTime"   value="" />
 						</td>
 					</tr>
 					<tr>
-						<td>日期：</td>
+						<td>第一次查班记录：</td>
+						<td><input type="text" value="" id="FirstCheckRecord" placeholder="第一次查班记录" ></td>
+					</tr>
+					<tr>
+						<tr>
+						<td>*第二次查班时间：</td>
 						<td>
-							<input type="datetime-local"  name=""  id="RecordDate"  value="" />
+							<input type="datetime-local" name=""   id="SecondCheckTime"   value="" />
 						</td>
 					</tr>
 					<tr>
-						<tr>
-							<td>*应到人数：</td>
-							<td>
-								<input type="number" value="" id="ToBeNumber" placeholder="应到人数（数字）">
-							</td>
-						</tr>
-						<tr>
-							<td>*实到人数：</td>
-							<td>
-								<input type="number" value="" id="ToNumber" placeholder="实到人数（数字）">
-							</td>
-						</tr>
-						<tr>
-							<td>人员名单：</td>
-							<td>
-								<textarea rows="3" value="" id="PersonnelList" placeholder="人员名单"></textarea>
-							</td>
-						</tr>
-						<tr>
-							<td>物品名称：</td>
-							<td>
-								<textarea rows="3" value="" id="GoodsName" placeholder="物品名称"></textarea>
-							</td>
-						</tr>
-						<tr>
-							<td>幼儿的身体情况：</td>
-							<td>
-								<textarea rows="3" value="" id="ChildSituation" placeholder="幼儿的身体情况"></textarea>
-							</td>
-						</tr>
-						<tr>
-							<td>白托班老师：</td>
-							<td>
-								<select id="DayTeacher">
-
-								</select>
-
-							</td>
-						</tr>
-						<tr>
-							<td>全托班老师：</td>
-							<td>
-								<select id="AllTeacher">
-
-								</select>
-
-							</td>
-						</tr>
+						<td>第二次查班记录：	：</td>
+						<td><input type="text" value=""  id="SecondCheckRecord"   placeholder="第二次查班记录" ></td>
+					</tr>
 					<tr>
-						<td>晚睡情况：</td>
+						<td>*第三次查班时间：</td>
+						<td><input type="datetime-local" name=""   id="ThirdCheckTime"   value="" /></td>
+					</tr>
+					<tr>
+						<td>第三次查班记录：	：</td>
+						<td><input type="text" value=""  id="ThirdCheckRecord"   placeholder="第三次查班记录" ></td>
+					</tr>
+					<tr>
+						<td>*第四次查班时间：</td>
+						<td><input type="datetime-local" name=""   id="FourthCheckTime"   value="" /></td>
+					</tr>
+					<tr>
+						<td>第四次查班记录：	：</td>
+						<td><input type="text" value=""  id="FourthCheckRecord"   placeholder="第四次查班记录" ></td>
+					</tr>
+					<tr>
+						<td>安全隐患排查和卫生检查情况：</td>
 						<td>
-							<textarea rows="3" value="" id="SleepSituation" placeholder="晚睡情况"></textarea>
+							<textarea rows="6"   value=""   id="Situation"   placeholder="安全隐患排查和卫生检查情况"  ></textarea>
 						</td>
 					</tr>
-					<tr>
-						<td>晚班老师：</td>
+						<tr>
+						<td>异常情况处理：：</td>
 						<td>
-							<select id="NightTeacher">
-							</select>
-
+							<textarea rows="6"   value=""   id="Manage"   placeholder="异常情况处理："  ></textarea>
 						</td>
 					</tr>
-					<tr>
-						<td>*交接时间：</td>
+						<tr>
+						<td>备注：</td>
 						<td>
-							<input type="datetime-local" name="" id="HandoverTime" value="" />
+							<textarea rows="6"   value=""   id="Remark"   placeholder="备注"  ></textarea>
 						</td>
 					</tr>
-
-				</table>
+					
+                  </table>				
 			</div>
 		</div>
 	</body>
 	<script type="text/javascript" src="../js/mui.min.js"></script>
 	<script type="text/javascript" src="../mycontrol/listbox2_4.control.js"></script>
-	<script>
-	</script>
-
+    <script>
+    	
+    </script>
 </html>

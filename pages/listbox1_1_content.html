@@ -18,15 +18,15 @@
 
 	<body class="bk_white">
 		<header class="mui-bar mui-bar-nav yw_header">
-			<h1 class="mui-title">工作总结内容</h1>
+			<h1 class="mui-title">工作计划列表</h1>
 			<!--<button type="button" class="mui-btn mui-btn-warning mui-pull-right" id="sendbtn">保存/确定 </button>-->
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 		</header>
 		<div class="mui-content bk_white">
 			<div class="table_box">
-			<table class="tablestyle2 contenttable" width="100%">
+				<table class="tablestyle2 contenttable" width="100%">
 					<tr>
-						<th>
+						<th width="20%">
 							标题：
 						</th>
 						<td colspan="3">
@@ -35,47 +35,92 @@
 					</tr>
 					<tr>
 						<th>
-							总结部门：
+							计划部门：
 						</th>
 						<td>
-							<span id=""></span>
+							<span id="DepartmentName"></span>
 						</td>
 						<th>
-							总结类型：
+							计划类型：
 						</th>
 						<td>
-							<span id=""></span>
+							<span id="PlanTypeName"></span>
 						</td>
 					</tr>
 					<tr>
 						<th>
-							总结类别：
+							计划类别：
 						</th>
 						<td>
-							<span id=""></span>
+							<span id="PlanCategoryName"></span>
 						</td>
 						<th>
 							关联类型：
 						</th>
 						<td>
-							<span id=""></span>
+							<span id="TargetTypeName"></span>
 						</td>
 					</tr>
 					<tr>
 						<th>
-							审批人：
+							计划开始时间：
 						</th>
 						<td>
-							<span id="AuditorName"></span>
+							<span id="StartTime"></span>
 						</td>
 						<th>
-							附件：
+							计划结束时间：
 						</th>
 						<td>
-							<span id=""></span>
+							<span id="EndTime"></span>
 						</td>
 					</tr>
-
+					<tr>
+						<!--<th>
+                            计划完成情况：
+                        </th>
+                        <td>
+                             <span id="Execution"></span>
+                        </td>-->
+						<th>
+							审批人：
+						</th>
+						<td colspan="3">
+							<span id="AuditorName"></span>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							完成较好的工作：
+						</th>
+						<td colspan="3">
+							<span id="BetterJob"></span>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							未完成的工作及原因说明：
+						</th>
+						<td colspan="3">
+							<span id="Explain"></span>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							直接上级部门补充反馈：
+						</th>
+						<td colspan="3">
+							<span id="FeedBack"></span>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							状态：
+						</th>
+						<td colspan="3">
+							<span id="StateName"></span>
+						</td>
+					</tr>
 					<tr>
 						<th>
 							制定人：
@@ -84,7 +129,7 @@
 							<span id="ConstitutorName"></span>
 						</td>
 						<th>
-							拟制日期：
+							制定日期：
 						</th>
 						<td>
 							<span id="LogDate"></span>
@@ -131,6 +176,6 @@
 		</div>
 	</body>
 	<script type="text/javascript" src="../js/mui.min.js"></script>
-	<script type="text/javascript" src="../mycontrol/listbox1_4_content.control.js"></script>
+	<script type="text/javascript" src="../mycontrol/listbox1_1_content.control.js"></script>
 
 </html>

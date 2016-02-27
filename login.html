@@ -11,13 +11,11 @@
 		<link rel="stylesheet" href="css/style.css" />
 	</head>
 
-	<body class="body_bk">
-		<div class="wrap">
-			<nav class="nav_login"> <img src="images/nav_login.jpg" class="img-responsive"></nav>
+	<body class="loginbody_bk" >
+		<div class="wrap " id="login_wrap">
 			<div class="login_box">
 				<div class="col-xs-6 col-xs-offset-3">
-					<h1>账号登陆</h1>
-					<div class="mui-input-row ">
+					<div class="mui-input-row  my-mui-input-row">
 						<label><span class="mui-icon mui-icon-person"></span></label>
 						<input type="text" class="mui-input-clear" placeholder="用户名" id="username" value="htyey">
 					</div>
@@ -27,7 +25,7 @@
 						<input type="password" class="mui-input-clear" placeholder="密码" id="password" value="hangtian">
 					</div>
 					<div class="blank1"></div>
-					<button type="button" class="mui-btn mui-btn-warning btn-login" id="login_btn">立即登陆</button>
+					<button type="button" class="mui-btn  btn-login" id="login_btn">立即登陆</button>
 				</div>
 
 			</div>
@@ -37,6 +35,8 @@
 		<script type="text/javascript" src="../base/base.js"></script>
 		<script src="js/mui.min.js"></script>
 		<script>
+		document.querySelector('#login_wrap').style.height=window.screen.width-20+'px'
+		
 			var menu = null,
 				main = null;
 			var showMenu = false;
@@ -90,6 +90,10 @@
 					}
 				})
 			}
+			
+			
+			
+			
 		</script>
 	</body>
 
