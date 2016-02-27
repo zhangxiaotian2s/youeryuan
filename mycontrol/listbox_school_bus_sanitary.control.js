@@ -3,9 +3,12 @@ mui.init();
 mui.plusReady(function() {
 	var _view = plus.webview.currentWebview();
 	var form = new SecurityCheckForm();
+	console.log('xxxxxxxxxxxxxxxxxx');
+	
 	if(_view.action == 'edit'){
 		form.initForUpdate();
 	}else{
+		
 		form.initForCreate();
 	}
 });
@@ -30,7 +33,7 @@ SecurityCheckForm.prototype.initForCreate = function() {
 
 SecurityCheckForm.prototype.initForUpdate = function() {
 	this.loadWorkers();
-	this.loadLastSubmittedDate();
+
 	
 	var _this = this;
 	document.getElementById('submitBtn').addEventListener('tap', function() {
@@ -58,6 +61,9 @@ SecurityCheckForm.prototype.loadWorkers = function() {
 			_waiting.close()
 			if (data.Success == 10000) {
 				_this.renderWorkers(data.RerurnValue)
+				_this.loadCars();
+	
+
 			}
 		},
 		error: function() {
@@ -78,7 +84,8 @@ SecurityCheckForm.prototype.loadCars = function() {
 		success: function(data) {
 			_waiting.close()
 			if (data.Success == 10000) {
-				_this.renderCars(data.RerurnValue)
+				_this.renderCars(data.RerurnValue);
+				_this.loadLastSubmittedDate();
 			}
 		},
 		error: function() {
@@ -91,10 +98,9 @@ SecurityCheckForm.prototype.loadCars = function() {
 SecurityCheckForm.prototype.loadLastSubmittedDate = function() {
 	var _this = this;
 	_waiting = plus.nativeUI.showWaiting();
-	_id = parseInt(plus.storage.getItem('key_4_1_id'), 10);
-	console.log('_id:' +  plus.storage.getItem('key_4_1_id'));
-	_id = 1;
-	_url = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetKMHiddenDangerById&id=' + _id
+	_id = parseInt(plus.storage.getItem('key_school_bus_sanitary_check_id'), 10);
+	console.log('_id:' +  plus.storage.getItem('key_school_bus_sanitary_check_id'));
+	_url = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetKMSchoolBusSafeHealthCheckById&id=' + _id
 	mui.ajax(_url, {
 		dataType: 'json',
 		type: 'get',
@@ -137,13 +143,15 @@ SecurityCheckForm.prototype.renderCars = function(cars) {
 SecurityCheckForm.prototype.renderForm = function(form) {
 	
 	this.setCheckOn(new Date(form.CheckDate));
-	this.setFinishedOn(new Date(form.FinishTime));
-	console.log(form.ExaminatorIdId);
-	document.getElementById('checkMan').value = form.ExaminatorIdId;
-	document.getElementById('responsible').value = form.PersonLiableId;
-	document.getElementById('securityRisk').value = form.HiddenDangerRegister;
-	document.getElementById('measure').value = form.Measures;
-	document.getElementById('schedule').value = form.Situation;
+	this.setActionOn(new Date(form.OperateDate));
+	
+	document.getElementById("licensePlateNumber").value = form.BusId;
+	document.getElementById("responsible").value = form.DutymanId;
+	document.getElementById("status").value = form.CarStatus;
+	document.getElementById("cleanliness").value = form.CarStatus;
+	document.getElementById("mode").value = form.DisinfectMethod
+	document.getElementById("operator").value = form.Disinfecter;
+	document.getElementById("checkMan").value = form.CheckPersonId;
 	
 };
 
@@ -170,7 +178,7 @@ SecurityCheckForm.prototype.create = function() {
 			if (data.Success == 10000) {
 				mui.alert('提交成功！', '提示', function() {
 					console.log(data.RerurnValue.toString());
-					plus.storage.setItem('key_4_3_id', data.RerurnValue.toString());
+					plus.storage.setItem('key_school_bus_sanitary_check_id', data.RerurnValue.toString());
 					mui.back();
 				});
 			}
@@ -179,12 +187,12 @@ SecurityCheckForm.prototype.create = function() {
 			_wating.close();
 			mui.alert('提交失败！', '提示');
 		}
-	});
+	});		
 };
 
 SecurityCheckForm.prototype.update = function() {
 	
-	if (!this.checkWorkers()){
+	if (!this.checkForm()){
 		return;
 	}
 	
@@ -192,11 +200,11 @@ SecurityCheckForm.prototype.update = function() {
 
 	_wating = plus.nativeUI.showWaiting();
 	_json = this.updateJson();
-	_id = this.lastForm.HiddenDangerId;
+	_id = this.lastForm.CheckId;
 	console.log(_json);
 	console.log(_id);
 	
-	mui.ajax('http://115.28.141.223:89/WebServices/KMService.ashx?Option=UpdateKMHiddenDanger', {
+	mui.ajax('http://115.28.141.223:89/WebServices/KMService.ashx?Option=UpdateKMSchoolBusSafeHealthCheck', {
 		type: 'post',
 		dataType: 'json',
 		data: {
@@ -284,13 +292,22 @@ SecurityCheckForm.prototype.createJson = function() {
 
 SecurityCheckForm.prototype.updateJson = function() {
 	console.log(this.lastForm);
-	this.lastForm.CheckDate = document.getElementById("checkOn").value + "T00:00:00";
-	this.lastForm.HiddenDangerRegister = document.getElementById("securityRisk").value;
-	this.lastForm.Measures = document.getElementById("measure").value;
-	this.lastForm.ExaminatorIdId = document.getElementById("checkMan").value;
-	this.lastForm.PersonLiableId = document.getElementById("responsible").value;
-	this.lastForm.FinishTime = document.getElementById("finishedOn").value + "T00:00:00";
-	this.lastForm.Situation = document.getElementById("schedule").value;
-	this.lastForm.ModifyDate = new Date().Format("yyyy-MM-ddThh:mm:ss");
+	this.lastForm.BusId = document.getElementById("licensePlateNumber").value;
+	this.lastForm.PlateNumber = this.getSelectedText("licensePlateNumber");
+	
+    this.lastForm.DutymanId = document.getElementById('responsible').value;
+    this.lastForm.Dutyman = this.getSelectedText('responsible');
+    this.lastForm.OperateDate = document.getElementById('actionOn').value + "T00:00:00";
+    this.lastForm.CarStatus = document.getElementById('status').value;
+    this.lastForm.CarInoroutHealth = document.getElementById('cleanliness').value;
+    this.lastForm.DisinfectMethod = document.getElementById('mode').value;
+    this.lastForm.Disinfecter = document.getElementById('operator').value;
+    this.lastForm.CheckPersonId = document.getElementById('checkMan').value;
+    this.lastForm.Checker = this.getSelectedText('checkMan');
+    this.lastForm.CheckDate = document.getElementById('checkOn').value + "T00:00:00";
+    this.lastForm.ModifyId = this.user.UserId;
+	this.lastForm.Modifier = this.user.Name;
+	this.lastForm.ModifyDate = new Date().Format("yyyy-MM-ddThh:mm:ss");		
+	
 	return JSON.stringify(this.lastForm);
 };
