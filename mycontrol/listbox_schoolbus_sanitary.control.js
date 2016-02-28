@@ -3,12 +3,10 @@ mui.init();
 mui.plusReady(function() {
 	var _view = plus.webview.currentWebview();
 	var form = new SecurityCheckForm();
-	console.log('xxxxxxxxxxxxxxxxxx');
 	
 	if(_view.action == 'edit'){
 		form.initForUpdate();
 	}else{
-		
 		form.initForCreate();
 	}
 });
@@ -19,7 +17,6 @@ function SecurityCheckForm() {
 
 SecurityCheckForm.prototype.initForCreate = function() {
 	this.loadWorkers();
-	this.loadCars();
 	
 	this.setCheckOn(new Date());
 	this.setActionOn(new Date());
@@ -62,8 +59,6 @@ SecurityCheckForm.prototype.loadWorkers = function() {
 			if (data.Success == 10000) {
 				_this.renderWorkers(data.RerurnValue)
 				_this.loadCars();
-	
-
 			}
 		},
 		error: function() {
@@ -96,27 +91,33 @@ SecurityCheckForm.prototype.loadCars = function() {
 };
 
 SecurityCheckForm.prototype.loadLastSubmittedDate = function() {
-	var _this = this;
-	_waiting = plus.nativeUI.showWaiting();
-	_id = parseInt(plus.storage.getItem('key_school_bus_sanitary_check_id'), 10);
-	console.log('_id:' +  plus.storage.getItem('key_school_bus_sanitary_check_id'));
-	_url = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetKMSchoolBusSafeHealthCheckById&id=' + _id
-	mui.ajax(_url, {
-		dataType: 'json',
-		type: 'get',
-		timeout: 5000,
-		success: function(data) {
-			_waiting.close()
-			if (data.Success == 10000) {
-				_this.lastForm = data.RerurnValue;
-				_this.renderForm(data.RerurnValue)
+	var _view = plus.webview.currentWebview();
+	console.log(_view.action);
+	
+	if(_view.action == 'edit'){
+
+		var _this = this;
+		_waiting = plus.nativeUI.showWaiting();
+		_id = parseInt(plus.storage.getItem('key_schoolbus_sanitary_id'), 10);
+		console.log('_id:' +  plus.storage.getItem('key_schoolbus_sanitary_id'));
+		_url = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetKMSchoolBusSafeHealthCheckById&id=' + _id
+		mui.ajax(_url, {
+			dataType: 'json',
+			type: 'get',
+			timeout: 5000,
+			success: function(data) {
+				_waiting.close()
+				if (data.Success == 10000) {
+					_this.lastForm = data.RerurnValue;
+					_this.renderForm(data.RerurnValue)
+				}
+			},
+			error: function() {
+				_waiting.close()
+				mui.alert("获取上次添加的项目失败，请检查网络", '提示')
 			}
-		},
-		error: function() {
-			_waiting.close()
-			mui.alert("获取上次添加的项目失败，请检查网络", '提示')
-		}
-	});
+		});
+	}
 };
 
 SecurityCheckForm.prototype.renderWorkers = function(workers) {
@@ -178,7 +179,7 @@ SecurityCheckForm.prototype.create = function() {
 			if (data.Success == 10000) {
 				mui.alert('提交成功！', '提示', function() {
 					console.log(data.RerurnValue.toString());
-					plus.storage.setItem('key_school_bus_sanitary_check_id', data.RerurnValue.toString());
+					plus.storage.setItem('key_schoolbus_sanitary_id', data.RerurnValue.toString());
 					mui.back();
 				});
 			}
