@@ -11,7 +11,8 @@ function systemPage() {
 	this.kgid = this.userMes.KgId;
 	this.userName = this.userMes.Name;
 	this.userId = this.userMes.UserId;
-	this.workcontent = "http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetKMWorkSummaryById&id="
+
+	this.workcontent = "http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetGuardianInfoById&id="
 }
 var P_type = systemPage.prototype;
 P_type.init = function(id) {
@@ -26,15 +27,20 @@ P_type.ajaxGetWorkList = function(id) {
 		timeout: 5000,
 		success: function(data) {
 			if (data.Success == 10000) {
-				document.getElementById('Title').innerText = data.RerurnValue.Title;
-				document.getElementById('Remark').innerText = data.RerurnValue.Remark;
-				document.getElementById('Creator').innerText = data.RerurnValue.Creator;
-				document.getElementById('CreateDate').innerText = new Date(data.RerurnValue.CreateDate).Format('yyyy年MM月dd日 hh:mm');
-				document.getElementById('Modifier').innerText = data.RerurnValue.Modifier;
-				document.getElementById('ModifyDate').innerText = new Date(data.RerurnValue.ModifyDate).Format('yyyy年MM月dd日 hh:mm');
-				document.getElementById('ConstitutorName').innerText = data.RerurnValue.ConstitutorName;
-				document.getElementById('LogDate').innerText = new Date(data.RerurnValue.LogDate).Format('yyyy年MM月dd日 hh:mm');
-				document.getElementById('AuditorName').innerText = data.RerurnValue.AuditorName;
+				document.getElementById('RelationshipName').innerText = data.RerurnValue.RelationshipName
+				document.getElementById('GuardianlevelName').innerText = data.RerurnValue.GuardianlevelName
+				document.getElementById('ChildId').innerText = data.RerurnValue.ChildId
+				document.getElementById('Name').innerText = data.RerurnValue.Name
+				document.getElementById('Birth').innerText = new Date(data.RerurnValue.Birth).Format('yyyy年MM月dd日')
+				document.getElementById('DocumentType').innerText = data.RerurnValue.DocumentType
+				document.getElementById('IdCard').innerText = data.RerurnValue.IdCard
+				document.getElementById('Phone').innerText = data.RerurnValue.Phone
+				document.getElementById('HomeAddress').innerText = data.RerurnValue.HomeAddress;
+				document.getElementById('Email').innerText = data.RerurnValue.Email;
+				document.getElementById('WxCode').innerText = data.RerurnValue.WxCode;
+				document.getElementById('QQ').innerText = data.RerurnValue.QQ;
+
+				//				self.addWorkList(data.RerurnValue)
 			}
 		}
 	})

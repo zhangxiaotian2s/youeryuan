@@ -16,9 +16,10 @@ mui.plusReady(function() {
 //厨房检查
 function systemPage() {
 	this.teachersurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetWorkerExtension&'; //KgId=33&modifyTime=2015-01-01
-	this.createurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=AddKMExerciseBookCheck'; //&jsonStr=''  
-	this.updateurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=UpdateKMExerciseBookCheck'; //&jsonStr=''&id=
-	this.editmesurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetKMExerciseBookCheckById&id=';
+	//	this.checklisturl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetKitchenCheckItem&'; //KgId=33&KitchenCheckType=KitchenCheckType
+	this.createurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=AddKMTeleInterviewCheck'; //&jsonStr=''  
+	this.updateurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=UpdateKMTeleInterviewCheck'; //&jsonStr=''&id=
+	this.editmesurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetKMTeleInterviewCheckById&id=';
 	this.classlisturl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetClassListByOrg&Id=' //Id=33
 
 	this.userMes = JSON.parse(plus.storage.getItem('userMes'));
@@ -39,11 +40,10 @@ function systemPage() {
 	this.wating = '';
 
 	//非公共性的dome id
-	this.UpNumber = document.getElementById('UpNumber');
-	this.NeatlyLettered = document.getElementById('NeatlyLettered');
-	this.Personality = document.getElementById('Personality');
-	this.Feedback = document.getElementById('Feedback');
-	this.Score = document.getElementById('Score');
+	this.InterviewCount = document.getElementById('InterviewCount');
+	this.Individuation = document.getElementById('Individuation');
+	this.ParentOpinion = document.getElementById('ParentOpinion');
+	this.Implementation = document.getElementById('Implementation');
 	this.Remark = document.getElementById('Remark');
 
 }
@@ -78,8 +78,6 @@ P_type.ajaxGetTeacherList = function(editid) { //获取到的上次的修改人�
 			self.wating.close()
 			if (data.Success == 10000) {
 				plus.storage.setItem('teacherlist', JSON.stringify(data.RerurnValue))
-
-
 				if (!self.datateacherlist) {
 					self.datateacherlist = data.RerurnValue
 					self.addTeacherList(data.RerurnValue, editid)
@@ -93,7 +91,7 @@ P_type.ajaxGetTeacherList = function(editid) { //获取到的上次的修改人�
 	});
 };
 P_type.addTeacherList = function(data, selectedvalue) {
-	if (!data) {
+if (!data) {
 		return
 	}
 	var _length = data.length;
@@ -132,7 +130,7 @@ P_type.ajaxGetClassList = function() {
 	})
 };
 P_type.addClassList = function(data, selectedvalue) {
-	if (!data) {
+	if(!data){
 		return
 	}
 	var _length = data.length;
@@ -162,14 +160,22 @@ P_type.setCheckDate = function(checkdate) {
 	this.checktime.value = nowtime
 };
 
-P_type.addPreKMExerciseBookData = function(data) {
+P_type.addPreTeleInterviewData = function(data) {
+	if(!data){
+		return
+	}
 	var self = this;
-	self.UpNumber.value = data.UpNumber;
-	self.NeatlyLettered.value = data.NeatlyLettered;
-	self.Personality.value = data.Personality;
-	self.Feedback.value = data.Feedback;
-	self.Score.value = data.Score;
-	self.Remark.innerText = data.Remark;
+	self.Individuation
+	var _length=	self.Individuation.options.length;
+	for(i=0;i<_length;i++){
+		 if(self.Individuation.options[i].value == data.Individuation){
+		 	self.Individuation.options[i].selected=true; 
+		 }
+	}
+	self.InterviewCount.value = data.InterviewCount;
+	self.ParentOpinion.innerText = data.ParentOpinion;
+	self.Implementation.innerText = data.Implementation;
+    self.Remark.innerText = data.Remark;
 }
 
 
@@ -186,34 +192,30 @@ P_type.geSendArrValue = function(editdata) {
 	var _nowtime = new Date();
 	_nowtime = _nowtime.Format("yyyy-MM-ddThh:mm");
 	var _RummagerName = self.teacherlist.options[self.teacherlist.selectedIndex].text,
-		_RummagerId = parseInt(self.teacherlist.value),
-		_CheckDate = self.checktime.value,
+		_Rummager = parseInt(self.teacherlist.value),
+		_CheckDate = self.checktime.value ,
 		_ClassInfoID = parseInt(self.classlist.value),
-		_ClassName = self.classlist.options[self.classlist.selectedIndex].text,
-		_UpNumber = parseInt(self.UpNumber.value),
-		_NeatlyLettered = parseInt(self.NeatlyLettered.value),
-		_Personality = self.Personality.value,
-		_Feedback = self.Feedback.value,
-		_Score = self.Score.value,
+		_InterviewCount= parseInt(self.InterviewCount.value),
+		_Individuation = parseInt(self.Individuation.value),
+		_ParentOpinion = self.ParentOpinion.value,
+		_Implementation = self.Implementation.value;
 		_Remark = self.Remark.value,
-		_ExerciseBookCheckId = 0;
-	if (editdata) {
-		_ExerciseBookCheckId = editdata.ExerciseBookCheckId;
-	}
+		_TeleInterviewCheckId=0;
+		if(editdata){
+			_TeleInterviewCheckId =editdata.TeleInterviewCheckId;
+		}
 	//理论上讲 创建时间与检查时间都应该是首次创建该项的时间修改时间保持当前时间状态 
 
 	return {
-		"ExerciseBookCheckId": _ExerciseBookCheckId,
+		"TeleInterviewCheckId": _TeleInterviewCheckId,
 		"CheckDate": _CheckDate,
-		"RummagerId": _RummagerId,
+		"Rummager": _Rummager,
 		"RummagerName": _RummagerName,
 		"ClassInfoID": _ClassInfoID,
-		"ClassName": _ClassName,
-		"UpNumber": _UpNumber,
-		"NeatlyLettered": _NeatlyLettered,
-		"Personality": _Personality,
-		"Feedback": _Feedback,
-		"Score": _Score,
+		"InterviewCount": _InterviewCount,
+		"Individuation": _Individuation,
+		"ParentOpinion": _ParentOpinion,
+		"Implementation": _Implementation,
 		"Remark": _Remark,
 		"State": 1,
 		"OrganizationId": self.kgid,
@@ -246,6 +248,10 @@ P_type.ajaxSendCheckMES = function(editMES) {
 		mui.alert("请选择检查人", "提示");
 		return;
 	}
+	if(!self.InterviewCount.value){
+		mui.alert("红  *  项不能为空", "提示");
+		return;
+	}
 	var _sendData, _sendurl;
 	if (editMES) {
 		_sendurl = self.updateurl;
@@ -254,16 +260,15 @@ P_type.ajaxSendCheckMES = function(editMES) {
 		_sendurl = self.createurl;
 		_sendData = self.geSendArrValue();
 	}
-	var _id = _sendData.ExerciseBookCheckId
+	var _id =_sendData.TeleInterviewCheckId
 	_sendData = (JSON.stringify(_sendData))
-	console.log(_sendData)
 	self.wating = plus.nativeUI.showWaiting();
 	mui.ajax(_sendurl, {
 		type: 'post',
 		dataType: 'json',
 		data: {
 			jsonStr: _sendData,
-			id: _id
+			id:_id
 		},
 		timeout: 5000,
 		success: function(data) {
@@ -305,11 +310,10 @@ P_type.ajaxGetEditMes = function() {
 			self.wating.close();
 			if (data.Success == 10000) {
 				console.log(JSON.stringify(data.RerurnValue))
-				self.addTeacherList(self.datateacherlist, data.RerurnValue.RummagerId);
+				self.addTeacherList(self.datateacherlist, data.RerurnValue.Rummager);
 				self.setCheckDate(data.RerurnValue.CheckDate)
 				self.addClassList(self.dataclasslist, data.RerurnValue.ClassInfoID)
-
-				self.addPreKMExerciseBookData(data.RerurnValue);
+				self.addPreTeleInterviewData(data.RerurnValue);
 				self.editMes = data.RerurnValue;
 			}
 		},

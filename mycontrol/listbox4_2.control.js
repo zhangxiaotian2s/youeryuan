@@ -385,16 +385,8 @@ P_type.ajaxSendCheckMES = function(editMES) {
 		mui.alert("请选择检查人", "提示");
 		return;
 	}
-	if (!self.ChildCount.value) {
-		mui.alert("请添加幼儿人数", "提示");
-		return;
-	}
-	if (!self.LineNumber.value) {
-		mui.alert("请选择线路", "提示");
-		return;
-	}
-	if (!self.PlateNumber.value) {
-		mui.alert("请选择车牌", "提示");
+	if (!self.ChildCount.value||!self.LineNumber.value||!self.PlateNumber.value) {
+			mui.alert("红  *  项不能为空", "提示");
 		return;
 	}
 

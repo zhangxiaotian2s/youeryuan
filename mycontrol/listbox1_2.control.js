@@ -35,7 +35,7 @@ P_type.addWorkList=function(data){
 	var _html=""
 	for(var i=0;i<data.length;i++){
 		var a=i+1
-		_html+='<tr><td>'+a+'</td><td>'+data[i].Title+'</td><td>'+data[i].Title+'</td><td>'+data[i].Title+'</td><td>'+data[i].Title+'</td><td>'+data[i].Title+'</td><td>'+data[i].ConstitutorName+'</td><td>'+new Date(data[i].LogDate).Format('yyyy-MM-dd')+'</td><td><button class="mui-btn btns" id="'+data[i].WorkSummaryId+'"  style="width:100%">查看</button></td></tr>'
+		_html+='<tr><td>'+a+'</td><td>'+data[i].Title+'</td><td>'+data[i].DepartmentName+'</td><td>'+data[i].SummaryCategoryName+'</td><td>'+data[i].SummaryTypeName+'</td><td>'+data[i].TargetTypeName+'</td><td>'+data[i].ConstitutorName+'</td><td>'+new Date(data[i].LogDate).Format('yyyy-MM-dd')+'</td><td><button class="mui-btn btns" id="'+data[i].WorkSummaryId+'"  style="width:100%">查看</button></td></tr>'
 	}
 	self.listtable.innerHTML+=_html
 	self.checkWorkContent()
@@ -46,8 +46,8 @@ var _btns	=document.querySelectorAll('.btns')
 		_btns[i].addEventListener('tap',function(){
 			var _workid=this.getAttribute('id')
 			mui.openWindow({
-					url: "../pages/listbox1_4_content.html",
-					id: "../pages/listbox1_4_content.html",
+					url: "../pages/listbox1_2_content.html",
+					id: "../pages/listbox1_2_content.html",
 					styles: {
 						top: '0px',
 						bounce: 'none'

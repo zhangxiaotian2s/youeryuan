@@ -13,12 +13,12 @@ mui.plusReady(function() {
 	}
 });
 
-//厨房检查
+//全托班管理
 function systemPage() {
 	this.teachersurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetWorkerExtension&'; //KgId=33&modifyTime=2015-01-01
-	this.createurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=AddKMHandoverRecord'; //&jsonStr=''  
-	this.updateurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=UpdateKMHandoverRecord'; //&jsonStr=''&id=
-	this.editmesurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetKMHandoverRecordById&id=';
+	this.createurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=AddKMComprehensiveRecord'; //&jsonStr=''  
+	this.updateurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=UpdateKMComprehensiveRecord'; //&jsonStr=''&id=
+	this.editmesurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetKMComprehensiveRecordById&id=';
 	this.classlisturl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetClassListByOrg&Id=' //Id=33
 
 	this.userMes = JSON.parse(plus.storage.getItem('userMes'));
@@ -40,30 +40,26 @@ function systemPage() {
 
 	//非公共性的dome id
 
-	this.ToBeNumber = document.getElementById('ToBeNumber');
-	this.ToNumber = document.getElementById('ToNumber');
-	this.PersonnelList = document.getElementById('PersonnelList');
-	this.GoodsName = document.getElementById('GoodsName');
-	this.ChildSituation = document.getElementById('ChildSituation');
-	this.SleepSituation = document.getElementById('SleepSituation');
-	this.DayTeacher = document.getElementById('DayTeacher');
-	this.AllTeacher = document.getElementById('AllTeacher');
-	this.NightTeacher = document.getElementById('NightTeacher');
-	this.HandoverTime = document.getElementById('HandoverTime');
-	this.RecordDate = document.getElementById('RecordDate')
+	this.FirstCheckTime = document.getElementById('FirstCheckTime');
+	this.FirstCheckRecord = document.getElementById('FirstCheckRecord');
+	this.SecondCheckTime = document.getElementById('SecondCheckTime');
+	this.SecondCheckRecord = document.getElementById('SecondCheckRecord');
+	this.ThirdCheckTime = document.getElementById('ThirdCheckTime');
+	this.ThirdCheckRecord = document.getElementById('ThirdCheckRecord');
+	this.FourthCheckTime = document.getElementById('FourthCheckTime');
+	this.FourthCheckRecord = document.getElementById('FourthCheckRecord');
+	this.Situation = document.getElementById('Situation');
+	this.Manage = document.getElementById('Manage');
+	this.Remark = document.getElementById('Remark');
+
 }
 var P_type = systemPage.prototype;
 P_type.initNew = function() {
-	this.ajaxGetTeacherList();
-	//	this.addTeacherList(this.datateacherlist)
-	this.addTeacherList(this.datateacherlist, this.DayTeacher)
-	this.addTeacherList(this.datateacherlist, this.AllTeacher)
-	this.addTeacherList(this.datateacherlist, this.NightTeacher)
-
-	this.ajaxGetClassList();
-	this.addClassList(this.dataclasslist)
-	this.setCheckDate(this.HandoverTime)
-	this.setCheckDate(this.RecordDate)
+	this.setCheckDate(this.checktime)
+	this.setCheckDate(this.FirstCheckTime)
+	this.setCheckDate(this.SecondCheckTime)
+	this.setCheckDate(this.ThirdCheckTime)
+	this.setCheckDate(this.FourthCheckTime)
 };
 //页面打开时设置被选中的按钮的颜色 
 P_type.initRadioParentBk = function() {
@@ -90,9 +86,6 @@ P_type.ajaxGetTeacherList = function(editid) { //获取到的上次的修改人�
 				plus.storage.setItem('teacherlist', JSON.stringify(data.RerurnValue))
 				if (!self.datateacherlist) {
 					self.datateacherlist = data.RerurnValue
-					self.addTeacherList(data.RerurnValue, self.AllTeacher, editid)
-					self.addTeacherList(data.RerurnValue, self.NightTeacher, editid)
-					self.addTeacherList(data.RerurnValue, self.HandoverTime, editid)
 
 				}
 			}
@@ -102,64 +95,6 @@ P_type.ajaxGetTeacherList = function(editid) { //获取到的上次的修改人�
 			mui.alert("获取检查人失败，请检查网络", '提示')
 		}
 	});
-};
-P_type.addTeacherList = function(data, selectelement, selectedvalue) {
-	if (!data) {
-		return
-	}
-	var _length = data.length;
-	var _html;
-	for (i = 0; i < _length; i++) {
-		if (!selectedvalue) {
-			_html += '<option value="' + data[i].WorkerExtensionId + '" >' + data[i].Name + '</option>';
-		} else {
-			if (data[i].WorkerExtensionId == selectedvalue) {
-				_html += '<option value="' + data[i].WorkerExtensionId + '" selected>' + data[i].Name + '</option>';
-			} else {
-				_html += '<option value="' + data[i].WorkerExtensionId + '" >' + data[i].Name + '</option>';
-			}
-		}
-	}
-	selectelement.innerHTML += _html;
-};
-P_type.ajaxGetClassList = function() {
-	var self = this
-	self.wating = plus.nativeUI.showWaiting();
-	mui.ajax(self.classlisturl + self.kgid, {
-		type: 'get',
-		dataType: 'json',
-		timeout: 5000,
-		success: function(data) {
-			self.wating.close();
-			if (data.Success == 10000) {
-				plus.storage.setItem('classlist', JSON.stringify(data.RerurnValue))
-				self.dataclasslist = data.RerurnValue
-				self.addClassList(data.RerurnValue)
-			}
-		},
-		error: function() {
-			self.wating.close();
-		}
-	})
-};
-P_type.addClassList = function(data, selectedvalue) {
-	if (!data) {
-		return
-	}
-	var _length = data.length;
-	var _html;
-	for (i = 0; i < _length; i++) {
-		if (!selectedvalue) {
-			_html += '<option value="' + data[i].ClassInfoID + '" >' + data[i].ClassName + '</option>';
-		} else {
-			if (data[i].ClassInfoID == selectedvalue) {
-				_html += '<option value="' + data[i].ClassInfoID + '" selected="selected">' + data[i].ClassName + '</option>';
-			} else {
-				_html += '<option value="' + data[i].ClassInfoID + '" >' + data[i].ClassName + '</option>';
-			}
-		}
-	}
-	this.classlist.innerHTML += _html;
 };
 //设置检查的默认时间
 P_type.setCheckDate = function(timeelement, checkdate) {
@@ -173,17 +108,21 @@ P_type.setCheckDate = function(timeelement, checkdate) {
 	timeelement.value = nowtime
 };
 
-P_type.addPreKMHandoverRecordData = function(data) {
+P_type.addPreKMComprehensiveRecordData = function(data) {
 	var self = this;
-	self.ToBeNumber.value = data.ToBeNumber;
-	self.ToNumber.value = data.ToNumber;
-	self.PersonnelList.value = data.PersonnelList;
-	self.GoodsName.value = data.GoodsName;
-	self.ChildSituation.value = data.ChildSituation;
-	self.SleepSituation.innerText = data.SleepSituation;
-	
-	self.RecordDate.value=data.RecordDate
-	self.HandoverTime.value=data.HandoverTime
+	self.checktime.value = data.CheckDate
+	self.FirstCheckTime.value = data.FirstCheckTime;
+	self.FirstCheckRecord.value = data.FirstCheckRecord;
+	self.SecondCheckTime.value = data.SecondCheckTime;
+	self.SecondCheckRecord.value = data.SecondCheckRecord;
+	self.ThirdCheckTime.value = data.ThirdCheckTime;
+	self.ThirdCheckRecord.value = data.ThirdCheckRecord;
+	self.FourthCheckTime.value = data.FourthCheckTime;
+	self.FourthCheckRecord.value = data.FourthCheckRecord;
+	self.Situation.innerText = data.Situation;
+	self.Manage.innerText = data.Manage;
+	self.Remark.innerText = data.Remark;
+
 }
 
 
@@ -199,49 +138,41 @@ P_type.geSendArrValue = function(editdata) {
 	var self = this;
 	var _nowtime = new Date();
 	_nowtime = _nowtime.Format("yyyy-MM-ddThh:mm");
-	var _DayTeacher = self.DayTeacher.options[self.DayTeacher.selectedIndex].text,
-		_DayTeacherId = parseInt(self.DayTeacher.value),
-		_AllTeacher = self.AllTeacher.options[self.AllTeacher.selectedIndex].text,
-		_AllTeacherId = parseInt(self.AllTeacher.value),
-		_NightTeacher = self.NightTeacher.options[self.NightTeacher.selectedIndex].text,
-		_NightTeacherId = parseInt(self.NightTeacher.value),
-		_ClassInfoID = parseInt(self.classlist.value),
-		_ClassName = self.classlist.options[self.classlist.selectedIndex].text,
-		_ToBeNumber = parseInt(self.ToBeNumber.value),
-		_ToNumber = parseInt(self.ToNumber.value),
-		_PersonnelList = self.PersonnelList.value,
-		_GoodsName = self.GoodsName.value,
-		_ChildSituation = self.ChildSituation.value,
-		_SleepSituation = self.SleepSituation.value,
-		_RecordDate = self.RecordDate.value,
-		_HandoverTime = self.HandoverTime.value,
+	var _FirstCheckTime = self.FirstCheckTime.value,
+		_FirstCheckRecord = self.FirstCheckRecord.value,
+		_SecondCheckTime = self.SecondCheckTime.value,
+		_SecondCheckRecord = self.SecondCheckRecord.value,
+		_ThirdCheckTime = self.ThirdCheckTime.value,
+		_ThirdCheckRecord = self.ThirdCheckRecord.value,
+		_FourthCheckTime = self.FourthCheckTime.value,
+		_FourthCheckRecord = self.FourthCheckRecord.value,
+		_Situation = self.Situation.value,
+		_Manage = self.Manage.value,
+		_Remark = self.Remark.value,
 		_CreateDate = _nowtime,
-		_HandoverRecordId = 0;
+		_CheckDate = self.checktime.value,
+		_ComprehensiveRecordId = 0;
 
 	if (editdata) {
-		_HandoverRecordId = editdata.HandoverRecordId;
+		_ComprehensiveRecordId = editdata.ComprehensiveRecordId;
 		_CreateDate = editdata.CreateDate;
 	}
 	//理论上讲 创建时间与检查时间都应该是首次创建该项的时间修改时间保持当前时间状态 
 
 	return {
-		"HandoverRecordId": _HandoverRecordId,
-		"DayTeacher": _DayTeacher,
-		"DayTeacherId": _DayTeacherId,
-		"AllTeacher": _AllTeacher,
-		"AllTeacherId": _AllTeacherId,
-		"NightTeacher": _NightTeacher,
-		"NightTeacherId": _NightTeacherId,
-		"ClassInfoID": _ClassInfoID,
-		"ClassName": _ClassName,
-		"ToBeNumber": _ToBeNumber,
-		"ToNumber": _ToNumber,
-		"PersonnelList": _PersonnelList,
-		"GoodsName": _GoodsName,
-		"ChildSituation": _ChildSituation,
-		"SleepSituation": _SleepSituation,
-		"RecordDate": _RecordDate,
-		"HandoverTime": _HandoverTime,
+		"ComprehensiveRecordId": _ComprehensiveRecordId,
+		"CheckDate": _CheckDate,
+		"FirstCheckTime": _FirstCheckTime,
+		"FirstCheckRecord": _FirstCheckRecord,
+		"SecondCheckTime": _SecondCheckTime,
+		"SecondCheckRecord": _SecondCheckRecord,
+		"ThirdCheckTime": _ThirdCheckTime,
+		"ThirdCheckRecord": _ThirdCheckRecord,
+		"FourthCheckTime": _FourthCheckTime,
+		"FourthCheckRecord": _FourthCheckRecord,
+		"Situation": _Situation,
+		"Manage": _Manage,
+		"Remark": _Remark,
 		"State": 1,
 		"OrganizationId": self.kgid,
 		"CreatorId": self.userId,
@@ -281,7 +212,7 @@ P_type.ajaxSendCheckMES = function(editMES) {
 		_sendurl = self.createurl;
 		_sendData = self.geSendArrValue();
 	}
-	var _id = _sendData.HandoverRecordId
+	var _id = _sendData.ComprehensiveRecordId
 	_sendData = (JSON.stringify(_sendData))
 	console.log(_sendData)
 	self.wating = plus.nativeUI.showWaiting();
@@ -332,11 +263,7 @@ P_type.ajaxGetEditMes = function() {
 			self.wating.close();
 			if (data.Success == 10000) {
 				console.log(JSON.stringify(data.RerurnValue))
-				self.addTeacherList(self.datateacherlist, self.DayTeacher, data.RerurnValue.DayTeacherId)
-				self.addTeacherList(self.datateacherlist, self.AllTeacher, data.RerurnValue.AllTeacherId)
-				self.addTeacherList(self.datateacherlist, self.NightTeacher, data.RerurnValue.NightTeacherId)
-				self.addClassList(self.dataclasslist, data.RerurnValue.ClassInfoID)
-				self.addPreKMHandoverRecordData(data.RerurnValue);
+				self.addPreKMComprehensiveRecordData(data.RerurnValue);
 				self.editMes = data.RerurnValue;
 			}
 		},

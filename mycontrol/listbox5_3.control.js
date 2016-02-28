@@ -17,11 +17,11 @@ mui.plusReady(function() {
 function systemPage() {
 	this.teachersurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetWorkerExtension&'; //KgId=33&modifyTime=2015-01-01
 	//	this.checklisturl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetKitchenCheckItem&'; //KgId=33&KitchenCheckType=KitchenCheckType
-	this.createurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=AddKMTeleInterviewCheck'; //&jsonStr=''  
-	this.updateurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=UpdateKMTeleInterviewCheck'; //&jsonStr=''&id=
-	this.editmesurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetKMTeleInterviewCheckById&id=';
+	this.createurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=AddKMHomeInterviewCheck'; //&jsonStr=''  
+	this.updateurl = ' http://115.28.141.223:89/WebServices/KMService.ashx?Option=UpdateKMHomeInterviewCheck'; //&jsonStr=''&id=
+	this.editmesurl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetKMHomeInterviewCheckById&id=';
 	this.classlisturl = 'http://115.28.141.223:89/WebServices/KMService.ashx?Option=GetClassListByOrg&Id=' //Id=33
-
+	
 	this.userMes = JSON.parse(plus.storage.getItem('userMes'));
 	this.kgid = this.userMes.KgId;
 	this.userName = this.userMes.Name;
@@ -40,20 +40,20 @@ function systemPage() {
 	this.wating = '';
 
 	//非公共性的dome id
-	this.InterviewCount = document.getElementById('InterviewCount');
-	this.Individuation = document.getElementById('Individuation');
+	this.InterviewPersonCount = document.getElementById('InterviewPersonCount');
+	this.InterviewTable = document.getElementById('InterviewTable');
 	this.ParentOpinion = document.getElementById('ParentOpinion');
 	this.Implementation = document.getElementById('Implementation');
-	this.Remark = document.getElementById('Remark');
 
 }
 var P_type = systemPage.prototype;
 P_type.initNew = function() {
 	this.ajaxGetTeacherList();
-	this.addTeacherList(this.datateacherlist)
+	this.addTeacherList(this.datateacherlist);
 	this.ajaxGetClassList();
 	this.addClassList(this.dataclasslist)
 	this.setCheckDate()
+
 };
 //页面打开时设置被选中的按钮的颜色 
 P_type.initRadioParentBk = function() {
@@ -91,7 +91,9 @@ P_type.ajaxGetTeacherList = function(editid) { //获取到的上次的修改人�
 	});
 };
 P_type.addTeacherList = function(data, selectedvalue) {
-
+	if (!data) {
+		return
+	}
 	var _length = data.length;
 	var _html;
 	for (i = 0; i < _length; i++) {
@@ -118,8 +120,10 @@ P_type.ajaxGetClassList = function() {
 			self.wating.close();
 			if (data.Success == 10000) {
 				plus.storage.setItem('classlist', JSON.stringify(data.RerurnValue))
-				self.dataclasslist = data.RerurnValue
-				self.addClassList(data.RerurnValue)
+				if (!self.dataclasslist) {
+					self.dataclasslist = data.RerurnValue
+					self.addClassList(data.RerurnValue)
+				}
 			}
 		},
 		error: function() {
@@ -128,7 +132,7 @@ P_type.ajaxGetClassList = function() {
 	})
 };
 P_type.addClassList = function(data, selectedvalue) {
-	if(!data){
+	if (!data) {
 		return
 	}
 	var _length = data.length;
@@ -146,6 +150,7 @@ P_type.addClassList = function(data, selectedvalue) {
 	}
 	this.classlist.innerHTML += _html;
 };
+
 //设置检查的默认时间
 P_type.setCheckDate = function(checkdate) {
 	if (checkdate) {
@@ -158,22 +163,12 @@ P_type.setCheckDate = function(checkdate) {
 	this.checktime.value = nowtime
 };
 
-P_type.addPreTeleInterviewData = function(data) {
-	if(!data){
-		return
-	}
+P_type.addPreHomeInterviewData = function(data) {
 	var self = this;
-	self.Individuation
-	var _length=	self.Individuation.options.length;
-	for(i=0;i<_length;i++){
-		 if(self.Individuation.options[i].value == data.Individuation){
-		 	self.Individuation.options[i].selected=true; 
-		 }
-	}
-	self.InterviewCount.value = data.InterviewCount;
+	self.InterviewPersonCount.value = data.InterviewPersonCount;
+	self.InterviewTable.value = data.InterviewTable;
 	self.ParentOpinion.innerText = data.ParentOpinion;
 	self.Implementation.innerText = data.Implementation;
-    self.Remark.innerText = data.Remark;
 }
 
 
@@ -189,32 +184,31 @@ P_type.geSendArrValue = function(editdata) {
 	var self = this;
 	var _nowtime = new Date();
 	_nowtime = _nowtime.Format("yyyy-MM-ddThh:mm");
+
 	var _RummagerName = self.teacherlist.options[self.teacherlist.selectedIndex].text,
-		_Rummager = parseInt(self.teacherlist.value),
-		_CheckDate = self.checktime.value ,
+		_RummagerId = parseInt(self.teacherlist.value),
+		_CheckDate = self.checktime.value,
 		_ClassInfoID = parseInt(self.classlist.value),
-		_InterviewCount= parseInt(self.InterviewCount.value),
-		_Individuation = parseInt(self.Individuation.value),
+		_InterviewPersonCount = parseInt(self.InterviewPersonCount.value),
+		_InterviewTable = parseInt(self.InterviewTable.value),
 		_ParentOpinion = self.ParentOpinion.value,
-		_Implementation = self.Implementation.value;
-		_Remark = self.Remark.value,
-		_TeleInterviewCheckId=0;
+		_Implementation = self.Implementation.value,
+		_HomeInterviewCheckId = 0;
 		if(editdata){
-			_TeleInterviewCheckId =editdata.TeleInterviewCheckId;
+			_HomeInterviewCheckId =editdata.HomeInterviewCheckId;
 		}
 	//理论上讲 创建时间与检查时间都应该是首次创建该项的时间修改时间保持当前时间状态 
 
 	return {
-		"TeleInterviewCheckId": _TeleInterviewCheckId,
+		"HomeInterviewCheckId": _HomeInterviewCheckId,
 		"CheckDate": _CheckDate,
-		"Rummager": _Rummager,
+		"RummagerId": _RummagerId,
 		"RummagerName": _RummagerName,
 		"ClassInfoID": _ClassInfoID,
-		"InterviewCount": _InterviewCount,
-		"Individuation": _Individuation,
+		"InterviewPersonCount": _InterviewPersonCount,
+		"InterviewTable": _InterviewTable,
 		"ParentOpinion": _ParentOpinion,
 		"Implementation": _Implementation,
-		"Remark": _Remark,
 		"State": 1,
 		"OrganizationId": self.kgid,
 		"CreatorId": self.userId,
@@ -246,6 +240,10 @@ P_type.ajaxSendCheckMES = function(editMES) {
 		mui.alert("请选择检查人", "提示");
 		return;
 	}
+		if(!self.InterviewPersonCount.value||!self.InterviewTable.value){
+		mui.alert("红  *  项不能为空", "提示");
+		return;
+	}
 	var _sendData, _sendurl;
 	if (editMES) {
 		_sendurl = self.updateurl;
@@ -254,15 +252,16 @@ P_type.ajaxSendCheckMES = function(editMES) {
 		_sendurl = self.createurl;
 		_sendData = self.geSendArrValue();
 	}
-	var _id =_sendData.TeleInterviewCheckId
+	var _id = _sendData.HomeInterviewCheckId
 	_sendData = (JSON.stringify(_sendData))
+	console.log(_sendData)
 	self.wating = plus.nativeUI.showWaiting();
 	mui.ajax(_sendurl, {
 		type: 'post',
 		dataType: 'json',
 		data: {
 			jsonStr: _sendData,
-			id:_id
+			id: _id
 		},
 		timeout: 5000,
 		success: function(data) {
@@ -288,6 +287,7 @@ P_type.initEdit = function() {
 //获取上一次的修改的信息
 P_type.ajaxGetEditMes = function() {
 	var self = this;
+	//	self.key_5_3_id = 1 //临时处理
 	if (!self.key_5_3_id) {
 		mui.alert('请新建一项才能编辑', '提示', function() {
 			mui.back();
@@ -303,11 +303,10 @@ P_type.ajaxGetEditMes = function() {
 		success: function(data) {
 			self.wating.close();
 			if (data.Success == 10000) {
-				console.log(JSON.stringify(data.RerurnValue))
-				self.addTeacherList(self.datateacherlist, data.RerurnValue.Rummager);
+				self.addTeacherList(self.datateacherlist, data.RerurnValue.RummagerId);
 				self.setCheckDate(data.RerurnValue.CheckDate)
 				self.addClassList(self.dataclasslist, data.RerurnValue.ClassInfoID)
-				self.addPreTeleInterviewData(data.RerurnValue);
+				self.addPreHomeInterviewData(data.RerurnValue);
 				self.editMes = data.RerurnValue;
 			}
 		},

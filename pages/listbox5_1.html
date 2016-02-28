@@ -18,7 +18,8 @@
 
 	<body class="bk_white">
 		<header class="mui-bar mui-bar-nav yw_header">
-			<h1 class="mui-title">午睡情况检查记录</h1>
+			<h1 class="mui-title">家园联系册检查记录</h1>
+			
 			<button type="button" class="mui-btn mui-btn-warning mui-pull-right" id="sendbtn">保存/确定 </button>
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 		</header>
@@ -36,6 +37,14 @@
 							<span class="mui-icon mui-icon-arrowdown"></span>
 						</div>
 					</li>
+					<li>
+						<div>
+							检查日期：
+						</div>
+						<div class="select_box_style1">
+							<input type="datetime-local" name=""   id="checktime"   value="" />
+						</div>
+					</li>
 				</ul>
 			</div>
 			<div class="blank1"></div>
@@ -50,61 +59,31 @@
 						</td>
 					</tr>
 					<tr>
-						<td><span class="redspan">*</span>幼儿人数：</td>
-						<td><input type="number" value="" id="ChildNumber" placeholder="幼儿人数" ></td>
+						<td><span class="redspan">*</span>上交本数：</td>
+						<td><input type="number" value="" id="UpNumber" placeholder="上交本数（数字）" ></td>
 					</tr>
 					<tr>
 						<tr>
-						<td><span class="redspan">*</span>未入睡人数：</td>
-						<td><input type="number" value="" id="NoSleepNumber"  placeholder="未入睡人数"></td>
+						<td><span class="redspan">*</span>字迹工整2分：</td>
+						<td><input type="number" value="" id="NeatlyLettered"  placeholder="字迹工整2分（数字）"></td>
 					</tr>
 					<tr>
-						<td>睡姿：</td>
-						<td><input type="text" value=""  id="Sleeping" placeholder="睡姿" ></td>
+						<td><span class="redspan">*</span>内容有个性化5分：</td>
+						<td><input type="number" value=""  id="Personality"   placeholder="内容有个性化5分（数字）" ></td>
 					</tr>
 					<tr>
-						<td>穿着：</td>
-						<td><input type="text" value=""  id="Clothing" placeholder="穿着" ></td>
+						<td><span class="redspan">*</span>家长反馈情况3分：</td>
+						<td><input type="number" value=""  id="Feedback" placeholder="家长反馈情况3分（数字）" ></td>
 					</tr>
 					<tr>
-						<td>盖被：</td>
-						<td><input type="text" value=""  id="Quilt" placeholder="盖被" ></td>
+						<td><span class="redspan">*</span>总分：</td>
+						<td><input type="number" value=""  id="Score"  placeholder="总分（数字）"></td>
 					</tr>
 					<tr>
-						<td>松辫：</td>
-						<td><input type="text" value=""  id="Hairstyle" placeholder="松辫" ></td>
-					</tr>
-					<tr>
-						<td>尿床：</td>
-						<td><input type="text" value=""  id="WettingBed" placeholder="尿床" ></td>
-					</tr>
-					<tr>
-						<td>内务：</td>
-						<td><input type="text" value=""  id="Neat" placeholder="内务" ></td>
-					</tr>
-					<tr>
-						<td>幼儿病情：</td>
-						<td><input type="text" value=""  id="ChildIllness" placeholder="幼儿病情" ></td>
-					</tr>
-					<tr>
-						<td>当班人：</td>
+						<td>备注：</td>
 						<td>
-							<select id="Teacher">
-							
-							</select>
+							<textarea rows="6"   value=""   id="Remark"   placeholder="备注"  ></textarea>
 						</td>
-					</tr>
-					<tr>
-						<td>职责：</td>
-						<td><input type="text" value=""  id="Duty" placeholder="职责" ></td>
-					</tr>
-					<tr>
-						<td>室温：</td>
-						<td><input type="text" value=""  id="RoomTemperature" placeholder="职责" ></td>
-					</tr>
-					<tr>
-						<td>其他：</td>
-						<td><input type="text" value=""  id="Other" placeholder="职责" ></td>
 					</tr>
 					
                   </table>				
@@ -112,7 +91,7 @@
 		</div>
 	</body>
 	<script type="text/javascript" src="../js/mui.min.js"></script>
-	<script type="text/javascript" src="../mycontrol/listbox3_3.control.js"></script>
+	<script type="text/javascript" src="../mycontrol/listbox5_1.control.js"></script>
     <script>
     	
     </script>

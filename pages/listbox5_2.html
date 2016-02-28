@@ -18,7 +18,7 @@
 
 	<body class="bk_white">
 		<header class="mui-bar mui-bar-nav yw_header">
-			<h1 class="mui-title">家访检查记录</h1>
+			<h1 class="mui-title">电访检查记录</h1>
 			<button type="button" class="mui-btn mui-btn-warning mui-pull-right" id="sendbtn">保存/确定 </button>
 			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
 		</header>
@@ -36,7 +36,7 @@
 							<span class="mui-icon mui-icon-arrowdown"></span>
 						</div>
 					</li>
-					<li>
+				<li>
 						<div>
 							检查日期：
 						</div>
@@ -50,7 +50,7 @@
 			<div class="table_box2">
 				<table width="100%" class="tablestyle2" id="homeInterviewtab">
 					<tr>
-						<td width="30%">班级</td>
+						<td width="30%">班级：</td>
 						<td width="70%">
 							<select id="selectclass">
 							
@@ -58,33 +58,32 @@
 						</td>
 					</tr>
 					<tr>
-						<td>上交本数：</td>
-						<td><input type="number" value="" id="UpNumber" placeholder="上交本数（数字）" ></td>
+						<td><span class="redspan">*</span>电访次数：</td>
+						<td><input type="number" value="" id="InterviewCount" placeholder="电访次数（数字）" ></td>
 					</tr>
 					<tr>
-						<tr>
-						<td>字迹工整2分：</td>
-						<td><input type="number" value="" id="NeatlyLettered"  placeholder="字迹工整2分（数字）"></td>
+						<td>是否个性化：</td>
+						<td>
+							<select name="" id="Individuation">
+								<option value="1">是</option>
+								<option value="0">否</option>
+							</select>
+						</td>
 					</tr>
 					<tr>
-						<td>内容有个性化5分：</td>
-						<td><input type="number" value=""  id="Personality"   placeholder="内容有个性化5分（数字）" ></td>
+						<td>家长提出的意见：</td>
+						<td>
+							<textarea rows="6" value=""  placeholder="家长提出的意见"  id="ParentOpinion"></textarea>
+						</td>
 					</tr>
 					<tr>
-						<td>家长反馈情况3分：</td>
-						<td><input type="number" value=""  id="Feedback" placeholder="家长反馈情况3分（数字）" ></td>
-					</tr>
-					<tr>
-						<td>总分：</td>
-						<td><input type="number" value=""  id="Score"  placeholder="总分（数字）"></td>
+						<td>落实情况：</td>
+						<td><textarea rows="6" value=""  placeholder="落实情况"  id="Implementation"></textarea></td>
 					</tr>
 					<tr>
 						<td>备注：</td>
-						<td>
-							<textarea rows="6"   value=""   id="Remark"   placeholder="备注"  ></textarea>
-						</td>
+						<td><textarea rows="6" value=""  placeholder="备注"  id="Remark"></textarea></td>
 					</tr>
-					
                   </table>				
 			</div>
 		</div>
