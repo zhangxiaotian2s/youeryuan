@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/style.css" />
+	</head>
+	<style>
+		.mui-table-view-cell {
+			padding: 0;
+		}
+	</style>
+
+	<body class="bk_white">
+		<header class="mui-bar mui-bar-nav yw_header">
+			<h1 class="mui-title">午睡情况检查记录</h1>
+			<button type="button" class="mui-btn mui-btn-warning mui-pull-right" id="sendbtn">保存/确定 </button>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		</header>
+		<div class="mui-content bk_white">
+			<div class="select_nav">
+				<ul>
+					<li>
+						<div>
+							检查人：
+						</div>
+						<div class="select_box_style">
+							<select name="" class="teacherslist" id="teacherslist">
+								<option value="">选择检查人</option>
+							</select>
+							<span class="mui-icon mui-icon-arrowdown"></span>
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="blank1"></div>
+			<div class="table_box2">
+				<table width="100%" class="tablestyle2" id="homeInterviewtab">
+					<tr>
+						<td width="30%">班级</td>
+						<td width="70%">
+							<select id="selectclass">
+							
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="redspan">*</span>幼儿人数：</td>
+						<td><input type="number" value="" id="ChildNumber" placeholder="幼儿人数" ></td>
+					</tr>
+					<tr>
+						<tr>
+						<td><span class="redspan">*</span>未入睡人数：</td>
+						<td><input type="number" value="" id="NoSleepNumber"  placeholder="未入睡人数"></td>
+					</tr>
+					<tr>
+						<td>睡姿：</td>
+						<td><input type="text" value=""  id="Sleeping" placeholder="睡姿" ></td>
+					</tr>
+					<tr>
+						<td>穿着：</td>
+						<td><input type="text" value=""  id="Clothing" placeholder="穿着" ></td>
+					</tr>
+					<tr>
+						<td>盖被：</td>
+						<td><input type="text" value=""  id="Quilt" placeholder="盖被" ></td>
+					</tr>
+					<tr>
+						<td>松辫：</td>
+						<td><input type="text" value=""  id="Hairstyle" placeholder="松辫" ></td>
+					</tr>
+					<tr>
+						<td>尿床：</td>
+						<td><input type="text" value=""  id="WettingBed" placeholder="尿床" ></td>
+					</tr>
+					<tr>
+						<td>内务：</td>
+						<td><input type="text" value=""  id="Neat" placeholder="内务" ></td>
+					</tr>
+					<tr>
+						<td>幼儿病情：</td>
+						<td><input type="text" value=""  id="ChildIllness" placeholder="幼儿病情" ></td>
+					</tr>
+					<tr>
+						<td>当班人：</td>
+						<td>
+							<select id="Teacher">
+							
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td>职责：</td>
+						<td><input type="text" value=""  id="Duty" placeholder="职责" ></td>
+					</tr>
+					<tr>
+						<td>室温：</td>
+						<td><input type="text" value=""  id="RoomTemperature" placeholder="职责" ></td>
+					</tr>
+					<tr>
+						<td>其他：</td>
+						<td><input type="text" value=""  id="Other" placeholder="职责" ></td>
+					</tr>
+					
+                  </table>				
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../mycontrol/listbox3_wsqkjc.control.js"></script>
+    <script>
+    	
+    </script>
+</html>

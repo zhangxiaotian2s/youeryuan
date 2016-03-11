@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/style.css" />
+	</head>
+	<style>
+		.mui-table-view-cell {
+			padding: 0;
+		}
+	</style>
+
+	<body class="bk_white">
+		<header class="mui-bar mui-bar-nav yw_header">
+			<h1 class="mui-title">工作计划列表</h1>
+			<!--<button type="button" class="mui-btn mui-btn-warning mui-pull-right" id="sendbtn">保存/确定 </button>-->
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		</header>
+		<div class="mui-content bk_white">
+			<div class="table_box">
+				<table class="tablestyle2 contenttable" width="100%">
+					<tr>
+						<th width="20%">
+							标题：
+						</th>
+						<td colspan="3">
+							<span id="Title"></span>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							计划部门：
+						</th>
+						<td>
+							<span id="DepartmentName"></span>
+						</td>
+						<th>
+							计划类型：
+						</th>
+						<td>
+							<span id="PlanTypeName"></span>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							计划类别：
+						</th>
+						<td>
+							<span id="PlanCategoryName"></span>
+						</td>
+						<th>
+							关联类型：
+						</th>
+						<td>
+							<span id="TargetTypeName"></span>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							计划开始时间：
+						</th>
+						<td>
+							<span id="StartTime"></span>
+						</td>
+						<th>
+							计划结束时间：
+						</th>
+						<td>
+							<span id="EndTime"></span>
+						</td>
+					</tr>
+					<tr>
+						<!--<th>
+                            计划完成情况：
+                        </th>
+                        <td>
+                             <span id="Execution"></span>
+                        </td>-->
+						<th>
+							审批人：
+						</th>
+						<td colspan="3">
+							<span id="AuditorName"></span>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							完成较好的工作：
+						</th>
+						<td colspan="3">
+							<span id="BetterJob"></span>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							未完成的工作及原因说明：
+						</th>
+						<td colspan="3">
+							<span id="Explain"></span>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							直接上级部门补充反馈：
+						</th>
+						<td colspan="3">
+							<span id="FeedBack"></span>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							状态：
+						</th>
+						<td colspan="3">
+							<span id="StateName"></span>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							制定人：
+						</th>
+						<td>
+							<span id="ConstitutorName"></span>
+						</td>
+						<th>
+							制定日期：
+						</th>
+						<td>
+							<span id="LogDate"></span>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							备注：
+						</th>
+						<td colspan="3">
+							<span id="Remark"></span>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							创建人：
+						</th>
+						<td>
+							<span id="Creator"></span>
+						</td>
+						<th>
+							创建日期：
+						</th>
+						<td>
+							<span id="CreateDate"></span>
+						</td>
+					</tr>
+					<tr>
+						<th>
+							更新人：
+						</th>
+						<td>
+							<span id="Modifier"></span>
+						</td>
+						<th>
+							更新日期：
+						</th>
+						<td>
+							<span id="ModifyDate"></span>
+						</td>
+					</tr>
+				</table>
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../mycontrol/listbox1_gzjh_content.control.js"></script>
+
+</html>

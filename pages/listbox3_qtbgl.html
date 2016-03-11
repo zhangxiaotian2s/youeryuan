@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/style.css" />
+	</head>
+	<style>
+		.mui-table-view-cell {
+			padding: 0;
+		}
+	</style>
+
+	<body class="bk_white">
+		<header class="mui-bar mui-bar-nav yw_header">
+			<h1 class="mui-title">全托管理</h1>
+			<button type="button" class="mui-btn mui-btn-warning mui-pull-right" id="sendbtn">保存/确定 </button>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		</header>
+		<div class="mui-content bk_white">
+			<div class="select_nav">
+				<ul>
+					<li>
+						<div>
+							检查日期：
+						</div>
+						<div class="select_box_style1">
+							<input type="datetime-local" name=""   id="checktime"   value="" />
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="blank1"></div>
+			<div class="table_box2">
+				<table width="100%" class="tablestyle2" id="homeInterviewtab">
+					<tr>
+						<td width="30%">*第一次查班时间:</td>
+						<td width="70%">
+							<input type="datetime-local" name=""   id="FirstCheckTime"   value="" />
+						</td>
+					</tr>
+					<tr>
+						<td>第一次查班记录：</td>
+						<td><input type="text" value="" id="FirstCheckRecord" placeholder="第一次查班记录" ></td>
+					</tr>
+					<tr>
+						<tr>
+						<td>*第二次查班时间：</td>
+						<td>
+							<input type="datetime-local" name=""   id="SecondCheckTime"   value="" />
+						</td>
+					</tr>
+					<tr>
+						<td>第二次查班记录：	：</td>
+						<td><input type="text" value=""  id="SecondCheckRecord"   placeholder="第二次查班记录" ></td>
+					</tr>
+					<tr>
+						<td>*第三次查班时间：</td>
+						<td><input type="datetime-local" name=""   id="ThirdCheckTime"   value="" /></td>
+					</tr>
+					<tr>
+						<td>第三次查班记录：	：</td>
+						<td><input type="text" value=""  id="ThirdCheckRecord"   placeholder="第三次查班记录" ></td>
+					</tr>
+					<tr>
+						<td>*第四次查班时间：</td>
+						<td><input type="datetime-local" name=""   id="FourthCheckTime"   value="" /></td>
+					</tr>
+					<tr>
+						<td>第四次查班记录：	：</td>
+						<td><input type="text" value=""  id="FourthCheckRecord"   placeholder="第四次查班记录" ></td>
+					</tr>
+					<tr>
+						<td>安全隐患排查和卫生检查情况：</td>
+						<td>
+							<textarea rows="6"   value=""   id="Situation"   placeholder="安全隐患排查和卫生检查情况"  ></textarea>
+						</td>
+					</tr>
+						<tr>
+						<td>异常情况处理：：</td>
+						<td>
+							<textarea rows="6"   value=""   id="Manage"   placeholder="异常情况处理："  ></textarea>
+						</td>
+					</tr>
+						<tr>
+						<td>备注：</td>
+						<td>
+							<textarea rows="6"   value=""   id="Remark"   placeholder="备注"  ></textarea>
+						</td>
+					</tr>
+					
+                  </table>				
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../mycontrol/listbox3_qtbgl.control.js"></script>
+    <script>
+    	
+    </script>
+</html>

@@ -1,9 +1,9 @@
 {
 	"@platforms": ["iPad"],
 	"id": "H59ED68CD",/*必选，应用的标识*/
-	"name": "youeryuan",/*必选，应用名称*/
+	"name": "航天幼儿园务管理系统",/*必选，应用名称*/
 	"version": {
-		"name": "1.0.6",/*必选，版本名称*/
+		"name": "1.1.0",/*必选，版本名称*/
 		"code": ""
 	},
 	"description": "",/*可选，应用描述信息*/
@@ -93,34 +93,34 @@
 					"prerendered": "", /*必选，是否高亮显示*/
 					"auto": "", /*可选，512x512，用于自动生成各种尺寸图标的大分辨率程序图标*/
 					"iphone": {
-						"normal": "",/*可选，57x57，iPhone普通屏幕程序图标*/
-						"retina": "",/*可选，114x114，iPhone高分屏程序图标*/
-						"retina7": "",/*可选，120x120，iPhone iOS7高分屏程序图标*/
-						"spotlight-normal": "", /*可选，29x29，iPhone Spotlight搜索程序图标*/
-						"spotlight-retina": "", /*可选，58x58，iPhone高分屏Spotlight搜索程序图标*/
-						"spotlight-retina7": "",/*可选，80x80，iPhone iOS7高分屏Spotlight搜索程序图标*/
-						"settings-normal": "", /*可选，29x29，iPhone设置页面程序图标*/
-						"settings-retina": "" /*iPhone 高分屏设置页面程序图标*/
+						"normal": "unpackage/res/icons/57x57.png",/*可选，57x57，iPhone普通屏幕程序图标*/
+						"retina": "unpackage/res/icons/114x114.png",/*可选，114x114，iPhone高分屏程序图标*/
+						"retina7": "unpackage/res/icons/120x120.png",/*可选，120x120，iPhone iOS7高分屏程序图标*/
+						"spotlight-normal": "unpackage/res/icons/29x29.png", /*可选，29x29，iPhone Spotlight搜索程序图标*/
+						"spotlight-retina": "unpackage/res/icons/58x58.png", /*可选，58x58，iPhone高分屏Spotlight搜索程序图标*/
+						"spotlight-retina7": "unpackage/res/icons/80x80.png",/*可选，80x80，iPhone iOS7高分屏Spotlight搜索程序图标*/
+						"settings-normal": "unpackage/res/icons/29x29.png", /*可选，29x29，iPhone设置页面程序图标*/
+						"settings-retina": "unpackage/res/icons/58x58.png","retina8":"unpackage/res/icons/180x180.png","settings-retina8":"unpackage/res/icons/87x87.png" /*iPhone 高分屏设置页面程序图标*/
 					},
 					"ipad": {
-						"normal": "", /*可选，72x72，iPad普通屏幕程序图标*/
-						"retina": "", /*可选，144x144，iPad高分屏程序图标*/
-						"normal7": "", /*可选，76x76，iPad iOS7程序图标*/
-						"retina7": "", /*可选，152x152，iPad iOS7高分屏程序图标*/
-						"spotlight-normal": "", /*可选，50x50，iPad Spotlight搜索程序图标*/
-						"spotlight-retina": "", /*可选，100x100，iPad高分屏Spotlight搜索程序图标*/
-						"spotlight-normal7": "",/*可选，40x40，iPad iOS7 Spotlight搜索程序图标*/
-						"spotlight-retina7": "",/*可选，80x80，iPad iOS7高分屏Spotlight搜索程序图标*/
-						"settings-normal": "",/*可选，29x29，iPad设置页面程序图标*/
-						"settings-retina": "" /*iPad 高分屏设置页面程序图标*/
+						"normal": "unpackage/res/icons/72x72.png", /*可选，72x72，iPad普通屏幕程序图标*/
+						"retina": "unpackage/res/icons/144x144.png", /*可选，144x144，iPad高分屏程序图标*/
+						"normal7": "unpackage/res/icons/76x76.png", /*可选，76x76，iPad iOS7程序图标*/
+						"retina7": "unpackage/res/icons/152x152.png", /*可选，152x152，iPad iOS7高分屏程序图标*/
+						"spotlight-normal": "unpackage/res/icons/50x50.png", /*可选，50x50，iPad Spotlight搜索程序图标*/
+						"spotlight-retina": "unpackage/res/icons/100x100.png", /*可选，100x100，iPad高分屏Spotlight搜索程序图标*/
+						"spotlight-normal7": "unpackage/res/icons/40x40.png",/*可选，40x40，iPad iOS7 Spotlight搜索程序图标*/
+						"spotlight-retina7": "unpackage/res/icons/80x80.png",/*可选，80x80，iPad iOS7高分屏Spotlight搜索程序图标*/
+						"settings-normal": "unpackage/res/icons/29x29.png",/*可选，29x29，iPad设置页面程序图标*/
+						"settings-retina": "unpackage/res/icons/58x58.png" /*iPad 高分屏设置页面程序图标*/
 					}
 				},
 				"android": {
-					"mdpi": "", /*必选，48x48，普通屏程序图标*/
-					"ldpi": "", /*必选，48x48，大屏程序图标*/
-					"hdpi": "", /*必选，72x72，高分屏程序图标*/
-					"xhdpi": "",/*必选，96x96，720P高分屏程序图标*/
-					"xxhdpi": "" /*1080P 高分屏程序图标*/
+					"mdpi": "unpackage/res/icons/48x48.png", /*必选，48x48，普通屏程序图标*/
+					"ldpi": "unpackage/res/icons/48x48.png", /*必选，48x48，大屏程序图标*/
+					"hdpi": "unpackage/res/icons/72x72.png", /*必选，72x72，高分屏程序图标*/
+					"xhdpi": "unpackage/res/icons/96x96.png",/*必选，96x96，720P高分屏程序图标*/
+					"xxhdpi": "unpackage/res/icons/144x144.png" /*1080P 高分屏程序图标*/
 				}
 			},
 			"splashscreen": {

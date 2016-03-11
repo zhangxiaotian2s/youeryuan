@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/style.css" />
+	</head>
+	<style>
+		.mui-table-view-cell {
+			padding: 0;
+		}
+	</style>
+
+	<body class="bk_white">
+		<header class="mui-bar mui-bar-nav yw_header">
+			<h1 class="mui-title">家园联系册检查记录</h1>
+			
+			<button type="button" class="mui-btn mui-btn-warning mui-pull-right" id="sendbtn">保存/确定 </button>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		</header>
+		<div class="mui-content bk_white">
+			<div class="select_nav">
+				<ul>
+					<li>
+						<div>
+							检查人：
+						</div>
+						<div class="select_box_style">
+							<select name="" class="teacherslist" id="teacherslist">
+								<option value="">选择检查人</option>
+							</select>
+							<span class="mui-icon mui-icon-arrowdown"></span>
+						</div>
+					</li>
+					<li>
+						<div>
+							检查日期：
+						</div>
+						<div class="select_box_style1">
+							<input type="datetime-local" name=""   id="checktime"   value="" />
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="blank1"></div>
+			<div class="table_box2">
+				<table width="100%" class="tablestyle2" id="homeInterviewtab">
+					<tr>
+						<td width="30%">班级</td>
+						<td width="70%">
+							<select id="selectclass">
+							
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td><span class="redspan">*</span>上交本数：</td>
+						<td><input type="number" value="" id="UpNumber" placeholder="上交本数（数字）" ></td>
+					</tr>
+					<tr>
+						<tr>
+						<td><span class="redspan">*</span>字迹工整2分：</td>
+						<td><input type="number" value="" id="NeatlyLettered"  placeholder="字迹工整2分（数字）"></td>
+					</tr>
+					<tr>
+						<td><span class="redspan">*</span>内容有个性化5分：</td>
+						<td><input type="number" value=""  id="Personality"   placeholder="内容有个性化5分（数字）" ></td>
+					</tr>
+					<tr>
+						<td><span class="redspan">*</span>家长反馈情况3分：</td>
+						<td><input type="number" value=""  id="Feedback" placeholder="家长反馈情况3分（数字）" ></td>
+					</tr>
+					<tr>
+						<td><span class="redspan">*</span>总分：</td>
+						<td><input type="number" value=""  id="Score"  placeholder="总分（数字）"></td>
+					</tr>
+					<tr>
+						<td>备注：</td>
+						<td>
+							<textarea rows="6"   value=""   id="Remark"   placeholder="备注"  ></textarea>
+						</td>
+					</tr>
+					
+                  </table>				
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../mycontrol/listbox7_jylxcjc.control.js"></script>
+    <script>
+    	
+    </script>
+</html>

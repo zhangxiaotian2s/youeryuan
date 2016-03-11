@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>Hello MUI</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1,maximum-scale=1, user-scalable=no">
+		<meta name="apple-mobile-web-app-capable" content="yes">
+		<meta name="apple-mobile-web-app-status-bar-style" content="black">
+		<link rel="stylesheet" href="../css/mui.min.css">
+		<link rel="stylesheet" href="../css/style.css" />
+	</head>
+	<style>
+		.mui-table-view-cell {
+			padding: 0;
+		}
+	</style>
+
+	<body class="bk_white">
+		<header class="mui-bar mui-bar-nav yw_header">
+			<h1 class="mui-title">卫生保健记录</h1>
+			<button type="button" class="mui-btn mui-btn-warning mui-pull-right" id="submitBtn">保存/确定 </button>
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		</header>
+		<div class="mui-content bk_white">
+			<div class="select_nav">
+				<ul>
+					<li>
+						<div>
+							检查人：
+						</div>
+						<div class="select_box_style">
+							<select name="" class="teacherslist" id="checkMan">
+								<option value="">选择检查人</option>
+							</select>
+							<span class="mui-icon mui-icon-arrowdown"></span>
+						</div>
+					</li>
+					<li>
+						<div>
+							检查日期：
+						</div>
+						<div class="select_box_style">
+							<input type="date" name="" id="checkOn"  value="2016-01-26" />
+						</div>
+					</li>
+				</ul>
+			</div>
+			<div class="blank1"></div>
+			<div class="table_box2">
+				<table width="100%" class="tablestyle2" id="SecurityCheckTab">
+
+					<tr>
+						<td>仓库地面是否清洁，是否掉有产品及垃圾</td>
+						<td>
+							<textarea id = "item1" rows="1" value=""  placeholder="是否"></textarea>
+						</td>
+					
+					</tr>
+					<tr>
+						<td>仓库照明设备是否完好，安全</td>
+						<td>
+							<textarea id = "item2" rows="1" value=""  placeholder="是否"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>物料摆放是否整齐</td>
+						<td>							
+							<textarea id = "item3" rows="1" value=""  placeholder="是否"></textarea>
+						</td>
+					</tr>
+					<TR>
+						<td>物料是否混放</td>
+						<td>							
+							<textarea id = "item4" rows="1" value=""  placeholder="是否"></textarea>
+						</td>	
+					</TR>
+					<tr>
+						<td>可发货物中是否有渗漏、破损、污染货物</td>
+						<td colspan="3">
+							<textarea id = "item5" rows="1" value=""  placeholder="是否"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>不良品是否与良品区隔放置，并作必要标示</td>
+						<td colspan="3">
+							<textarea id = "item6" rows="1" value=""  placeholder="是否"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>是否对物料注意防火、防潮、防暴晒</td>
+						<td colspan="3">
+							<textarea id = "item7" rows="1" value=""  placeholder="是否"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>仓库无“四害”侵袭痕迹</td>
+						<td colspan="3">
+							<textarea id = "item8" rows="1" value=""  placeholder="是否"></textarea>
+						</td>
+					</tr>
+					
+					<tr>
+						<td>改进措施</td>
+						<td colspan="3">
+							<textarea id = "measure" rows="1" value=""  placeholder="措施"></textarea>
+						</td>
+					</tr>
+					<tr>
+						<td>备注</td>
+						<td colspan="3">
+							<textarea id = "remark" rows="2" value=""  placeholder="备注"></textarea>
+						</td>
+					</tr>
+				
+					
+                  </table>				
+			</div>
+		</div>
+	</body>
+	<script type="text/javascript" src="../js/mui.min.js"></script>
+	<script type="text/javascript" src="../mycontrol/listbox3_ckxc.control.js"></script>
+    <script>
+    	
+    </script>
+</html>
